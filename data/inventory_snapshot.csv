@@ -1,0 +1,41 @@
+tanggal_snapshot,SKU_ID,nama_produk,kategori,lokasi_gudang,stok_tersedia,safety_stock,reorder_point,umur_stok_hari,tanggal_kedaluwarsa
+2026-10-31,SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,105,165,149,2027-01-20
+2026-10-31,SKU-002,Minyak Goreng 2L,Bahan Pokok,Gudang Surabaya,647,146,209,16,2027-06-24
+2026-10-31,SKU-003,Gula Pasir 1kg,Bahan Pokok,Gudang Bandung,779,156,198,20,2027-12-03
+2026-10-31,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,80,130,170,2027-01-03
+2026-10-31,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Gudang Jakarta,1013,134,193,55,2027-04-13
+2026-10-31,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Gudang Bandung,2038,172,209,33,2027-04-09
+2026-10-31,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,83,143,131,2026-12-27
+2026-10-31,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Gudang Medan,463,104,170,47,2027-04-30
+2026-10-31,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Gudang Medan,490,45,81,36,2027-08-09
+2026-10-31,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,107,158,217,2027-02-06
+2026-10-31,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Gudang Surabaya,416,79,117,71,2027-05-12
+2026-10-31,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,66,113,111,2026-12-05
+2026-10-31,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Gudang Medan,449,86,160,33,
+2026-10-31,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,85,143,239,
+2026-10-31,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Gudang Bandung,429,60,108,29,
+2026-10-31,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Gudang Jakarta,850,176,230,72,
+2026-10-31,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Gudang Jakarta,785,68,142,34,
+2026-10-31,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,54,113,111,
+2026-10-31,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Gudang Medan,277,42,95,61,2027-04-14
+2026-10-31,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,32,80,169,2027-02-03
+2026-10-31,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,34,56,123,2027-01-13
+2026-10-31,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Gudang Medan,503,70,133,43,
+2026-10-31,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Gudang Bandung,1342,78,155,52,
+2026-10-31,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,101,170,163,
+2026-10-31,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Gudang Bandung,67,53,68,32,2027-06-23
+2026-10-31,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Gudang Surabaya,20,20,25,60,2027-11-10
+2026-10-31,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Gudang Jakarta,86,107,126,18,2027-11-21
+2026-10-31,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Gudang Surabaya,63,25,36,40,2027-10-20
+2026-10-31,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Gudang Jakarta,57,34,45,69,2027-07-12
+2026-10-31,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Gudang Bandung,47,23,29,39,
+2026-10-31,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Gudang Surabaya,81,16,21,233,
+2026-10-31,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Gudang Jakarta,18,11,16,14,
+2026-10-31,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Gudang Bandung,16,13,18,22,2027-12-05
+2026-10-31,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Gudang Jakarta,24,19,24,12,2027-12-21
+2026-10-31,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Gudang Bandung,41,31,39,35,2027-12-04
+2026-10-31,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Gudang Medan,32,21,26,18,2027-08-23
+2026-10-31,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Gudang Jakarta,14,17,22,56,
+2026-10-31,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Gudang Jakarta,7,7,12,35,
+2026-10-31,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Gudang Bandung,69,41,53,10,
+2026-10-31,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Gudang Medan,81,17,23,142,2027-01-21
