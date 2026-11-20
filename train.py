@@ -26,6 +26,7 @@ from src.models import (
     forecast_arima_all_skus,
     forecast_moving_average_all_skus,
     recursive_ml_forecast,
+    rolling_1step_ml_forecast,
 )
 from src.rfm import (
     build_overstock_recommendations,
@@ -51,8 +52,8 @@ def run_backtest(
     out_dir: Path,
     backtest_months: int = 6,
     skip_arima: bool = False,
-) -> pd.DataFrame:
-    """Evaluasi out-of-sample pada N bulan terakhir."""
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Evaluasi out-of-sample multi-step rekursif dan rolling 1-bulan ke depan."""
     periods = sorted(demand_df["periode"].unique())
     if len(periods) <= backtest_months + 2:
         raise ValueError(
@@ -111,6 +112,26 @@ def run_backtest(
     summary_df = compute_backtest_metrics(eval_df)
     summary_df.to_csv(out_dir / "backtest_summary.csv", index=False)
 
+    # Evaluasi Rolling 1-Step-Ahead (adil untuk benchmark vs BO+OI yang terbit tiap bulan)
+    rolling_preds = rolling_1step_ml_forecast(
+        full_df=demand_df,
+        test_periods=test_periods,
+        quantile_model=q_model,
+        hurdle_model=h_model,
+        sbc_df=sbc_train,
+        sku_categories=sku_cats,
+        prod_categories=prod_cats,
+        feature_cols=feature_cols,
+    )
+    rolling_eval_df = test_raw[actual_cols].copy().merge(
+        rolling_preds, on=["periode", "SKU_ID"], how="left"
+    )
+    rolling_summary_df = compute_backtest_metrics(rolling_eval_df)
+    rolling_summary_df.to_csv(out_dir / "backtest_rolling_1step_summary.csv", index=False)
+    rolling_eval_df.to_csv(out_dir / "backtest_rolling_1step_detail.csv", index=False)
+
+    train_skus = set(train_raw["SKU_ID"].unique())
+
     # Ringkasan error per SKU untuk inspeksi detail
     sku_rows = []
     for (sku_id, pola), grp in eval_df.groupby(["SKU_ID", "pola_sbc"]):
@@ -118,6 +139,7 @@ def run_backtest(
         row = {
             "SKU_ID": sku_id,
             "pola_sbc": pola,
+            "ada_di_train": sku_id in train_skus,
             "aktual_total": round(float(y.sum()), 1),
             "MAE_lgbm_q50": round(float(np.mean(np.abs(y - grp["lgbm_q50"]))), 2),
             "MAE_hurdle": round(float(np.mean(np.abs(y - grp["hurdle_pred"]))), 2),
@@ -134,7 +156,7 @@ def run_backtest(
 
     pd.DataFrame(sku_rows).to_csv(out_dir / "backtest_sku_metrics.csv", index=False)
     eval_df.to_csv(out_dir / "backtest_predictions_detail.csv", index=False)
-    return summary_df
+    return summary_df, rolling_summary_df
 
 
 def run_full_training_and_forecast(
@@ -307,7 +329,7 @@ def main() -> None:
     print(f"Fitur aktif ({len(active_feats)}): {', '.join(active_feats)}")
 
     print(f"1/3 Menjalankan Backtest ({args.backtest_months} bulan terakhir)...")
-    backtest_summary = run_backtest(
+    backtest_summary, rolling_summary = run_backtest(
         demand_df,
         args.out_dir,
         backtest_months=args.backtest_months,
@@ -327,8 +349,11 @@ def main() -> None:
 
     elapsed = time.perf_counter() - t0
     print(f"3/3 Selesai dalam {elapsed:.2f} detik.\n")
-    print("=== Ringkasan Backtest ===")
+    print("=== Ringkasan Backtest Multi-Bulan (Rekursif 6 Bulan) ===")
     print(backtest_summary.to_string(index=False))
+
+    print("\n=== Ringkasan Backtest Rolling 1-Bulan ke Depan ===")
+    print(rolling_summary.to_string(index=False))
 
     if not res["rfm_df"].empty:
         print("\n=== Ringkasan Segmen RFM Distributor ===")

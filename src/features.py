@@ -21,8 +21,12 @@ CORE_FEATURE_COLS = [
     "lag_12",
     "rolling_mean_3",
     "rolling_mean_6",
+    "rolling_mean_12",
+    "rolling_median_6",
     "rolling_std_3",
     "nonzero_rate_6",
+    "nonzero_rate_12",
+    "months_since_last_sale",
 ]
 
 OPTIONAL_EXTERNAL_COLS = ["harga", "promo", "diskon_pct", "lead_time_hari"]
@@ -46,8 +50,12 @@ FEATURE_COLS = [
     "lag_12",
     "rolling_mean_3",
     "rolling_mean_6",
+    "rolling_mean_12",
+    "rolling_median_6",
     "rolling_std_3",
     "nonzero_rate_6",
+    "nonzero_rate_12",
+    "months_since_last_sale",
 ]
 
 CATEGORICAL_COLS = ["SKU_ID_cat", "kategori_cat"]
@@ -149,12 +157,26 @@ def _compute_lag_features_frame(df: pd.DataFrame) -> pd.DataFrame:
     out["rolling_mean_6"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
         lambda s: s.rolling(6, min_periods=1).mean()
     )
+    out["rolling_mean_12"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.rolling(12, min_periods=1).mean()
+    )
+    out["rolling_median_6"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.rolling(6, min_periods=1).median()
+    )
     out["rolling_std_3"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
         lambda s: s.rolling(3, min_periods=1).std().fillna(0.0)
     )
     out["nonzero_rate_6"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
         lambda s: s.gt(0).rolling(6, min_periods=1).mean()
     )
+    out["nonzero_rate_12"] = shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.gt(0).rolling(12, min_periods=1).mean()
+    )
+
+    pos = out.groupby("SKU_ID", observed=True).cumcount().astype(float)
+    nz_pos = pos.where(shifted > 0)
+    last_nz_pos = nz_pos.groupby(out["SKU_ID"], observed=True).ffill()
+    out["months_since_last_sale"] = (pos - last_nz_pos + 1.0).fillna(12.0)
 
     out["sin_bulan"] = np.sin(2.0 * np.pi * (out["bulan"] - 1) / 12.0)
     out["cos_bulan"] = np.cos(2.0 * np.pi * (out["bulan"] - 1) / 12.0)

@@ -12,13 +12,14 @@ from statsmodels.tsa.arima.model import ARIMA
 from src.features import (
     CATEGORICAL_COLS,
     FEATURE_COLS,
+    _compute_lag_features_frame,
     build_future_context_rows,
     make_step_features,
 )
 
 
 class QuantileLGBMForecaster:
-    """Ensemble 3 model LightGBM Kuantil (q10, q50, q90) untuk pola Lancar."""
+    """Ensemble 3 model LightGBM Kuantil (q10, q50, q90) pada skala log1p untuk stabilitas lintas skala."""
 
     def __init__(self, quantiles: tuple[float, ...] = (0.10, 0.50, 0.90), random_state: int = 42):
         self.quantiles = quantiles
@@ -26,6 +27,7 @@ class QuantileLGBMForecaster:
         self.models: dict[float, lgb.LGBMRegressor] = {}
 
     def fit(self, X: pd.DataFrame, y: pd.Series) -> "QuantileLGBMForecaster":
+        y_log = np.log1p(np.maximum(0.0, y.to_numpy(dtype=float)))
         for q in self.quantiles:
             model = lgb.LGBMRegressor(
                 objective="quantile",
@@ -33,7 +35,9 @@ class QuantileLGBMForecaster:
                 n_estimators=320,
                 learning_rate=0.04,
                 num_leaves=31,
-                min_child_samples=8,
+                min_child_samples=10,
+                reg_alpha=0.1,
+                reg_lambda=1.0,
                 subsample=0.85,
                 subsample_freq=1,
                 colsample_bytree=0.85,
@@ -41,13 +45,13 @@ class QuantileLGBMForecaster:
                 n_jobs=4,
                 verbose=-1,
             )
-            model.fit(X, y, categorical_feature=CATEGORICAL_COLS)
+            model.fit(X, y_log, categorical_feature=CATEGORICAL_COLS)
             self.models[q] = model
         return self
 
     def predict_quantiles(self, X: pd.DataFrame) -> pd.DataFrame:
         raw = np.column_stack([
-            np.maximum(0.0, self.models[q].predict(X))
+            np.maximum(0.0, np.expm1(self.models[q].predict(X)))
             for q in sorted(self.quantiles)
         ])
         # Pastikan urutan kuantil monoton (q10 <= q50 <= q90)
@@ -69,6 +73,8 @@ class TwoStageHurdleForecaster:
             learning_rate=0.05,
             num_leaves=15,
             min_child_samples=10,
+            reg_alpha=0.1,
+            reg_lambda=1.0,
             subsample=0.85,
             subsample_freq=1,
             colsample_bytree=0.85,
@@ -81,7 +87,9 @@ class TwoStageHurdleForecaster:
             n_estimators=220,
             learning_rate=0.05,
             num_leaves=15,
-            min_child_samples=8,
+            min_child_samples=10,
+            reg_alpha=0.1,
+            reg_lambda=1.0,
             subsample=0.85,
             subsample_freq=1,
             colsample_bytree=0.85,
@@ -113,7 +121,9 @@ class TwoStageHurdleForecaster:
         self.reg.fit(X_pos, y_pos_log, categorical_feature=CATEGORICAL_COLS)
 
         resid = y_pos_log - self.reg.predict(X_pos)
-        self.smearing_factor = float(np.clip(np.mean(np.exp(resid)), 0.8, 2.0))
+        lo, hi = np.quantile(resid, [0.05, 0.95])
+        resid_trimmed = np.clip(resid, lo, hi)
+        self.smearing_factor = float(np.clip(np.mean(np.exp(resid_trimmed)), 0.95, 1.25))
         return self
 
     def predict_components(self, X: pd.DataFrame) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -212,6 +222,46 @@ def recursive_ml_forecast(
         hist_hurdle = pd.concat([hist_hurdle, step_hurdle_update], ignore_index=True)
 
     return pd.DataFrame(pred_rows), pd.concat(step_feature_rows, ignore_index=True)
+
+
+def rolling_1step_ml_forecast(
+    full_df: pd.DataFrame,
+    test_periods: pd.DatetimeIndex,
+    quantile_model: QuantileLGBMForecaster,
+    hurdle_model: TwoStageHurdleForecaster,
+    sbc_df: pd.DataFrame,
+    sku_categories: list[str],
+    prod_categories: list[str],
+    feature_cols: list[str] | None = None,
+) -> pd.DataFrame:
+    """Prediksi rolling 1-bulan ke depan memakai fitur lag aktual sampai bulan t-1 (tanpa kebocoran)."""
+    active_cols = feature_cols or FEATURE_COLS
+    feat_df = _compute_lag_features_frame(full_df)
+    test_feat = feat_df[feat_df["periode"].isin(test_periods)].copy()
+    test_feat["SKU_ID_cat"] = pd.Categorical(test_feat["SKU_ID"], categories=sku_categories)
+    test_feat["kategori_cat"] = pd.Categorical(test_feat["kategori"], categories=prod_categories)
+
+    for col in active_cols:
+        if col not in CATEGORICAL_COLS:
+            test_feat[col] = test_feat[col].astype("float32")
+
+    test_feat = test_feat.sort_values(["periode", "SKU_ID"]).reset_index(drop=True)
+    q_preds = quantile_model.predict_quantiles(test_feat[active_cols])
+    prob_occ, cond_mag, hurdle_exp = hurdle_model.predict_components(test_feat[active_cols])
+
+    sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
+    return pd.DataFrame({
+        "periode": test_feat["periode"],
+        "SKU_ID": test_feat["SKU_ID"],
+        "pola_sbc": test_feat["SKU_ID"].map(sbc_map).fillna("Lancar"),
+        "lgbm_q10": q_preds["q10"].to_numpy(),
+        "lgbm_q50": q_preds["q50"].to_numpy(),
+        "lgbm_q90": q_preds["q90"].to_numpy(),
+        "hurdle_prob_occ": prob_occ,
+        "hurdle_cond_mag": cond_mag,
+        "hurdle_pred": hurdle_exp,
+        "ma_pred": test_feat["rolling_mean_3"].fillna(0.0).to_numpy(),
+    })
 
 
 def forecast_arima_all_skus(
@@ -374,7 +424,7 @@ def compute_shap_drivers(
             sku_shap = shap_lgbm[mask].mean(axis=0)
             sku_vals = lgbm_feat.loc[mask, active_cols].mean(numeric_only=True)
             model_used = "LightGBM Kuantil (q50)"
-            satuan_efek = "unit_ramalan"
+            satuan_efek = "skor_log_ramalan"
         else:
             mask = (hurdle_feat["SKU_ID"] == sku_id).to_numpy()
             if not mask.any():
