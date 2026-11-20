@@ -178,3 +178,35 @@ def build_overstock_recommendations(
             })
 
     return pd.DataFrame(rec_rows)
+
+
+def build_overstock_summary(
+    inventory_df: pd.DataFrame,
+    forecast_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """Ringkasan status stok (Overstock/Understock/Aman) per SKU tanpa membutuhkan data transaksi RFM."""
+    fc_3m = (
+        forecast_df.groupby("SKU_ID", as_index=False)["ramalan_terpilih"]
+        .sum()
+        .rename(columns={"ramalan_terpilih": "ramalan_3_bulan"})
+    )
+    inv = inventory_df.merge(fc_3m, on="SKU_ID", how="left")
+    inv["ramalan_3_bulan"] = inv["ramalan_3_bulan"].fillna(0.0).round(2)
+    inv["safety_stock"] = pd.to_numeric(inv["safety_stock"], errors="coerce").fillna(0.0)
+    inv["stok_tersedia"] = pd.to_numeric(inv["stok_tersedia"], errors="coerce").fillna(0.0)
+    inv["kebutuhan_aman_3m"] = (inv["ramalan_3_bulan"] + inv["safety_stock"]).round(2)
+    inv["kelebihan_stok"] = np.maximum(0.0, inv["stok_tersedia"] - inv["kebutuhan_aman_3m"]).round(0).astype(int)
+
+    inv["status_stok"] = np.where(
+        inv["kelebihan_stok"] > 0,
+        "Overstock",
+        np.where(inv["stok_tersedia"] < inv["safety_stock"], "Understock", "Aman"),
+    )
+    cols = [
+        "SKU_ID", "nama_produk", "kategori", "lokasi_gudang",
+        "stok_tersedia", "safety_stock", "ramalan_3_bulan",
+        "kebutuhan_aman_3m", "kelebihan_stok", "umur_stok_hari", "status_stok",
+    ]
+    present_cols = [c for c in cols if c in inv.columns]
+    return inv[present_cols].sort_values(["kelebihan_stok", "stok_tersedia"], ascending=[False, False]).reset_index(drop=True)
+

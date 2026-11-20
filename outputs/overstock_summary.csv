@@ -1,0 +1,41 @@
+SKU_ID,nama_produk,kategori,lokasi_gudang,stok_tersedia,safety_stock,ramalan_3_bulan,kebutuhan_aman_3m,kelebihan_stok,umur_stok_hari,status_stok
+SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,105,1450.5,1555.5,2324,149,Overstock
+SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,66,1148.27,1214.27,2250,111,Overstock
+SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,54,1135.53,1189.53,2093,111,Overstock
+SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,101,1796.02,1897.02,1834,163,Overstock
+SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,80,1264.14,1344.14,1295,170,Overstock
+SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,83,1039.31,1122.31,1104,131,Overstock
+SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,85,1485.85,1570.85,960,239,Overstock
+SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,32,801.67,833.67,960,169,Overstock
+SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,34,420.66,454.66,741,123,Overstock
+SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,107,838.62,945.62,613,217,Overstock
+SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Gudang Surabaya,81,16,14.61,30.61,50,233,Overstock
+SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Gudang Medan,81,17,22.77,39.77,41,142,Overstock
+SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Gudang Bandung,2038,172,2784.75,2956.75,0,33,Aman
+SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Gudang Bandung,1342,78,2011.39,2089.39,0,52,Aman
+SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Gudang Jakarta,1013,134,2432.07,2566.07,0,55,Aman
+SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Gudang Jakarta,850,176,1558.16,1734.16,0,72,Aman
+SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Gudang Jakarta,785,68,1009.03,1077.03,0,34,Aman
+SKU-003,Gula Pasir 1kg,Bahan Pokok,Gudang Bandung,779,156,1569.12,1725.12,0,20,Aman
+SKU-002,Minyak Goreng 2L,Bahan Pokok,Gudang Surabaya,647,146,1907.02,2053.02,0,16,Aman
+SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Gudang Medan,503,70,1111.11,1181.11,0,43,Aman
+SKU-009,Teh Celup Box 50s,Makanan & Minuman,Gudang Medan,490,45,912.86,957.86,0,36,Aman
+SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Gudang Medan,463,104,1702.54,1806.54,0,47,Aman
+SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Gudang Medan,449,86,1370.82,1456.82,0,33,Aman
+SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Gudang Bandung,429,60,1011.11,1071.11,0,29,Aman
+SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Gudang Surabaya,416,79,704.23,783.23,0,71,Aman
+SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Gudang Medan,277,42,891.06,933.06,0,61,Aman
+SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Gudang Jakarta,86,107,119.01,226.01,0,18,Understock
+SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Gudang Bandung,69,41,124.07,165.07,0,10,Aman
+SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Gudang Bandung,67,53,117.19,170.19,0,32,Aman
+SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Gudang Surabaya,63,25,171.23,196.23,0,40,Aman
+SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Gudang Jakarta,57,34,93.2,127.2,0,69,Aman
+SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Gudang Bandung,47,23,104.14,127.14,0,39,Aman
+SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Gudang Bandung,41,31,92.83,123.83,0,35,Aman
+SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Gudang Medan,32,21,135.42,156.42,0,18,Aman
+SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Gudang Jakarta,24,19,31.61,50.61,0,12,Aman
+SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Gudang Surabaya,20,20,35.17,55.17,0,60,Aman
+SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Gudang Jakarta,18,11,47.48,58.48,0,14,Aman
+SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Gudang Bandung,16,13,50.08,63.08,0,22,Aman
+SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Gudang Jakarta,14,17,35.0,52.0,0,56,Understock
+SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Gudang Jakarta,7,7,10.18,17.18,0,35,Aman

@@ -1,6 +1,7 @@
 {
   "train_period_start": "2021-11-01",
   "train_period_end": "2026-10-01",
+  "n_months": 60,
   "forecast_periods": [
     "2026-11-01",
     "2026-12-01",

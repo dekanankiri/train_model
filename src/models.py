@@ -90,12 +90,24 @@ class TwoStageHurdleForecaster:
             verbose=-1,
         )
         self.smearing_factor: float = 1.0
+        self._const_prob: float | None = None
+        self._empty_pos: bool = False
 
     def fit(self, X: pd.DataFrame, y: pd.Series) -> "TwoStageHurdleForecaster":
         y_occ = (y > 0).astype(int)
-        self.clf.fit(X, y_occ, categorical_feature=CATEGORICAL_COLS)
+        if y_occ.nunique() < 2:
+            self._const_prob = float(y_occ.iloc[0]) if len(y_occ) > 0 else 0.0
+        else:
+            self._const_prob = None
+            self.clf.fit(X, y_occ, categorical_feature=CATEGORICAL_COLS)
 
         pos_mask = y > 0
+        if not pos_mask.any():
+            self._empty_pos = True
+            self.smearing_factor = 1.0
+            return self
+
+        self._empty_pos = False
         X_pos = X.loc[pos_mask]
         y_pos_log = np.log1p(y.loc[pos_mask].to_numpy(dtype=float))
         self.reg.fit(X_pos, y_pos_log, categorical_feature=CATEGORICAL_COLS)
@@ -105,9 +117,16 @@ class TwoStageHurdleForecaster:
         return self
 
     def predict_components(self, X: pd.DataFrame) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        prob_occ = self.clf.predict_proba(X)[:, 1]
-        log_mag = self.reg.predict(X)
-        cond_mag = np.maximum(0.0, np.exp(log_mag) * self.smearing_factor - 1.0)
+        if self._const_prob is not None:
+            prob_occ = np.full(len(X), self._const_prob, dtype=float)
+        else:
+            prob_occ = self.clf.predict_proba(X)[:, 1]
+
+        if self._empty_pos:
+            cond_mag = np.zeros(len(X), dtype=float)
+        else:
+            log_mag = self.reg.predict(X)
+            cond_mag = np.maximum(0.0, np.exp(log_mag) * self.smearing_factor - 1.0)
         expected = np.maximum(0.0, prob_occ * cond_mag)
         return prob_occ, cond_mag, expected
 
@@ -124,8 +143,10 @@ def recursive_ml_forecast(
     sbc_df: pd.DataFrame,
     sku_categories: list[str],
     prod_categories: list[str],
+    feature_cols: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Menjalankan prediksi multi-bulan secara rekursif untuk LightGBM Kuantil & Hurdle."""
+    active_cols = feature_cols or FEATURE_COLS
     hist = history_df.copy()
     hist["periode"] = pd.to_datetime(hist["periode"])
 
@@ -147,13 +168,13 @@ def recursive_ml_forecast(
 
         # 1) Step LightGBM Kuantil
         combined_lgbm = pd.concat([hist_lgbm, step_ctx], ignore_index=True)
-        feat_lgbm = make_step_features(combined_lgbm, dt, sku_categories, prod_categories)
-        q_preds = quantile_model.predict_quantiles(feat_lgbm[FEATURE_COLS])
+        feat_lgbm = make_step_features(combined_lgbm, dt, sku_categories, prod_categories, feature_cols=active_cols)
+        q_preds = quantile_model.predict_quantiles(feat_lgbm[active_cols])
 
         # 2) Step Hurdle Dua Tahap
         combined_hurdle = pd.concat([hist_hurdle, step_ctx], ignore_index=True)
-        feat_hurdle = make_step_features(combined_hurdle, dt, sku_categories, prod_categories)
-        prob_occ, cond_mag, hurdle_exp = hurdle_model.predict_components(feat_hurdle[FEATURE_COLS])
+        feat_hurdle = make_step_features(combined_hurdle, dt, sku_categories, prod_categories, feature_cols=active_cols)
+        prob_occ, cond_mag, hurdle_exp = hurdle_model.predict_components(feat_hurdle[active_cols])
 
         for i in range(len(feat_lgbm)):
             sku_id = feat_lgbm.loc[i, "SKU_ID"]
@@ -254,11 +275,17 @@ def _pinball_loss(y_true: np.ndarray, y_pred: np.ndarray, alpha: float) -> float
 
 def compute_backtest_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
     """Menghitung metrik galat backtest per model dan per segmen pola (Lancar vs Putus-putus)."""
-    model_cols = [
+    candidate_models = [
         ("LightGBM Kuantil (q50)", "lgbm_q50"),
         ("Hurdle Dua Tahap", "hurdle_pred"),
         ("ARIMA", "arima_pred"),
         ("Rata-rata Bergerak (MA-3)", "ma_pred"),
+        ("Forecast Eksisting (BO+OI)", "fct_existing"),
+        ("Business Plan (BP)", "bp_sales"),
+    ]
+    model_cols = [
+        (name, col) for name, col in candidate_models
+        if col in eval_df.columns and eval_df[col].notna().any()
     ]
 
     subsets = [("Keseluruhan", eval_df)]
@@ -269,10 +296,13 @@ def compute_backtest_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
 
     rows = []
     for seg_name, sub in subsets:
-        y = sub["jumlah_terjual"].to_numpy(dtype=float)
-        y_sum = max(float(np.sum(y)), 1e-9)
         for model_name, col in model_cols:
-            y_hat = sub[col].to_numpy(dtype=float)
+            valid = sub[sub[col].notna()]
+            if valid.empty:
+                continue
+            y = valid["jumlah_terjual"].to_numpy(dtype=float)
+            y_sum = max(float(np.sum(y)), 1e-9)
+            y_hat = valid[col].to_numpy(dtype=float)
             err = y - y_hat
             mae = float(np.mean(np.abs(err)))
             rmse = float(np.sqrt(np.mean(err ** 2)))
@@ -282,7 +312,7 @@ def compute_backtest_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
             rows.append({
                 "segmen": seg_name,
                 "model": model_name,
-                "n_obs": int(len(sub)),
+                "n_obs": int(len(valid)),
                 "MAE": round(mae, 2),
                 "RMSE": round(rmse, 2),
                 "WAPE_pct": round(wape, 2),
@@ -310,42 +340,54 @@ def compute_shap_drivers(
     step_features_df: pd.DataFrame,
     sbc_df: pd.DataFrame,
     top_k: int = 5,
+    feature_cols: list[str] | None = None,
 ) -> pd.DataFrame:
-    """Menghitung faktor penggerak SHAP per SKU pada horizon Nov 2026 - Jan 2027."""
+    """Menghitung faktor penggerak SHAP per SKU pada horizon ramalan."""
+    active_cols = feature_cols or FEATURE_COLS
     sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
 
     lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_q50"].reset_index(drop=True)
     hurdle_feat = step_features_df[step_features_df["model_source"] == "hurdle"].reset_index(drop=True)
 
     expl_lgbm = shap.TreeExplainer(quantile_model.models[0.50])
-    shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[FEATURE_COLS])
+    shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
 
-    expl_occ = shap.TreeExplainer(hurdle_model.clf)
-    shap_occ = _extract_shap_matrix(expl_occ, hurdle_feat[FEATURE_COLS])
+    if hurdle_model._const_prob is None:
+        expl_occ = shap.TreeExplainer(hurdle_model.clf)
+        shap_occ = _extract_shap_matrix(expl_occ, hurdle_feat[active_cols]) if not hurdle_feat.empty else np.empty((0, len(active_cols)))
+    else:
+        shap_occ = np.zeros((len(hurdle_feat), len(active_cols)), dtype=float)
 
-    expl_mag = shap.TreeExplainer(hurdle_model.reg)
-    shap_mag = _extract_shap_matrix(expl_mag, hurdle_feat[FEATURE_COLS])
+    if not hurdle_model._empty_pos:
+        expl_mag = shap.TreeExplainer(hurdle_model.reg)
+        shap_mag = _extract_shap_matrix(expl_mag, hurdle_feat[active_cols]) if not hurdle_feat.empty else np.empty((0, len(active_cols)))
+    else:
+        shap_mag = np.zeros((len(hurdle_feat), len(active_cols)), dtype=float)
 
-    # Gabungkan kontribusi lokal tiap SKU rata-rata selama horizon 3 bulan
+    # Gabungkan kontribusi lokal tiap SKU rata-rata selama horizon ramalan
     rows = []
     for sku_id, pola in sorted(sbc_map.items()):
         if pola == "Lancar":
             mask = (lgbm_feat["SKU_ID"] == sku_id).to_numpy()
+            if not mask.any():
+                continue
             sku_shap = shap_lgbm[mask].mean(axis=0)
-            sku_vals = lgbm_feat.loc[mask, FEATURE_COLS].mean(numeric_only=True)
+            sku_vals = lgbm_feat.loc[mask, active_cols].mean(numeric_only=True)
             model_used = "LightGBM Kuantil (q50)"
             satuan_efek = "unit_ramalan"
         else:
             mask = (hurdle_feat["SKU_ID"] == sku_id).to_numpy()
+            if not mask.any():
+                continue
             # Rata-rata magnitudo absolut tertimbang antara tahap occurrence (log-odds) & magnitude (log1p)
             sku_shap = 0.5 * shap_occ[mask].mean(axis=0) + 0.5 * shap_mag[mask].mean(axis=0)
-            sku_vals = hurdle_feat.loc[mask, FEATURE_COLS].mean(numeric_only=True)
+            sku_vals = hurdle_feat.loc[mask, active_cols].mean(numeric_only=True)
             model_used = "Hurdle Dua Tahap"
             satuan_efek = "skor_gabungan_log"
 
         order = np.argsort(np.abs(sku_shap))[::-1][:top_k]
         for rank_idx, feat_idx in enumerate(order, start=1):
-            fname = FEATURE_COLS[feat_idx]
+            fname = active_cols[feat_idx]
             val = float(sku_vals[fname]) if fname in sku_vals.index else np.nan
             sval = float(sku_shap[feat_idx])
             rows.append({
