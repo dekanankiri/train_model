@@ -1,12 +1,15 @@
 segmen,model,n_obs,MAE,RMSE,WAPE_pct,Cum_Bias_pct,Pinball_q50
+Keseluruhan,LightGBM Tweedie,240,61.13,120.9,20.26,-5.05,30.56
 Keseluruhan,LightGBM Kuantil (q50),240,54.73,113.1,18.14,0.3,27.36
 Keseluruhan,Hurdle Dua Tahap,240,56.11,112.39,18.59,1.2,28.06
 Keseluruhan,ARIMA,240,77.19,129.88,25.58,5.51,38.59
 Keseluruhan,Rata-rata Bergerak (MA-3),240,103.64,161.67,34.34,22.47,51.82
+Pola Lancar,LightGBM Tweedie,150,86.68,151.24,18.36,-4.16,43.34
 Pola Lancar,LightGBM Kuantil (q50),150,76.42,140.98,16.19,1.73,38.21
 Pola Lancar,Hurdle Dua Tahap,150,77.43,140.37,16.4,1.27,38.72
 Pola Lancar,ARIMA,150,110.45,162.77,23.4,4.85,55.22
 Pola Lancar,Rata-rata Bergerak (MA-3),150,147.16,201.71,31.17,21.26,73.58
+Pola Putus-putus,LightGBM Tweedie,90,18.54,29.17,103.2,-44.06,9.27
 Pola Putus-putus,LightGBM Kuantil (q50),90,18.58,31.43,103.4,-62.45,9.29
 Pola Putus-putus,Hurdle Dua Tahap,90,20.58,29.09,114.54,-2.09,10.29
 Pola Putus-putus,ARIMA,90,21.75,28.74,121.05,34.49,10.87

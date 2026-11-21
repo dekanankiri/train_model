@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 
 from src.features import (
+    add_hybrid_bo_oi_features,
     build_future_context_rows,
     classify_sbc,
     prepare_training_frame,
@@ -19,7 +20,9 @@ from src.features import (
 )
 from src.loader import load_dataset
 from src.models import (
+    HybridBOOILGBMForecaster,
     QuantileLGBMForecaster,
+    TweedieLGBMForecaster,
     TwoStageHurdleForecaster,
     compute_backtest_metrics,
     compute_shap_drivers,
@@ -52,8 +55,8 @@ def run_backtest(
     out_dir: Path,
     backtest_months: int = 6,
     skip_arima: bool = False,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Evaluasi out-of-sample multi-step rekursif dan rolling 1-bulan ke depan."""
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Evaluasi out-of-sample multi-step rekursif, rolling 1-bulan, dan sub-sampel SKU berhistori."""
     periods = sorted(demand_df["periode"].unique())
     if len(periods) <= backtest_months + 2:
         raise ValueError(
@@ -76,8 +79,14 @@ def run_backtest(
     X_train = train_feat[feature_cols]
     y_train = train_feat["jumlah_terjual"]
 
+    t_model = TweedieLGBMForecaster().fit(X_train, y_train)
     q_model = QuantileLGBMForecaster().fit(X_train, y_train)
     h_model = TwoStageHurdleForecaster().fit(X_train, y_train)
+
+    hyb_model: HybridBOOILGBMForecaster | None = None
+    if "fct_existing" in train_raw.columns and train_raw["fct_existing"].notna().any():
+        train_feat_hyb = add_hybrid_bo_oi_features(train_feat)
+        hyb_model = HybridBOOILGBMForecaster().fit(train_feat_hyb, feature_cols)
 
     # Kosongkan target pada konteks uji sebelum prediksi rekursif
     test_ctx = test_raw.copy()
@@ -92,6 +101,7 @@ def run_backtest(
         sku_categories=sku_cats,
         prod_categories=prod_cats,
         feature_cols=feature_cols,
+        tweedie_model=t_model,
     )
     ma_preds = forecast_moving_average_all_skus(train_raw, test_periods, window=3)
 
@@ -112,7 +122,7 @@ def run_backtest(
     summary_df = compute_backtest_metrics(eval_df)
     summary_df.to_csv(out_dir / "backtest_summary.csv", index=False)
 
-    # Evaluasi Rolling 1-Step-Ahead (adil untuk benchmark vs BO+OI yang terbit tiap bulan)
+    # Evaluasi Rolling 1-Step-Ahead (adil untuk benchmark vs BO+OI & Mode Hybrid)
     rolling_preds = rolling_1step_ml_forecast(
         full_df=demand_df,
         test_periods=test_periods,
@@ -122,6 +132,8 @@ def run_backtest(
         sku_categories=sku_cats,
         prod_categories=prod_cats,
         feature_cols=feature_cols,
+        tweedie_model=t_model,
+        hybrid_model=hyb_model,
     )
     rolling_eval_df = test_raw[actual_cols].copy().merge(
         rolling_preds, on=["periode", "SKU_ID"], how="left"
@@ -131,8 +143,16 @@ def run_backtest(
     rolling_eval_df.to_csv(out_dir / "backtest_rolling_1step_detail.csv", index=False)
 
     train_skus = set(train_raw["SKU_ID"].unique())
+    known_eval_df = rolling_eval_df[rolling_eval_df["SKU_ID"].isin(train_skus)].copy()
+    known_summary_df = compute_backtest_metrics(known_eval_df)
+    known_summary_df.to_csv(out_dir / "backtest_rolling_known_skus_summary.csv", index=False)
 
     # Ringkasan error per SKU untuk inspeksi detail
+    rolling_hyb_map = (
+        rolling_eval_df.groupby("SKU_ID")
+        if "hybrid_pred" in rolling_eval_df.columns
+        else None
+    )
     sku_rows = []
     for (sku_id, pola), grp in eval_df.groupby(["SKU_ID", "pola_sbc"]):
         y = grp["jumlah_terjual"].to_numpy(dtype=float)
@@ -141,6 +161,7 @@ def run_backtest(
             "pola_sbc": pola,
             "ada_di_train": sku_id in train_skus,
             "aktual_total": round(float(y.sum()), 1),
+            "MAE_lgbm_tweedie": round(float(np.mean(np.abs(y - grp["lgbm_tweedie"]))), 2),
             "MAE_lgbm_q50": round(float(np.mean(np.abs(y - grp["lgbm_q50"]))), 2),
             "MAE_hurdle": round(float(np.mean(np.abs(y - grp["hurdle_pred"]))), 2),
             "MAE_ma3": round(float(np.mean(np.abs(y - grp["ma_pred"]))), 2),
@@ -152,11 +173,18 @@ def run_backtest(
             row["MAE_fct_existing"] = round(
                 float(np.mean(np.abs(y[valid] - grp.loc[valid, "fct_existing"]))), 2
             )
+        if rolling_hyb_map is not None and sku_id in rolling_hyb_map.groups:
+            rgrp = rolling_hyb_map.get_group(sku_id)
+            hvalid = rgrp["hybrid_pred"].notna()
+            if hvalid.any():
+                row["MAE_hybrid_1step"] = round(
+                    float(np.mean(np.abs(rgrp.loc[hvalid, "jumlah_terjual"] - rgrp.loc[hvalid, "hybrid_pred"]))), 2
+                )
         sku_rows.append(row)
 
     pd.DataFrame(sku_rows).to_csv(out_dir / "backtest_sku_metrics.csv", index=False)
     eval_df.to_csv(out_dir / "backtest_predictions_detail.csv", index=False)
-    return summary_df, rolling_summary_df
+    return summary_df, rolling_summary_df, known_summary_df
 
 
 def run_full_training_and_forecast(
@@ -178,8 +206,14 @@ def run_full_training_and_forecast(
     X_full = full_feat[feature_cols]
     y_full = full_feat["jumlah_terjual"]
 
+    t_model = TweedieLGBMForecaster().fit(X_full, y_full)
     q_model = QuantileLGBMForecaster().fit(X_full, y_full)
     h_model = TwoStageHurdleForecaster().fit(X_full, y_full)
+
+    hyb_model: HybridBOOILGBMForecaster | None = None
+    if "fct_existing" in demand_df.columns and demand_df["fct_existing"].notna().any():
+        full_feat_hyb = add_hybrid_bo_oi_features(full_feat)
+        hyb_model = HybridBOOILGBMForecaster().fit(full_feat_hyb, feature_cols)
 
     last_period = demand_df["periode"].max()
     forecast_periods = pd.date_range(
@@ -200,6 +234,7 @@ def run_full_training_and_forecast(
         sku_categories=sku_cats,
         prod_categories=prod_cats,
         feature_cols=feature_cols,
+        tweedie_model=t_model,
     )
     ma_fc = forecast_moving_average_all_skus(demand_df, forecast_periods, window=3)
 
@@ -211,10 +246,10 @@ def run_full_training_and_forecast(
     fc_df = fc_df.merge(sbc_full[["SKU_ID", "ADI", "CV2", "sbc_detail"]], on="SKU_ID", how="left")
 
     is_lancar = fc_df["pola_sbc"] == "Lancar"
-    fc_df["model_terpilih"] = np.where(is_lancar, "LightGBM Kuantil (q50)", "Hurdle Dua Tahap")
-    fc_df["ramalan_terpilih"] = np.where(is_lancar, fc_df["lgbm_q50"], fc_df["hurdle_pred"]).round(2)
+    fc_df["model_terpilih"] = np.where(is_lancar, "LightGBM Tweedie", "Hurdle Dua Tahap")
+    fc_df["ramalan_terpilih"] = np.where(is_lancar, fc_df["lgbm_tweedie"], fc_df["hurdle_pred"]).round(2)
 
-    round_cols = ["lgbm_q10", "lgbm_q50", "lgbm_q90", "hurdle_cond_mag", "hurdle_pred", "ma_pred"]
+    round_cols = ["lgbm_tweedie", "lgbm_q10", "lgbm_q50", "lgbm_q90", "hurdle_cond_mag", "hurdle_pred", "ma_pred"]
     if "arima_pred" in fc_df.columns:
         round_cols.append("arima_pred")
     for col in round_cols:
@@ -226,7 +261,7 @@ def run_full_training_and_forecast(
 
     # Explainable AI (SHAP TreeExplainer)
     shap_df = compute_shap_drivers(
-        q_model, h_model, step_features, sbc_full, top_k=5, feature_cols=feature_cols
+        q_model, h_model, step_features, sbc_full, top_k=5, feature_cols=feature_cols, tweedie_model=t_model
     )
     shap_df.to_csv(out_dir / f"shap_drivers_{slug}.csv", index=False)
 
@@ -250,8 +285,11 @@ def run_full_training_and_forecast(
         rec_df.to_csv(out_dir / "overstock_recommendations.csv", index=False)
 
     # Simpan artefak model terlatih
+    joblib.dump(t_model, artifacts_dir / "tweedie_lgbm.joblib", compress=3)
     joblib.dump(q_model, artifacts_dir / "quantile_lgbm.joblib", compress=3)
     joblib.dump(h_model, artifacts_dir / "hurdle_two_stage.joblib", compress=3)
+    if hyb_model is not None and hyb_model._is_fitted:
+        joblib.dump(hyb_model, artifacts_dir / "hybrid_bo_oi.joblib", compress=3)
 
     meta = {
         "train_period_start": str(demand_df["periode"].min().strftime("%Y-%m-%d")),
@@ -329,7 +367,7 @@ def main() -> None:
     print(f"Fitur aktif ({len(active_feats)}): {', '.join(active_feats)}")
 
     print(f"1/3 Menjalankan Backtest ({args.backtest_months} bulan terakhir)...")
-    backtest_summary, rolling_summary = run_backtest(
+    backtest_summary, rolling_summary, known_summary = run_backtest(
         demand_df,
         args.out_dir,
         backtest_months=args.backtest_months,
@@ -354,6 +392,10 @@ def main() -> None:
 
     print("\n=== Ringkasan Backtest Rolling 1-Bulan ke Depan ===")
     print(rolling_summary.to_string(index=False))
+
+    if not known_summary.equals(rolling_summary):
+        print("\n=== Ringkasan Backtest Rolling 1-Bulan (Khusus SKU Berhistori Train) ===")
+        print(known_summary.to_string(index=False))
 
     if not res["rfm_df"].empty:
         print("\n=== Ringkasan Segmen RFM Distributor ===")

@@ -12,7 +12,9 @@ from statsmodels.tsa.arima.model import ARIMA
 from src.features import (
     CATEGORICAL_COLS,
     FEATURE_COLS,
+    HYBRID_EXTRA_COLS,
     _compute_lag_features_frame,
+    add_hybrid_bo_oi_features,
     build_future_context_rows,
     make_step_features,
 )
@@ -145,6 +147,109 @@ class TwoStageHurdleForecaster:
         return expected
 
 
+class TweedieLGBMForecaster:
+    """LightGBM Tweedie (log-link Compound Poisson-Gamma) untuk taksiran mean bebas bias lintas skala."""
+
+    def __init__(self, variance_power: float = 1.35, random_state: int = 42):
+        self.variance_power = variance_power
+        self.random_state = random_state
+        self.model = lgb.LGBMRegressor(
+            objective="tweedie",
+            tweedie_variance_power=variance_power,
+            n_estimators=320,
+            learning_rate=0.04,
+            num_leaves=31,
+            min_child_samples=10,
+            reg_alpha=0.1,
+            reg_lambda=1.0,
+            subsample=0.85,
+            subsample_freq=1,
+            colsample_bytree=0.85,
+            random_state=random_state,
+            n_jobs=4,
+            verbose=-1,
+        )
+        self._all_zero: bool = False
+
+    def fit(self, X: pd.DataFrame, y: pd.Series) -> "TweedieLGBMForecaster":
+        y_clean = np.maximum(0.0, y.to_numpy(dtype=float))
+        if not np.any(y_clean > 0):
+            self._all_zero = True
+            return self
+        self._all_zero = False
+        self.model.fit(X, y_clean, categorical_feature=CATEGORICAL_COLS)
+        return self
+
+    def predict(self, X: pd.DataFrame) -> np.ndarray:
+        if self._all_zero:
+            return np.zeros(len(X), dtype=float)
+        return np.maximum(0.0, self.model.predict(X))
+
+
+class HybridBOOILGBMForecaster:
+    """Model Hybrid (AI + BO+OI): mempelajari koreksi residual log terhadap Forecast Eksisting BO+OI."""
+
+    def __init__(self, random_state: int = 42):
+        self.random_state = random_state
+        self.reg = lgb.LGBMRegressor(
+            objective="regression",
+            n_estimators=160,
+            learning_rate=0.03,
+            num_leaves=15,
+            min_child_samples=20,
+            reg_alpha=1.0,
+            reg_lambda=5.0,
+            subsample=0.80,
+            subsample_freq=1,
+            colsample_bytree=0.80,
+            random_state=random_state,
+            n_jobs=4,
+            verbose=-1,
+        )
+        self.smearing_factor: float = 1.0
+        self.hybrid_cols: list[str] = []
+        self._is_fitted: bool = False
+
+    def fit(self, feat_df: pd.DataFrame, base_feature_cols: list[str]) -> "HybridBOOILGBMForecaster":
+        self.hybrid_cols = list(base_feature_cols) + HYBRID_EXTRA_COLS
+        if "fct_existing" not in feat_df.columns:
+            self._is_fitted = False
+            return self
+
+        valid = feat_df[feat_df["fct_existing"].notna()].copy()
+        if len(valid) < 30:
+            self._is_fitted = False
+            return self
+
+        y_true = np.maximum(0.0, valid["jumlah_terjual"].to_numpy(dtype=float))
+        log_fct = np.log1p(np.maximum(0.0, valid["fct_existing"].to_numpy(dtype=float)))
+        y_res = np.clip(np.log1p(y_true) - log_fct, -1.5, 1.5)
+
+        X_hyb = valid[self.hybrid_cols]
+        self.reg.fit(X_hyb, y_res, categorical_feature=CATEGORICAL_COLS)
+
+        resid = y_res - self.reg.predict(X_hyb)
+        lo, hi = np.quantile(resid, [0.05, 0.95])
+        self.smearing_factor = float(np.clip(np.mean(np.exp(np.clip(resid, lo, hi))), 0.97, 1.05))
+        self._is_fitted = True
+        return self
+
+    def predict(self, feat_df: pd.DataFrame) -> np.ndarray:
+        out = np.full(len(feat_df), np.nan, dtype=float)
+        if not self._is_fitted or "fct_existing" not in feat_df.columns:
+            return out
+
+        mask = feat_df["fct_existing"].notna().to_numpy()
+        if not mask.any():
+            return out
+
+        sub = feat_df.loc[mask]
+        delta_hat = np.clip(self.reg.predict(sub[self.hybrid_cols]), -1.0, 1.0)
+        log_fct = np.log1p(np.maximum(0.0, sub["fct_existing"].to_numpy(dtype=float)))
+        out[mask] = np.maximum(0.0, np.exp(log_fct + delta_hat) * self.smearing_factor - 1.0)
+        return out
+
+
 def recursive_ml_forecast(
     history_df: pd.DataFrame,
     future_context_df: pd.DataFrame,
@@ -154,8 +259,9 @@ def recursive_ml_forecast(
     sku_categories: list[str],
     prod_categories: list[str],
     feature_cols: list[str] | None = None,
+    tweedie_model: TweedieLGBMForecaster | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Menjalankan prediksi multi-bulan secara rekursif untuk LightGBM Kuantil & Hurdle."""
+    """Menjalankan prediksi multi-bulan secara rekursif untuk LightGBM (Tweedie & Kuantil) serta Hurdle."""
     active_cols = feature_cols or FEATURE_COLS
     hist = history_df.copy()
     hist["periode"] = pd.to_datetime(hist["periode"])
@@ -166,8 +272,9 @@ def recursive_ml_forecast(
 
     sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
 
-    # Dua lintasan riwayat terpisah agar prediksi rekursif tiap model konsisten dengan lag-nya
+    # Lintasan riwayat terpisah agar prediksi rekursif tiap model konsisten dengan lag-nya
     hist_lgbm = hist.copy()
+    hist_tweedie = hist.copy()
     hist_hurdle = hist.copy()
 
     pred_rows = []
@@ -181,7 +288,16 @@ def recursive_ml_forecast(
         feat_lgbm = make_step_features(combined_lgbm, dt, sku_categories, prod_categories, feature_cols=active_cols)
         q_preds = quantile_model.predict_quantiles(feat_lgbm[active_cols])
 
-        # 2) Step Hurdle Dua Tahap
+        # 2) Step LightGBM Tweedie
+        if tweedie_model is not None:
+            combined_tweedie = pd.concat([hist_tweedie, step_ctx], ignore_index=True)
+            feat_tweedie = make_step_features(combined_tweedie, dt, sku_categories, prod_categories, feature_cols=active_cols)
+            tweedie_preds = tweedie_model.predict(feat_tweedie[active_cols])
+        else:
+            feat_tweedie = feat_lgbm
+            tweedie_preds = q_preds["q50"].to_numpy()
+
+        # 3) Step Hurdle Dua Tahap
         combined_hurdle = pd.concat([hist_hurdle, step_ctx], ignore_index=True)
         feat_hurdle = make_step_features(combined_hurdle, dt, sku_categories, prod_categories, feature_cols=active_cols)
         prob_occ, cond_mag, hurdle_exp = hurdle_model.predict_components(feat_hurdle[active_cols])
@@ -195,6 +311,7 @@ def recursive_ml_forecast(
                 "nama_produk": feat_lgbm.loc[i, "nama_produk"],
                 "kategori": feat_lgbm.loc[i, "kategori"],
                 "pola_sbc": pola,
+                "lgbm_tweedie": float(tweedie_preds[i]),
                 "lgbm_q10": float(q_preds.loc[i, "q10"]),
                 "lgbm_q50": float(q_preds.loc[i, "q50"]),
                 "lgbm_q90": float(q_preds.loc[i, "q90"]),
@@ -204,9 +321,9 @@ def recursive_ml_forecast(
             })
 
         # Simpan fitur langkah untuk analisis SHAP
-        feat_lgbm_copy = feat_lgbm.copy()
-        feat_lgbm_copy["model_source"] = "lgbm_q50"
-        step_feature_rows.append(feat_lgbm_copy)
+        feat_tw_copy = feat_tweedie.copy()
+        feat_tw_copy["model_source"] = "lgbm_tweedie"
+        step_feature_rows.append(feat_tw_copy)
 
         feat_hurdle_copy = feat_hurdle.copy()
         feat_hurdle_copy["model_source"] = "hurdle"
@@ -216,6 +333,10 @@ def recursive_ml_forecast(
         step_lgbm_update = step_ctx.sort_values("SKU_ID").reset_index(drop=True).copy()
         step_lgbm_update["jumlah_terjual"] = q_preds["q50"].to_numpy()
         hist_lgbm = pd.concat([hist_lgbm, step_lgbm_update], ignore_index=True)
+
+        step_tw_update = step_ctx.sort_values("SKU_ID").reset_index(drop=True).copy()
+        step_tw_update["jumlah_terjual"] = tweedie_preds
+        hist_tweedie = pd.concat([hist_tweedie, step_tw_update], ignore_index=True)
 
         step_hurdle_update = step_ctx.sort_values("SKU_ID").reset_index(drop=True).copy()
         step_hurdle_update["jumlah_terjual"] = hurdle_exp
@@ -233,10 +354,15 @@ def rolling_1step_ml_forecast(
     sku_categories: list[str],
     prod_categories: list[str],
     feature_cols: list[str] | None = None,
+    tweedie_model: TweedieLGBMForecaster | None = None,
+    hybrid_model: HybridBOOILGBMForecaster | None = None,
 ) -> pd.DataFrame:
     """Prediksi rolling 1-bulan ke depan memakai fitur lag aktual sampai bulan t-1 (tanpa kebocoran)."""
     active_cols = feature_cols or FEATURE_COLS
     feat_df = _compute_lag_features_frame(full_df)
+    if hybrid_model is not None and hybrid_model._is_fitted:
+        feat_df = add_hybrid_bo_oi_features(feat_df)
+
     test_feat = feat_df[feat_df["periode"].isin(test_periods)].copy()
     test_feat["SKU_ID_cat"] = pd.Categorical(test_feat["SKU_ID"], categories=sku_categories)
     test_feat["kategori_cat"] = pd.Categorical(test_feat["kategori"], categories=prod_categories)
@@ -247,13 +373,19 @@ def rolling_1step_ml_forecast(
 
     test_feat = test_feat.sort_values(["periode", "SKU_ID"]).reset_index(drop=True)
     q_preds = quantile_model.predict_quantiles(test_feat[active_cols])
+    tweedie_preds = (
+        tweedie_model.predict(test_feat[active_cols])
+        if tweedie_model is not None
+        else q_preds["q50"].to_numpy()
+    )
     prob_occ, cond_mag, hurdle_exp = hurdle_model.predict_components(test_feat[active_cols])
 
     sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
-    return pd.DataFrame({
+    out = pd.DataFrame({
         "periode": test_feat["periode"],
         "SKU_ID": test_feat["SKU_ID"],
         "pola_sbc": test_feat["SKU_ID"].map(sbc_map).fillna("Lancar"),
+        "lgbm_tweedie": tweedie_preds,
         "lgbm_q10": q_preds["q10"].to_numpy(),
         "lgbm_q50": q_preds["q50"].to_numpy(),
         "lgbm_q90": q_preds["q90"].to_numpy(),
@@ -262,6 +394,9 @@ def rolling_1step_ml_forecast(
         "hurdle_pred": hurdle_exp,
         "ma_pred": test_feat["rolling_mean_3"].fillna(0.0).to_numpy(),
     })
+    if hybrid_model is not None and hybrid_model._is_fitted:
+        out["hybrid_pred"] = hybrid_model.predict(test_feat)
+    return out
 
 
 def forecast_arima_all_skus(
@@ -326,8 +461,10 @@ def _pinball_loss(y_true: np.ndarray, y_pred: np.ndarray, alpha: float) -> float
 def compute_backtest_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
     """Menghitung metrik galat backtest per model dan per segmen pola (Lancar vs Putus-putus)."""
     candidate_models = [
+        ("LightGBM Tweedie", "lgbm_tweedie"),
         ("LightGBM Kuantil (q50)", "lgbm_q50"),
         ("Hurdle Dua Tahap", "hurdle_pred"),
+        ("Hybrid (AI + BO+OI)", "hybrid_pred"),
         ("ARIMA", "arima_pred"),
         ("Rata-rata Bergerak (MA-3)", "ma_pred"),
         ("Forecast Eksisting (BO+OI)", "fct_existing"),
@@ -391,16 +528,27 @@ def compute_shap_drivers(
     sbc_df: pd.DataFrame,
     top_k: int = 5,
     feature_cols: list[str] | None = None,
+    tweedie_model: TweedieLGBMForecaster | None = None,
 ) -> pd.DataFrame:
     """Menghitung faktor penggerak SHAP per SKU pada horizon ramalan."""
     active_cols = feature_cols or FEATURE_COLS
     sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
 
-    lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_q50"].reset_index(drop=True)
+    lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_tweedie"].reset_index(drop=True)
+    if lgbm_feat.empty:
+        lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_q50"].reset_index(drop=True)
     hurdle_feat = step_features_df[step_features_df["model_source"] == "hurdle"].reset_index(drop=True)
 
-    expl_lgbm = shap.TreeExplainer(quantile_model.models[0.50])
-    shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
+    if tweedie_model is not None and not tweedie_model._all_zero:
+        expl_lgbm = shap.TreeExplainer(tweedie_model.model)
+        shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
+        lancar_model_name = "LightGBM Tweedie"
+        lancar_satuan = "skor_log_tweedie"
+    else:
+        expl_lgbm = shap.TreeExplainer(quantile_model.models[0.50])
+        shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
+        lancar_model_name = "LightGBM Kuantil (q50)"
+        lancar_satuan = "skor_log_ramalan"
 
     if hurdle_model._const_prob is None:
         expl_occ = shap.TreeExplainer(hurdle_model.clf)
@@ -423,8 +571,8 @@ def compute_shap_drivers(
                 continue
             sku_shap = shap_lgbm[mask].mean(axis=0)
             sku_vals = lgbm_feat.loc[mask, active_cols].mean(numeric_only=True)
-            model_used = "LightGBM Kuantil (q50)"
-            satuan_efek = "skor_log_ramalan"
+            model_used = lancar_model_name
+            satuan_efek = lancar_satuan
         else:
             mask = (hurdle_feat["SKU_ID"] == sku_id).to_numpy()
             if not mask.any():

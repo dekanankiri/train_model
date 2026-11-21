@@ -31,6 +31,14 @@ CORE_FEATURE_COLS = [
 
 OPTIONAL_EXTERNAL_COLS = ["harga", "promo", "diskon_pct", "lead_time_hari"]
 
+HYBRID_EXTRA_COLS = [
+    "log1p_fct_existing",
+    "fct_vs_roll3_log_ratio",
+    "fct_log_err_lag_1",
+    "fct_log_err_mean_3",
+    "log1p_bp_sales",
+]
+
 FEATURE_COLS = [
     "SKU_ID_cat",
     "kategori_cat",
@@ -180,6 +188,37 @@ def _compute_lag_features_frame(df: pd.DataFrame) -> pd.DataFrame:
 
     out["sin_bulan"] = np.sin(2.0 * np.pi * (out["bulan"] - 1) / 12.0)
     out["cos_bulan"] = np.cos(2.0 * np.pi * (out["bulan"] - 1) / 12.0)
+    return out
+
+
+def add_hybrid_bo_oi_features(feat_df: pd.DataFrame) -> pd.DataFrame:
+    """Menambahkan fitur koreksi residual untuk Mode Hybrid (AI + BO+OI) tanpa kebocoran data."""
+    out = feat_df.sort_values(["SKU_ID", "periode"]).copy()
+    fct_vals = (
+        pd.to_numeric(out["fct_existing"], errors="coerce")
+        if "fct_existing" in out.columns
+        else pd.Series(np.nan, index=out.index)
+    )
+    out["log1p_fct_existing"] = np.log1p(np.maximum(0.0, fct_vals))
+
+    roll3 = pd.to_numeric(out["rolling_mean_3"], errors="coerce")
+    out["fct_vs_roll3_log_ratio"] = out["log1p_fct_existing"] - np.log1p(np.maximum(0.0, roll3))
+
+    # Error historis BO+OI hanya diambil dari bulan t-1 ke belakang (shift 1)
+    raw_log_err = np.log1p(np.maximum(0.0, out["jumlah_terjual"])) - out["log1p_fct_existing"]
+    out["fct_log_err_lag_1"] = raw_log_err.groupby(out["SKU_ID"], observed=True).shift(1)
+    out["fct_log_err_mean_3"] = out["fct_log_err_lag_1"].groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.rolling(3, min_periods=1).mean()
+    )
+
+    if "bp_sales" in out.columns:
+        bp_vals = pd.to_numeric(out["bp_sales"], errors="coerce")
+        out["log1p_bp_sales"] = np.log1p(np.maximum(0.0, bp_vals))
+    else:
+        out["log1p_bp_sales"] = np.nan
+
+    for col in HYBRID_EXTRA_COLS:
+        out[col] = out[col].astype("float32")
     return out
 
 

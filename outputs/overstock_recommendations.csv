@@ -1,37 +1,37 @@
 SKU_ID,nama_produk,kategori,lokasi_gudang,stok_tersedia,ramalan_3_bulan,kelebihan_stok,umur_stok_hari,tanggal_kedaluwarsa,peringkat_tawaran,distributor_ID,nama_distributor,wilayah,segmen_rfm,rfm_score,pengaruh_R_pct,pengaruh_F_pct,pengaruh_M_pct,hist_beli_sku_qty,skor_kecocokan,saran_alokasi_qty
-SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1492.2,954,239,,1,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,2916,96.1,348
-SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1492.2,954,239,,2,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,1957,85.08,306
-SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1492.2,954,239,,3,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1911,83.25,300
+SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1395.5,1051,239,,1,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,2916,96.1,383
+SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1395.5,1051,239,,2,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,1957,85.08,338
+SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Gudang Medan,2531,1395.5,1051,239,,3,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1911,83.25,330
 SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Gudang Surabaya,81,12.4,53,233,,1,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,100,96.89,20
 SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Gudang Surabaya,81,12.4,53,233,,2,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,52,89.92,17
 SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Gudang Surabaya,81,12.4,53,233,,3,DIST-005,PT Mitra Niaga 05,Sumatera,Loyal,4.4,20.5,39.8,39.8,92,87.77,16
-SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,919.4,533,217,2027-02-06,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1717,98.05,189
-SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,919.4,533,217,2027-02-06,2,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1267,90.6,174
-SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,919.4,533,217,2027-02-06,3,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1228,88.82,170
-SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1305.1,1254,170,2027-01-03,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2719,93.98,429
-SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1305.1,1254,170,2027-01-03,2,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,2982,92.2,420
-SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1305.1,1254,170,2027-01-03,3,DIST-001,PT Mitra Niaga 01,Jawa Timur,Champions,4.7,25.5,37.2,37.2,2572,88.82,405
-SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,888.0,874,169,2027-02-03,1,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,1565,89.61,298
-SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,888.0,874,169,2027-02-03,2,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,1785,89.0,295
-SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,888.0,874,169,2027-02-03,3,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,818,85.05,281
-SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1791.2,1839,163,,1,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,5462,100.0,688
-SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1791.2,1839,163,,2,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,2189,84.3,579
-SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1791.2,1839,163,,3,DIST-005,PT Mitra Niaga 05,Sumatera,Loyal,4.4,20.5,39.8,39.8,3885,83.39,572
-SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.8,2395,149,2027-01-20,1,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,4321,92.2,836
-SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.8,2395,149,2027-01-20,2,DIST-001,PT Mitra Niaga 01,Jawa Timur,Champions,4.7,25.5,37.2,37.2,3560,88.01,796
-SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.8,2395,149,2027-01-20,3,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1954,84.33,763
+SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,497.9,954,217,2027-02-06,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1717,98.05,338
+SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,497.9,954,217,2027-02-06,2,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1267,90.6,311
+SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Gudang Jakarta,1559,497.9,954,217,2027-02-06,3,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1228,88.82,305
+SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1172.3,1387,170,2027-01-03,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2719,93.98,475
+SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1172.3,1387,170,2027-01-03,2,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,2982,92.2,465
+SKU-004,Tepung Terigu 1kg,Bahan Pokok,Gudang Jakarta,2639,1172.3,1387,170,2027-01-03,3,DIST-001,PT Mitra Niaga 01,Jawa Timur,Champions,4.7,25.5,37.2,37.2,2572,88.82,447
+SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,789.7,972,169,2027-02-03,1,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,1565,89.61,331
+SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,789.7,972,169,2027-02-03,2,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,1785,89.0,328
+SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Gudang Bandung,1794,789.7,972,169,2027-02-03,3,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,818,85.05,313
+SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1743.9,1886,163,,1,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,5462,100.0,706
+SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1743.9,1886,163,,2,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,2189,84.3,593
+SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Gudang Jakarta,3731,1743.9,1886,163,,3,DIST-005,PT Mitra Niaga 05,Sumatera,Loyal,4.4,20.5,39.8,39.8,3885,83.39,587
+SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.6,2395,149,2027-01-20,1,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,4321,92.2,836
+SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.6,2395,149,2027-01-20,2,DIST-001,PT Mitra Niaga 01,Jawa Timur,Champions,4.7,25.5,37.2,37.2,3560,88.01,796
+SKU-001,Beras Premium 5kg,Bahan Pokok,Gudang Jakarta,3880,1379.6,2395,149,2027-01-20,3,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,1954,84.33,763
 SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Gudang Medan,81,25.4,39,142,2027-01-21,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,69,95.83,15
 SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Gudang Medan,81,25.4,39,142,2027-01-21,2,DIST-001,PT Mitra Niaga 01,Jawa Timur,Champions,4.7,25.5,37.2,37.2,63,89.88,12
 SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Gudang Medan,81,25.4,39,142,2027-01-21,3,DIST-002,PT Mitra Niaga 02,Jabodetabek,Loyal,4.4,20.5,39.8,39.8,42,83.98,12
-SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1053.2,1090,131,2026-12-27,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2113,97.43,372
-SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1053.2,1090,131,2026-12-27,2,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,2177,94.8,361
-SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1053.2,1090,131,2026-12-27,3,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1952,93.93,357
-SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,417.5,744,123,2027-01-13,1,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1165,96.42,274
-SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,417.5,744,123,2027-01-13,2,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,915,87.69,248
-SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,417.5,744,123,2027-01-13,3,DIST-005,PT Mitra Niaga 05,Sumatera,Loyal,4.4,20.5,39.8,39.8,501,78.58,222
-SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1111.1,2287,111,2026-12-05,1,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,3060,96.1,803
-SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1111.1,2287,111,2026-12-05,2,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2636,95.14,793
-SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1111.1,2287,111,2026-12-05,3,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1315,82.83,691
-SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1087.3,2142,111,,1,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,2405,91.99,749
-SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1087.3,2142,111,,2,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1586,88.95,722
-SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1087.3,2142,111,,3,DIST-003,PT Mitra Niaga 03,Sumatera,Champions,4.35,27.6,40.2,32.2,2012,82.71,671
+SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1013.8,1129,131,2026-12-27,1,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2113,97.43,385
+SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1013.8,1129,131,2026-12-27,2,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,2177,94.8,374
+SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Gudang Jakarta,2226,1013.8,1129,131,2026-12-27,3,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1952,93.93,370
+SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,429.0,733,123,2027-01-13,1,DIST-007,PT Mitra Niaga 07,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1165,96.42,270
+SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,429.0,733,123,2027-01-13,2,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,915,87.69,244
+SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Gudang Medan,1196,429.0,733,123,2027-01-13,3,DIST-005,PT Mitra Niaga 05,Sumatera,Loyal,4.4,20.5,39.8,39.8,501,78.58,219
+SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1061.5,2336,111,2026-12-05,1,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,3060,96.1,821
+SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1061.5,2336,111,2026-12-05,2,DIST-010,PT Mitra Niaga 10,Jabodetabek,Champions,5.0,30.0,35.0,35.0,2636,95.14,810
+SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Gudang Medan,3464,1061.5,2336,111,2026-12-05,3,DIST-006,PT Mitra Niaga 06,Jawa Tengah,Champions,5.0,30.0,35.0,35.0,1315,82.83,705
+SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1096.3,2133,111,,1,DIST-004,PT Mitra Niaga 04,Jawa Timur,Loyal,4.4,20.5,39.8,39.8,2405,91.99,745
+SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1096.3,2133,111,,2,DIST-008,PT Mitra Niaga 08,Kalimantan,Champions,4.7,25.5,37.2,37.2,1586,88.95,719
+SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Gudang Jakarta,3283,1096.3,2133,111,,3,DIST-003,PT Mitra Niaga 03,Sumatera,Champions,4.35,27.6,40.2,32.2,2012,82.71,669

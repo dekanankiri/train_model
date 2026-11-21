@@ -1,121 +1,121 @@
-periode,SKU_ID,nama_produk,kategori,pola_sbc,lgbm_q10,lgbm_q50,lgbm_q90,hurdle_prob_occ,hurdle_cond_mag,hurdle_pred,ma_pred,arima_pred,ADI,CV2,sbc_detail,model_terpilih,ramalan_terpilih
-2026-11-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,362.71,477.74,544.16,0.9947,519.84,517.07,489.67,560.8,1.0,0.0552,Smooth,LightGBM Kuantil (q50),477.74
-2026-11-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,254.91,627.76,646.58,0.9703,592.45,574.88,727.67,605.65,1.0526,0.0474,Smooth,LightGBM Kuantil (q50),627.76
-2026-11-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,245.2,516.15,565.03,0.9923,527.14,523.06,694.67,563.56,1.0345,0.061,Smooth,LightGBM Kuantil (q50),516.15
-2026-11-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,168.96,431.86,473.49,0.9848,427.32,420.83,461.0,460.14,1.0345,0.0752,Smooth,LightGBM Kuantil (q50),431.86
-2026-11-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,535.34,836.55,847.88,0.9972,838.7,836.36,895.0,960.3,1.0,0.0761,Smooth,LightGBM Kuantil (q50),836.55
-2026-11-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,227.9,863.48,979.98,0.9589,915.38,877.79,935.33,1041.89,1.0345,0.0653,Smooth,LightGBM Kuantil (q50),863.48
-2026-11-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,297.21,349.62,440.81,0.9964,360.66,359.37,402.33,431.73,1.0,0.0676,Smooth,LightGBM Kuantil (q50),349.62
-2026-11-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,418.82,477.21,591.05,0.9977,519.07,517.85,713.0,626.84,1.0169,0.0748,Smooth,LightGBM Kuantil (q50),477.21
-2026-11-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,278.12,320.5,337.35,0.9916,303.19,300.63,320.0,345.05,1.0169,0.0544,Smooth,LightGBM Kuantil (q50),320.5
-2026-11-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,13.2,319.65,323.8,0.9523,192.01,182.86,116.33,283.34,1.0714,0.1043,Smooth,LightGBM Kuantil (q50),319.65
-2026-11-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,124.97,214.13,243.47,0.9919,227.79,225.95,128.67,283.82,1.0169,0.0804,Smooth,LightGBM Kuantil (q50),214.13
-2026-11-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,300.36,343.52,378.06,0.9895,368.46,364.6,357.0,433.67,1.0169,0.0896,Smooth,LightGBM Kuantil (q50),343.52
-2026-11-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,363.69,456.82,524.7,0.991,472.11,467.87,427.0,510.45,1.0169,0.0534,Smooth,LightGBM Kuantil (q50),456.82
-2026-11-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,477.99,489.53,560.48,0.9986,470.45,469.8,549.33,517.26,1.0,0.0634,Smooth,LightGBM Kuantil (q50),489.53
-2026-11-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,240.99,310.53,379.47,0.9943,308.66,306.89,415.0,358.24,1.0169,0.057,Smooth,LightGBM Kuantil (q50),310.53
-2026-11-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,299.33,514.03,604.74,0.9918,493.27,489.21,550.67,572.76,1.0345,0.0779,Smooth,LightGBM Kuantil (q50),514.03
-2026-11-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,253.46,329.74,408.0,0.9982,342.78,342.16,378.33,396.75,1.0,0.0624,Smooth,LightGBM Kuantil (q50),329.74
-2026-11-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,304.05,364.12,460.05,0.9975,380.5,379.53,403.67,448.44,1.0,0.066,Smooth,LightGBM Kuantil (q50),364.12
-2026-11-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,284.08,300.22,322.21,0.995,267.65,266.33,250.33,325.38,1.0,0.0737,Smooth,LightGBM Kuantil (q50),300.22
-2026-11-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,187.64,306.0,306.22,0.9977,248.42,247.84,275.33,282.05,1.0,0.0614,Smooth,LightGBM Kuantil (q50),306.0
-2026-11-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,66.31,150.31,183.16,0.9904,149.41,147.98,130.0,158.06,1.0345,0.0993,Smooth,LightGBM Kuantil (q50),150.31
-2026-11-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,304.67,369.45,410.79,0.9945,373.17,371.11,362.67,370.24,1.0169,0.064,Smooth,LightGBM Kuantil (q50),369.45
-2026-11-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,525.46,674.94,717.81,0.9974,696.89,695.07,705.67,771.87,1.0,0.0472,Smooth,LightGBM Kuantil (q50),674.94
-2026-11-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,437.08,594.21,649.71,0.9969,642.22,640.2,563.67,632.29,1.0169,0.0653,Smooth,LightGBM Kuantil (q50),594.21
-2026-11-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,0.73,16.18,100.37,0.6666,53.37,35.58,23.33,44.74,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,35.58
-2026-11-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,0.27,3.38,37.28,0.4681,18.23,8.54,25.67,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,8.54
-2026-11-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,0.0,7.09,163.43,0.5264,69.41,36.54,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,36.54
-2026-11-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,1.2,60.88,84.36,0.9109,65.77,59.91,53.33,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,59.91
-2026-11-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,0.0,6.09,54.2,0.5338,43.39,23.16,59.67,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,23.16
-2026-11-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,0.41,15.99,92.99,0.5146,59.22,30.47,35.0,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,30.47
-2026-11-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,0.0,0.33,22.49,0.1851,16.49,3.05,15.0,6.2,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,3.05
-2026-11-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,0.1,12.6,26.51,0.8059,22.26,17.94,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,17.94
-2026-11-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,0.0,4.74,39.71,0.6049,28.39,17.17,0.0,12.87,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,17.17
-2026-11-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,0.34,6.85,41.56,0.5502,26.65,14.66,15.0,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,14.66
-2026-11-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,0.69,20.44,67.24,0.8542,49.58,42.35,16.0,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,42.35
-2026-11-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,0.0,5.21,90.95,0.578,79.39,45.89,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,45.89
-2026-11-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,0.02,3.89,34.35,0.5865,26.24,15.39,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,15.39
-2026-11-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,0.0,0.67,22.61,0.3726,12.93,4.82,3.33,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,4.82
-2026-11-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,1.03,34.06,115.7,0.7464,86.0,64.19,89.67,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,64.19
-2026-11-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,0.0,2.73,36.01,0.3368,20.01,6.74,20.0,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,6.74
-2026-12-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,340.36,433.0,547.4,0.994,525.33,522.19,479.22,560.8,1.0,0.0552,Smooth,LightGBM Kuantil (q50),433.0
-2026-12-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,185.73,634.07,636.35,0.9826,619.67,608.91,653.89,605.65,1.0526,0.0474,Smooth,LightGBM Kuantil (q50),634.07
-2026-12-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,288.52,547.32,639.28,0.9813,564.73,554.16,677.89,563.56,1.0345,0.061,Smooth,LightGBM Kuantil (q50),547.32
-2026-12-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,177.88,429.53,468.83,0.957,425.69,407.41,489.67,478.58,1.0345,0.0752,Smooth,LightGBM Kuantil (q50),429.53
-2026-12-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,543.27,843.73,882.63,0.9978,843.83,841.98,977.33,916.45,1.0,0.0761,Smooth,LightGBM Kuantil (q50),843.73
-2026-12-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,237.48,872.98,1012.79,0.955,930.43,888.56,867.78,1041.89,1.0345,0.0653,Smooth,LightGBM Kuantil (q50),872.98
-2026-12-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,343.96,345.31,414.09,0.9966,361.08,359.84,342.44,431.73,1.0,0.0676,Smooth,LightGBM Kuantil (q50),345.31
-2026-12-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,519.78,547.27,638.87,0.998,546.26,545.16,753.67,626.84,1.0169,0.0748,Smooth,LightGBM Kuantil (q50),547.27
-2026-12-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,236.77,319.84,381.94,0.9921,297.54,295.18,310.0,352.31,1.0169,0.0544,Smooth,LightGBM Kuantil (q50),319.84
-2026-12-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,65.53,326.46,330.92,0.964,256.66,247.42,155.11,283.34,1.0714,0.1043,Smooth,LightGBM Kuantil (q50),326.46
-2026-12-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,206.63,232.26,309.98,0.9937,259.94,258.3,171.56,283.82,1.0169,0.0804,Smooth,LightGBM Kuantil (q50),232.26
-2026-12-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,336.01,353.21,413.97,0.9926,385.98,383.13,348.67,454.7,1.0169,0.0896,Smooth,LightGBM Kuantil (q50),353.21
-2026-12-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,346.53,480.32,504.96,0.9923,493.13,489.32,416.0,510.45,1.0169,0.0534,Smooth,LightGBM Kuantil (q50),480.32
-2026-12-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,369.13,493.77,542.49,0.9972,479.49,478.14,547.44,517.26,1.0,0.0634,Smooth,LightGBM Kuantil (q50),493.77
-2026-12-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,301.0,305.06,358.35,0.9953,302.4,300.98,452.67,358.24,1.0169,0.057,Smooth,LightGBM Kuantil (q50),305.06
-2026-12-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,316.48,509.02,579.07,0.9911,476.77,472.53,560.56,572.76,1.0345,0.0779,Smooth,LightGBM Kuantil (q50),509.02
-2026-12-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,354.68,365.59,390.29,0.9955,344.77,343.21,388.44,396.75,1.0,0.0624,Smooth,LightGBM Kuantil (q50),365.59
-2026-12-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,272.75,347.78,415.85,0.9942,380.94,378.73,431.89,429.46,1.0,0.066,Smooth,LightGBM Kuantil (q50),347.78
-2026-12-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,280.27,290.59,331.73,0.9944,273.77,272.25,253.11,325.38,1.0,0.0737,Smooth,LightGBM Kuantil (q50),290.59
-2026-12-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,210.66,307.11,308.88,0.9957,262.93,261.81,246.44,282.05,1.0,0.0614,Smooth,LightGBM Kuantil (q50),307.11
-2026-12-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,90.66,122.54,197.73,0.9925,157.14,155.96,125.33,158.06,1.0345,0.0993,Smooth,LightGBM Kuantil (q50),122.54
-2026-12-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,338.45,403.33,434.74,0.9857,390.74,385.14,350.56,408.03,1.0169,0.064,Smooth,LightGBM Kuantil (q50),403.33
-2026-12-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,531.31,743.26,771.43,0.9978,705.94,704.38,695.22,771.87,1.0,0.0472,Smooth,LightGBM Kuantil (q50),743.26
-2026-12-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,449.73,628.21,683.26,0.9976,653.99,652.43,585.56,632.29,1.0169,0.0653,Smooth,LightGBM Kuantil (q50),628.21
-2026-12-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,1.58,54.51,117.88,0.7818,74.93,58.58,18.44,34.5,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,58.58
-2026-12-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,0.0,1.51,45.08,0.4937,20.67,10.21,26.56,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,10.21
-2026-12-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,0.0,6.8,165.12,0.4473,153.47,68.65,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,68.65
-2026-12-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,0.59,53.72,95.13,0.8295,85.79,71.16,58.78,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,71.16
-2026-12-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,0.11,26.47,82.44,0.6122,95.12,58.23,73.22,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,58.23
-2026-12-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,0.24,26.51,79.49,0.6457,77.22,49.86,46.67,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,49.86
-2026-12-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,0.03,0.4,19.32,0.1839,20.03,3.68,14.33,7.94,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,3.68
-2026-12-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,0.11,15.81,27.55,0.6607,24.03,15.88,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,15.88
-2026-12-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,0.0,2.46,36.12,0.5841,37.13,21.69,0.0,12.13,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,21.69
-2026-12-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,0.0,2.39,36.55,0.2493,23.27,5.8,20.0,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,5.8
-2026-12-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,0.12,17.28,63.02,0.5956,37.3,22.21,14.33,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,22.21
-2026-12-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,0.06,9.22,94.08,0.6882,47.25,32.52,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,32.52
-2026-12-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,0.01,1.39,26.62,0.451,40.1,18.08,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,18.08
-2026-12-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,0.0,0.62,22.64,0.3139,13.68,4.29,1.11,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,4.29
-2026-12-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,0.79,55.23,100.39,0.8345,59.94,50.02,77.56,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,50.02
-2026-12-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,0.01,0.61,30.71,0.253,22.73,5.75,26.67,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,5.75
-2027-01-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,395.26,469.05,559.58,0.9978,507.36,506.23,480.63,560.8,1.0,0.0552,Smooth,LightGBM Kuantil (q50),469.05
-2027-01-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,247.5,607.77,637.21,0.9846,620.38,610.81,644.19,605.65,1.0526,0.0474,Smooth,LightGBM Kuantil (q50),607.77
-2027-01-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,420.26,529.39,608.94,0.9875,557.2,550.25,734.52,563.56,1.0345,0.061,Smooth,LightGBM Kuantil (q50),529.39
-2027-01-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,265.43,443.73,469.69,0.9627,428.74,412.74,437.89,482.08,1.0345,0.0752,Smooth,LightGBM Kuantil (q50),443.73
-2027-01-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,384.96,800.66,832.72,0.9926,827.51,821.42,1006.11,906.09,1.0,0.0761,Smooth,LightGBM Kuantil (q50),800.66
-2027-01-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,211.2,925.57,1049.96,0.9467,942.05,891.87,877.37,1041.89,1.0345,0.0653,Smooth,LightGBM Kuantil (q50),925.57
-2027-01-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,327.68,358.25,374.54,0.9973,348.03,347.09,341.26,431.73,1.0,0.0676,Smooth,LightGBM Kuantil (q50),358.25
-2027-01-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,491.89,531.56,586.6,0.9985,551.47,550.63,741.56,626.84,1.0169,0.0748,Smooth,LightGBM Kuantil (q50),531.56
-2027-01-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,261.23,352.55,379.57,0.9951,312.43,310.9,312.67,353.73,1.0169,0.0544,Smooth,LightGBM Kuantil (q50),352.55
-2027-01-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,44.97,273.28,348.45,0.9519,233.99,222.73,90.48,283.34,1.0714,0.1043,Smooth,LightGBM Kuantil (q50),273.28
-2027-01-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,182.54,184.82,259.54,0.9909,234.36,232.23,158.41,283.82,1.0169,0.0804,Smooth,LightGBM Kuantil (q50),184.82
-2027-01-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,372.03,414.35,415.51,0.9935,383.55,381.05,347.56,459.27,1.0169,0.0896,Smooth,LightGBM Kuantil (q50),414.35
-2027-01-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,445.35,472.71,525.12,0.9953,478.72,476.46,414.33,510.45,1.0169,0.0534,Smooth,LightGBM Kuantil (q50),472.71
-2027-01-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,398.75,508.88,540.14,0.994,470.74,467.9,519.59,517.26,1.0,0.0634,Smooth,LightGBM Kuantil (q50),508.88
-2027-01-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,322.4,356.05,372.9,0.9942,317.46,315.62,497.56,358.24,1.0169,0.057,Smooth,LightGBM Kuantil (q50),356.05
-2027-01-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,265.81,532.14,578.62,0.9915,492.4,488.19,554.74,572.76,1.0345,0.0779,Smooth,LightGBM Kuantil (q50),532.14
-2027-01-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,316.64,324.96,393.91,0.997,342.35,341.33,348.93,396.75,1.0,0.0624,Smooth,LightGBM Kuantil (q50),324.96
-2027-01-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,236.99,375.37,463.41,0.9929,400.5,397.64,445.19,422.48,1.0,0.066,Smooth,LightGBM Kuantil (q50),375.37
-2027-01-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,289.36,331.49,343.78,0.9974,243.46,242.83,259.48,325.38,1.0,0.0737,Smooth,LightGBM Kuantil (q50),331.49
-2027-01-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,262.67,274.93,314.19,0.997,257.64,256.87,257.26,282.05,1.0,0.0614,Smooth,LightGBM Kuantil (q50),274.93
-2027-01-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,93.9,144.66,177.6,0.9917,140.64,139.47,127.11,158.06,1.0345,0.0993,Smooth,LightGBM Kuantil (q50),144.66
-2027-01-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,247.7,388.2,402.33,0.9896,380.53,376.58,321.74,420.11,1.0169,0.064,Smooth,LightGBM Kuantil (q50),388.2
-2027-01-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,543.8,714.35,745.11,0.9968,712.4,710.14,686.96,771.87,1.0,0.0472,Smooth,LightGBM Kuantil (q50),714.35
-2027-01-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,415.01,568.81,624.14,0.9973,620.35,618.66,606.07,632.29,1.0169,0.0653,Smooth,LightGBM Kuantil (q50),568.81
-2027-01-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,0.48,10.51,82.9,0.5852,48.29,28.26,13.93,36.84,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,28.26
-2027-01-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,0.12,1.58,45.26,0.3064,31.57,9.67,35.41,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,9.67
-2027-01-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,0.0,1.47,104.0,0.4072,91.51,37.26,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,37.26
-2027-01-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,1.26,47.57,78.91,0.8474,57.96,49.11,56.37,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,49.11
-2027-01-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,0.1,13.82,67.3,0.5142,63.19,32.49,83.3,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,32.49
-2027-01-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,0.04,16.02,61.48,0.4412,71.28,31.45,41.89,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,31.45
-2027-01-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,0.09,1.06,26.36,0.4477,12.7,5.69,9.78,8.43,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,5.69
-2027-01-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,0.0,14.27,29.09,0.6805,16.1,10.96,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,10.96
-2027-01-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,0.0,1.47,35.67,0.4248,28.53,12.12,0.0,11.6,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,12.12
-2027-01-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,0.09,1.65,36.03,0.4351,20.86,9.08,26.67,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,9.08
-2027-01-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,0.3,46.61,62.77,0.8707,40.11,34.93,19.11,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,34.93
-2027-01-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,0.0,10.81,106.01,0.3957,45.89,18.16,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,18.16
-2027-01-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,0.02,0.84,31.95,0.5892,30.07,17.72,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,17.72
-2027-01-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,0.0,0.28,25.92,0.2774,13.87,3.85,1.48,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,3.85
-2027-01-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,0.07,13.32,88.6,0.3404,55.28,18.82,55.74,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,18.82
-2027-01-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,0.29,2.33,36.21,0.4352,29.7,12.92,20.89,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,12.92
+periode,SKU_ID,nama_produk,kategori,pola_sbc,lgbm_tweedie,lgbm_q10,lgbm_q50,lgbm_q90,hurdle_prob_occ,hurdle_cond_mag,hurdle_pred,ma_pred,arima_pred,ADI,CV2,sbc_detail,model_terpilih,ramalan_terpilih
+2026-11-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,458.23,362.71,477.74,544.16,0.9947,519.84,517.07,489.67,560.8,1.0,0.0552,Smooth,LightGBM Tweedie,458.23
+2026-11-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,629.83,254.91,627.76,646.58,0.9703,592.45,574.88,727.67,605.65,1.0526,0.0474,Smooth,LightGBM Tweedie,629.83
+2026-11-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,546.68,245.2,516.15,565.03,0.9923,527.14,523.06,694.67,563.56,1.0345,0.061,Smooth,LightGBM Tweedie,546.68
+2026-11-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,389.66,168.96,431.86,473.49,0.9848,427.32,420.83,461.0,460.14,1.0345,0.0752,Smooth,LightGBM Tweedie,389.66
+2026-11-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,800.97,535.34,836.55,847.88,0.9972,838.7,836.36,895.0,960.3,1.0,0.0761,Smooth,LightGBM Tweedie,800.97
+2026-11-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,813.19,227.9,863.48,979.98,0.9589,915.38,877.79,935.33,1041.89,1.0345,0.0653,Smooth,LightGBM Tweedie,813.19
+2026-11-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,333.38,297.21,349.62,440.81,0.9964,360.66,359.37,402.33,431.73,1.0,0.0676,Smooth,LightGBM Tweedie,333.38
+2026-11-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,441.06,418.82,477.21,591.05,0.9977,519.07,517.85,713.0,626.84,1.0169,0.0748,Smooth,LightGBM Tweedie,441.06
+2026-11-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,309.7,278.12,320.5,337.35,0.9916,303.19,300.63,320.0,345.05,1.0169,0.0544,Smooth,LightGBM Tweedie,309.7
+2026-11-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,174.41,13.2,319.65,323.8,0.9523,192.01,182.86,116.33,283.34,1.0714,0.1043,Smooth,LightGBM Tweedie,174.41
+2026-11-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,159.27,124.97,214.13,243.47,0.9919,227.79,225.95,128.67,283.82,1.0169,0.0804,Smooth,LightGBM Tweedie,159.27
+2026-11-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,329.87,300.36,343.52,378.06,0.9895,368.46,364.6,357.0,433.67,1.0169,0.0896,Smooth,LightGBM Tweedie,329.87
+2026-11-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,456.02,363.69,456.82,524.7,0.991,472.11,467.87,427.0,510.45,1.0169,0.0534,Smooth,LightGBM Tweedie,456.02
+2026-11-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,471.24,477.99,489.53,560.48,0.9986,470.45,469.8,549.33,517.26,1.0,0.0634,Smooth,LightGBM Tweedie,471.24
+2026-11-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,315.13,240.99,310.53,379.47,0.9943,308.66,306.89,415.0,358.24,1.0169,0.057,Smooth,LightGBM Tweedie,315.13
+2026-11-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,579.86,299.33,514.03,604.74,0.9918,493.27,489.21,550.67,572.76,1.0345,0.0779,Smooth,LightGBM Tweedie,579.86
+2026-11-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,328.03,253.46,329.74,408.0,0.9982,342.78,342.16,378.33,396.75,1.0,0.0624,Smooth,LightGBM Tweedie,328.03
+2026-11-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,369.29,304.05,364.12,460.05,0.9975,380.5,379.53,403.67,448.44,1.0,0.066,Smooth,LightGBM Tweedie,369.29
+2026-11-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,287.94,284.08,300.22,322.21,0.995,267.65,266.33,250.33,325.38,1.0,0.0737,Smooth,LightGBM Tweedie,287.94
+2026-11-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,264.0,187.64,306.0,306.22,0.9977,248.42,247.84,275.33,282.05,1.0,0.0614,Smooth,LightGBM Tweedie,264.0
+2026-11-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,143.71,66.31,150.31,183.16,0.9904,149.41,147.98,130.0,158.06,1.0345,0.0993,Smooth,LightGBM Tweedie,143.71
+2026-11-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,354.93,304.67,369.45,410.79,0.9945,373.17,371.11,362.67,370.24,1.0169,0.064,Smooth,LightGBM Tweedie,354.93
+2026-11-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,627.09,525.46,674.94,717.81,0.9974,696.89,695.07,705.67,771.87,1.0,0.0472,Smooth,LightGBM Tweedie,627.09
+2026-11-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,584.35,437.08,594.21,649.71,0.9969,642.22,640.2,563.67,632.29,1.0169,0.0653,Smooth,LightGBM Tweedie,584.35
+2026-11-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,31.19,0.73,16.18,100.37,0.6666,53.37,35.58,23.33,44.74,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,35.58
+2026-11-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,7.7,0.27,3.38,37.28,0.4681,18.23,8.54,25.67,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,8.54
+2026-11-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,48.77,0.0,7.09,163.43,0.5264,69.41,36.54,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,36.54
+2026-11-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,58.39,1.2,60.88,84.36,0.9109,65.77,59.91,53.33,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,59.91
+2026-11-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,11.34,0.0,6.09,54.2,0.5338,43.39,23.16,59.67,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,23.16
+2026-11-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,20.08,0.41,15.99,92.99,0.5146,59.22,30.47,35.0,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,30.47
+2026-11-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,1.76,0.0,0.33,22.49,0.1851,16.49,3.05,15.0,6.2,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,3.05
+2026-11-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,16.29,0.1,12.6,26.51,0.8059,22.26,17.94,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,17.94
+2026-11-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,11.98,0.0,4.74,39.71,0.6049,28.39,17.17,0.0,12.87,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,17.17
+2026-11-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,8.88,0.34,6.85,41.56,0.5502,26.65,14.66,15.0,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,14.66
+2026-11-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,31.16,0.69,20.44,67.24,0.8542,49.58,42.35,16.0,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,42.35
+2026-11-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,20.12,0.0,5.21,90.95,0.578,79.39,45.89,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,45.89
+2026-11-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,4.27,0.02,3.89,34.35,0.5865,26.24,15.39,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,15.39
+2026-11-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,2.39,0.0,0.67,22.61,0.3726,12.93,4.82,3.33,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,4.82
+2026-11-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,45.12,1.03,34.06,115.7,0.7464,86.0,64.19,89.67,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,64.19
+2026-11-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,6.04,0.0,2.73,36.01,0.3368,20.01,6.74,20.0,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,6.74
+2026-12-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,432.48,340.36,433.0,547.4,0.994,525.33,522.19,479.22,560.8,1.0,0.0552,Smooth,LightGBM Tweedie,432.48
+2026-12-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,663.62,185.73,634.07,636.35,0.9826,619.67,608.91,653.89,605.65,1.0526,0.0474,Smooth,LightGBM Tweedie,663.62
+2026-12-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,510.48,288.52,547.32,639.28,0.9813,564.73,554.16,677.89,563.56,1.0345,0.061,Smooth,LightGBM Tweedie,510.48
+2026-12-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,367.44,177.88,429.53,468.83,0.957,425.69,407.41,489.67,478.58,1.0345,0.0752,Smooth,LightGBM Tweedie,367.44
+2026-12-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,800.2,543.27,843.73,882.63,0.9978,843.83,841.98,977.33,916.45,1.0,0.0761,Smooth,LightGBM Tweedie,800.2
+2026-12-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,784.54,237.48,872.98,1012.79,0.955,930.43,888.56,867.78,1041.89,1.0345,0.0653,Smooth,LightGBM Tweedie,784.54
+2026-12-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,335.16,343.96,345.31,414.09,0.9966,361.08,359.84,342.44,431.73,1.0,0.0676,Smooth,LightGBM Tweedie,335.16
+2026-12-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,544.78,519.78,547.27,638.87,0.998,546.26,545.16,753.67,626.84,1.0169,0.0748,Smooth,LightGBM Tweedie,544.78
+2026-12-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,255.46,236.77,319.84,381.94,0.9921,297.54,295.18,310.0,352.31,1.0169,0.0544,Smooth,LightGBM Tweedie,255.46
+2026-12-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,200.99,65.53,326.46,330.92,0.964,256.66,247.42,155.11,283.34,1.0714,0.1043,Smooth,LightGBM Tweedie,200.99
+2026-12-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,186.49,206.63,232.26,309.98,0.9937,259.94,258.3,171.56,283.82,1.0169,0.0804,Smooth,LightGBM Tweedie,186.49
+2026-12-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,350.19,336.01,353.21,413.97,0.9926,385.98,383.13,348.67,454.7,1.0169,0.0896,Smooth,LightGBM Tweedie,350.19
+2026-12-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,473.53,346.53,480.32,504.96,0.9923,493.13,489.32,416.0,510.45,1.0169,0.0534,Smooth,LightGBM Tweedie,473.53
+2026-12-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,475.71,369.13,493.77,542.49,0.9972,479.49,478.14,547.44,517.26,1.0,0.0634,Smooth,LightGBM Tweedie,475.71
+2026-12-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,299.13,301.0,305.06,358.35,0.9953,302.4,300.98,452.67,358.24,1.0169,0.057,Smooth,LightGBM Tweedie,299.13
+2026-12-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,506.45,316.48,509.02,579.07,0.9911,476.77,472.53,560.56,572.76,1.0345,0.0779,Smooth,LightGBM Tweedie,506.45
+2026-12-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,322.72,354.68,365.59,390.29,0.9955,344.77,343.21,388.44,396.75,1.0,0.0624,Smooth,LightGBM Tweedie,322.72
+2026-12-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,349.03,272.75,347.78,415.85,0.9942,380.94,378.73,431.89,429.46,1.0,0.066,Smooth,LightGBM Tweedie,349.03
+2026-12-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,284.37,280.27,290.59,331.73,0.9944,273.77,272.25,253.11,325.38,1.0,0.0737,Smooth,LightGBM Tweedie,284.37
+2026-12-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,265.26,210.66,307.11,308.88,0.9957,262.93,261.81,246.44,282.05,1.0,0.0614,Smooth,LightGBM Tweedie,265.26
+2026-12-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,146.58,90.66,122.54,197.73,0.9925,157.14,155.96,125.33,158.06,1.0345,0.0993,Smooth,LightGBM Tweedie,146.58
+2026-12-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,380.15,338.45,403.33,434.74,0.9857,390.74,385.14,350.56,408.03,1.0169,0.064,Smooth,LightGBM Tweedie,380.15
+2026-12-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,707.13,531.31,743.26,771.43,0.9978,705.94,704.38,695.22,771.87,1.0,0.0472,Smooth,LightGBM Tweedie,707.13
+2026-12-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,585.01,449.73,628.21,683.26,0.9976,653.99,652.43,585.56,632.29,1.0169,0.0653,Smooth,LightGBM Tweedie,585.01
+2026-12-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,55.42,1.58,54.51,117.88,0.7818,74.93,58.58,18.44,34.5,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,58.58
+2026-12-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,6.77,0.0,1.51,45.08,0.4937,20.67,10.21,26.56,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,10.21
+2026-12-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,23.16,0.0,6.8,165.12,0.4473,153.47,68.65,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,68.65
+2026-12-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,59.89,0.59,53.72,95.13,0.8295,85.79,71.16,58.78,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,71.16
+2026-12-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,39.22,0.11,26.47,82.44,0.6122,95.12,58.23,73.22,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,58.23
+2026-12-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,50.4,0.24,26.51,79.49,0.6457,77.22,49.86,46.67,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,49.86
+2026-12-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,1.71,0.03,0.4,19.32,0.1839,20.03,3.68,14.33,7.94,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,3.68
+2026-12-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,11.42,0.11,15.81,27.55,0.6607,24.03,15.88,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,15.88
+2026-12-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,8.69,0.0,2.46,36.12,0.5841,37.13,21.69,0.0,12.13,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,21.69
+2026-12-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,3.96,0.0,2.39,36.55,0.2493,23.27,5.8,20.0,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,5.8
+2026-12-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,17.63,0.12,17.28,63.02,0.5956,37.3,22.21,14.33,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,22.21
+2026-12-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,36.42,0.06,9.22,94.08,0.6882,47.25,32.52,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,32.52
+2026-12-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,2.0,0.01,1.39,26.62,0.451,40.1,18.08,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,18.08
+2026-12-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,1.55,0.0,0.62,22.64,0.3139,13.68,4.29,1.11,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,4.29
+2026-12-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,55.84,0.79,55.23,100.39,0.8345,59.94,50.02,77.56,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,50.02
+2026-12-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,3.43,0.01,0.61,30.71,0.253,22.73,5.75,26.67,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,5.75
+2027-01-01,SKU-001,Beras Premium 5kg,Bahan Pokok,Lancar,488.85,395.26,469.05,559.58,0.9978,507.36,506.23,480.63,560.8,1.0,0.0552,Smooth,LightGBM Tweedie,488.85
+2027-01-01,SKU-002,Minyak Goreng 2L,Bahan Pokok,Lancar,630.76,247.5,607.77,637.21,0.9846,620.38,610.81,644.19,605.65,1.0526,0.0474,Smooth,LightGBM Tweedie,630.76
+2027-01-01,SKU-003,Gula Pasir 1kg,Bahan Pokok,Lancar,511.27,420.26,529.39,608.94,0.9875,557.2,550.25,734.52,563.56,1.0345,0.061,Smooth,LightGBM Tweedie,511.27
+2027-01-01,SKU-004,Tepung Terigu 1kg,Bahan Pokok,Lancar,415.24,265.43,443.73,469.69,0.9627,428.74,412.74,437.89,482.08,1.0345,0.0752,Smooth,LightGBM Tweedie,415.24
+2027-01-01,SKU-005,Mie Instan Kardus (40pcs),Makanan & Minuman,Lancar,745.09,384.96,800.66,832.72,0.9926,827.51,821.42,1006.11,906.09,1.0,0.0761,Smooth,LightGBM Tweedie,745.09
+2027-01-01,SKU-006,Air Mineral Galon 19L,Makanan & Minuman,Lancar,862.34,211.2,925.57,1049.96,0.9467,942.05,891.87,877.37,1041.89,1.0345,0.0653,Smooth,LightGBM Tweedie,862.34
+2027-01-01,SKU-007,Kopi Bubuk Sachet Box,Makanan & Minuman,Lancar,345.24,327.68,358.25,374.54,0.9973,348.03,347.09,341.26,431.73,1.0,0.0676,Smooth,LightGBM Tweedie,345.24
+2027-01-01,SKU-008,Susu UHT Full Cream 1L,Makanan & Minuman,Lancar,499.02,491.89,531.56,586.6,0.9985,551.47,550.63,741.56,626.84,1.0169,0.0748,Smooth,LightGBM Tweedie,499.02
+2027-01-01,SKU-009,Teh Celup Box 50s,Makanan & Minuman,Lancar,273.01,261.23,352.55,379.57,0.9951,312.43,310.9,312.67,353.73,1.0169,0.0544,Smooth,LightGBM Tweedie,273.01
+2027-01-01,SKU-010,Biskuit Kaleng Assorted,Makanan & Minuman,Lancar,122.5,44.97,273.28,348.45,0.9519,233.99,222.73,90.48,283.34,1.0714,0.1043,Smooth,LightGBM Tweedie,122.5
+2027-01-01,SKU-011,Sirup Cocopandan 460ml,Makanan & Minuman,Lancar,170.3,182.54,184.82,259.54,0.9909,234.36,232.23,158.41,283.82,1.0169,0.0804,Smooth,LightGBM Tweedie,170.3
+2027-01-01,SKU-012,Kecap Manis Botol 520ml,Makanan & Minuman,Lancar,381.47,372.03,414.35,415.51,0.9935,383.55,381.05,347.56,459.27,1.0169,0.0896,Smooth,LightGBM Tweedie,381.47
+2027-01-01,SKU-013,Detergen Cair 800ml,Kebutuhan Rumah Tangga,Lancar,471.52,445.35,472.71,525.12,0.9953,478.72,476.46,414.33,510.45,1.0169,0.0534,Smooth,LightGBM Tweedie,471.52
+2027-01-01,SKU-014,Sabun Cuci Piring 755ml,Kebutuhan Rumah Tangga,Lancar,448.54,398.75,508.88,540.14,0.994,470.74,467.9,519.59,517.26,1.0,0.0634,Smooth,LightGBM Tweedie,448.54
+2027-01-01,SKU-015,Pembersih Lantai 780ml,Kebutuhan Rumah Tangga,Lancar,312.6,322.4,356.05,372.9,0.9942,317.46,315.62,497.56,358.24,1.0169,0.057,Smooth,LightGBM Tweedie,312.6
+2027-01-01,SKU-016,Tisu Wajah 250 Sheets,Kebutuhan Rumah Tangga,Lancar,564.11,265.81,532.14,578.62,0.9915,492.4,488.19,554.74,572.76,1.0345,0.0779,Smooth,LightGBM Tweedie,564.11
+2027-01-01,SKU-017,Popok Bayi M-34,Kebutuhan Rumah Tangga,Lancar,341.16,316.64,324.96,393.91,0.997,342.35,341.33,348.93,396.75,1.0,0.0624,Smooth,LightGBM Tweedie,341.16
+2027-01-01,SKU-018,Sabun Mandi Cair 450ml,Kebutuhan Rumah Tangga,Lancar,377.96,236.99,375.37,463.41,0.9929,400.5,397.64,445.19,422.48,1.0,0.066,Smooth,LightGBM Tweedie,377.96
+2027-01-01,SKU-019,Vitamin C 500mg Strip 10s,Kesehatan & Farmasi,Lancar,286.32,289.36,331.49,343.78,0.9974,243.46,242.83,259.48,325.38,1.0,0.0737,Smooth,LightGBM Tweedie,286.32
+2027-01-01,SKU-020,Minyak Kayu Putih 120ml,Kesehatan & Farmasi,Lancar,260.43,262.67,274.93,314.19,0.997,257.64,256.87,257.26,282.05,1.0,0.0614,Smooth,LightGBM Tweedie,260.43
+2027-01-01,SKU-021,Masker Medis Box 50s,Kesehatan & Farmasi,Lancar,138.75,93.9,144.66,177.6,0.9917,140.64,139.47,127.11,158.06,1.0345,0.0993,Smooth,LightGBM Tweedie,138.75
+2027-01-01,SKU-022,Kertas HVS A4 80gsm Rim,Perlengkapan B2B,Lancar,371.75,247.7,388.2,402.33,0.9896,380.53,376.58,321.74,420.11,1.0169,0.064,Smooth,LightGBM Tweedie,371.75
+2027-01-01,SKU-023,Kardus Packing 40x30x30,Perlengkapan B2B,Lancar,713.7,543.8,714.35,745.11,0.9968,712.4,710.14,686.96,771.87,1.0,0.0472,Smooth,LightGBM Tweedie,713.7
+2027-01-01,SKU-024,Lakban Bening 48mm Roll,Perlengkapan B2B,Lancar,574.58,415.01,568.81,624.14,0.9973,620.35,618.66,606.07,632.29,1.0169,0.0653,Smooth,LightGBM Tweedie,574.58
+2027-01-01,SKU-025,Minyak Zaitun Extra Virgin 1L,Bahan Pokok,Putus-putus,22.2,0.48,10.51,82.9,0.5852,48.29,28.26,13.93,36.84,1.7647,0.4823,Intermittent,Hurdle Dua Tahap,28.26
+2027-01-01,SKU-026,Tepung Almond Impor 1kg,Bahan Pokok,Putus-putus,4.27,0.12,1.58,45.26,0.3064,31.57,9.67,35.41,16.7,2.7273,0.5613,Lumpy,Hurdle Dua Tahap,9.67
+2027-01-01,SKU-027,Parcel Lebaran Eksklusif,Makanan & Minuman,Putus-putus,21.3,0.0,1.47,104.0,0.4072,91.51,37.26,0.0,34.58,3.5294,0.4405,Intermittent,Hurdle Dua Tahap,37.26
+2027-01-01,SKU-028,Kopi Single Origin Arabika 1kg,Makanan & Minuman,Putus-putus,36.8,1.26,47.57,78.91,0.8474,57.96,49.11,56.37,45.75,1.3333,0.2844,Intermittent,Hurdle Dua Tahap,49.11
+2027-01-01,SKU-029,Cokelat Couverture Block 2.5kg,Makanan & Minuman,Putus-putus,21.82,0.1,13.82,67.3,0.5142,63.19,32.49,83.3,36.94,1.5385,0.2667,Intermittent,Hurdle Dua Tahap,32.49
+2027-01-01,SKU-030,Disinfektan Industri 5L,Kebutuhan Rumah Tangga,Putus-putus,17.63,0.04,16.02,61.48,0.4412,71.28,31.45,41.89,34.44,1.9355,0.1308,Intermittent,Hurdle Dua Tahap,31.45
+2027-01-01,SKU-031,Karpet Anti Slip Gudang,Perlengkapan B2B,Putus-putus,3.86,0.09,1.06,26.36,0.4477,12.7,5.69,9.78,8.43,2.8571,0.2466,Intermittent,Hurdle Dua Tahap,5.69
+2027-01-01,SKU-032,Toner Printer Laserjet Pro,Perlengkapan B2B,Putus-putus,14.16,0.0,14.27,29.09,0.6805,16.1,10.96,0.0,11.33,1.8182,0.1656,Intermittent,Hurdle Dua Tahap,10.96
+2027-01-01,SKU-033,Termometer Inframerah Medis,Kesehatan & Farmasi,Putus-putus,6.42,0.0,1.47,35.67,0.4248,28.53,12.12,0.0,11.6,2.6087,0.3954,Intermittent,Hurdle Dua Tahap,12.12
+2027-01-01,SKU-034,Kit P3K Lengkap Perusahaan,Kesehatan & Farmasi,Putus-putus,4.31,0.09,1.65,36.03,0.4351,20.86,9.08,26.67,13.85,2.3077,0.2326,Intermittent,Hurdle Dua Tahap,9.08
+2027-01-01,SKU-035,Suplemen Herbal Imunitas Botol,Kesehatan & Farmasi,Putus-putus,32.27,0.3,46.61,62.77,0.8707,40.11,34.93,19.11,31.1,1.5385,0.2855,Intermittent,Hurdle Dua Tahap,34.93
+2027-01-01,SKU-036,Sarung Tangan Nitrile Box 100s,Kesehatan & Farmasi,Putus-putus,10.12,0.0,10.81,106.01,0.3957,45.89,18.16,0.0,37.6,2.1429,0.3253,Intermittent,Hurdle Dua Tahap,18.16
+2027-01-01,SKU-037,Pallet Plastik Heavy Duty,Perlengkapan B2B,Putus-putus,2.7,0.02,0.84,31.95,0.5892,30.07,17.72,0.0,12.24,2.2222,0.244,Intermittent,Hurdle Dua Tahap,17.72
+2027-01-01,SKU-038,Timbangan Digital Gudang 150kg,Perlengkapan B2B,Putus-putus,2.01,0.0,0.28,25.92,0.2774,13.87,3.85,1.48,4.02,3.3333,0.2833,Intermittent,Hurdle Dua Tahap,3.85
+2027-01-01,SKU-039,Stretch Film Roll 50cm x 300m,Perlengkapan B2B,Putus-putus,17.84,0.07,13.32,88.6,0.3404,55.28,18.82,55.74,61.07,1.875,0.1835,Intermittent,Hurdle Dua Tahap,18.82
+2027-01-01,SKU-040,Saus Truffle Premium 500g,Bahan Pokok,Putus-putus,8.25,0.29,2.33,36.21,0.4352,29.7,12.92,20.89,11.97,2.5,0.2288,Intermittent,Hurdle Dua Tahap,12.92

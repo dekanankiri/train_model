@@ -1,124 +1,124 @@
 SKU_ID,pola_sbc,model_penjelas,peringkat_faktor,fitur,rata_rata_nilai_fitur,shap_kontribusi,arah_pengaruh,satuan_efek
-SKU-001,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.7062,Menaikkan,skor_log_ramalan
-SKU-001,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,589.93,0.3457,Menaikkan,skor_log_ramalan
-SKU-001,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,477.124,0.2899,Menaikkan,skor_log_ramalan
-SKU-001,Lancar,LightGBM Kuantil (q50),4,harga,80900.0,0.1955,Menaikkan,skor_log_ramalan
-SKU-001,Lancar,LightGBM Kuantil (q50),5,lag_1,461.247,0.0655,Menaikkan,skor_log_ramalan
-SKU-002,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.8201,Menaikkan,skor_log_ramalan
-SKU-002,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,628.044,0.3801,Menaikkan,skor_log_ramalan
-SKU-002,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,645.764,0.3206,Menaikkan,skor_log_ramalan
-SKU-002,Lancar,LightGBM Kuantil (q50),4,harga,42800.0,0.2172,Menaikkan,skor_log_ramalan
-SKU-002,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,650.842,0.0762,Menaikkan,skor_log_ramalan
-SKU-003,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.6847,Menaikkan,skor_log_ramalan
-SKU-003,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,641.323,0.3728,Menaikkan,skor_log_ramalan
-SKU-003,Lancar,LightGBM Kuantil (q50),3,harga,17100.0,0.3089,Menaikkan,skor_log_ramalan
-SKU-003,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,614.72,0.2586,Menaikkan,skor_log_ramalan
-SKU-003,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,648.179,0.0709,Menaikkan,skor_log_ramalan
-SKU-004,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.6311,Menaikkan,skor_log_ramalan
-SKU-004,Lancar,LightGBM Kuantil (q50),2,harga,15800.0,0.3224,Menaikkan,skor_log_ramalan
-SKU-004,Lancar,LightGBM Kuantil (q50),3,rolling_mean_12,497.757,0.2589,Menaikkan,skor_log_ramalan
-SKU-004,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,444.898,0.2421,Menaikkan,skor_log_ramalan
-SKU-004,Lancar,LightGBM Kuantil (q50),5,promo,0.0,-0.0638,Menurunkan,skor_log_ramalan
-SKU-005,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.9283,Menaikkan,skor_log_ramalan
-SKU-005,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,894.384,0.5781,Menaikkan,skor_log_ramalan
-SKU-005,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,887.455,0.3571,Menaikkan,skor_log_ramalan
-SKU-005,Lancar,LightGBM Kuantil (q50),4,harga,107700.0,0.1294,Menaikkan,skor_log_ramalan
-SKU-005,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,931.649,0.0833,Menaikkan,skor_log_ramalan
-SKU-006,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.8977,Menaikkan,skor_log_ramalan
-SKU-006,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,1099.748,0.5551,Menaikkan,skor_log_ramalan
-SKU-006,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,892.327,0.306,Menaikkan,skor_log_ramalan
-SKU-006,Lancar,LightGBM Kuantil (q50),4,harga,24700.0,0.2886,Menaikkan,skor_log_ramalan
-SKU-006,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,878.104,0.0881,Menaikkan,skor_log_ramalan
-SKU-007,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5141,Menaikkan,skor_log_ramalan
-SKU-007,Lancar,LightGBM Kuantil (q50),2,rolling_median_6,359.04,0.2694,Menaikkan,skor_log_ramalan
-SKU-007,Lancar,LightGBM Kuantil (q50),3,harga,54700.0,0.2505,Menaikkan,skor_log_ramalan
-SKU-007,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,430.793,0.1998,Menaikkan,skor_log_ramalan
-SKU-007,Lancar,LightGBM Kuantil (q50),5,lag_1,324.642,0.0646,Menaikkan,skor_log_ramalan
-SKU-008,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.6997,Menaikkan,skor_log_ramalan
-SKU-008,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,652.186,0.3687,Menaikkan,skor_log_ramalan
-SKU-008,Lancar,LightGBM Kuantil (q50),3,harga,18300.0,0.2866,Menaikkan,skor_log_ramalan
-SKU-008,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,634.833,0.2626,Menaikkan,skor_log_ramalan
-SKU-008,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,660.744,0.0735,Menaikkan,skor_log_ramalan
-SKU-009,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.4269,Menaikkan,skor_log_ramalan
-SKU-009,Lancar,LightGBM Kuantil (q50),2,harga,15500.0,0.3518,Menaikkan,skor_log_ramalan
-SKU-009,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,321.14,0.2071,Menaikkan,skor_log_ramalan
-SKU-009,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,358.468,0.162,Menaikkan,skor_log_ramalan
-SKU-009,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,315.427,0.059,Menaikkan,skor_log_ramalan
-SKU-010,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5271,Menaikkan,skor_log_ramalan
-SKU-010,Lancar,LightGBM Kuantil (q50),2,harga,54500.0,0.3319,Menaikkan,skor_log_ramalan
-SKU-010,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,313.46,0.2572,Menaikkan,skor_log_ramalan
-SKU-010,Lancar,LightGBM Kuantil (q50),4,lead_time_hari,5.0,0.0907,Menaikkan,skor_log_ramalan
-SKU-010,Lancar,LightGBM Kuantil (q50),5,nonzero_rate_12,0.833,0.0629,Menaikkan,skor_log_ramalan
-SKU-011,Lancar,LightGBM Kuantil (q50),1,harga,26600.0,0.4683,Menaikkan,skor_log_ramalan
-SKU-011,Lancar,LightGBM Kuantil (q50),2,SKU_ID,,0.2901,Menaikkan,skor_log_ramalan
-SKU-011,Lancar,LightGBM Kuantil (q50),3,lead_time_hari,6.0,0.0923,Menaikkan,skor_log_ramalan
-SKU-011,Lancar,LightGBM Kuantil (q50),4,nonzero_rate_12,0.917,0.0639,Menaikkan,skor_log_ramalan
-SKU-011,Lancar,LightGBM Kuantil (q50),5,rolling_median_6,214.042,0.0601,Menaikkan,skor_log_ramalan
-SKU-012,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5074,Menaikkan,skor_log_ramalan
-SKU-012,Lancar,LightGBM Kuantil (q50),2,harga,27500.0,0.3396,Menaikkan,skor_log_ramalan
-SKU-012,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,369.868,0.2188,Menaikkan,skor_log_ramalan
-SKU-012,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,462.674,0.206,Menaikkan,skor_log_ramalan
-SKU-012,Lancar,LightGBM Kuantil (q50),5,promo,0.0,-0.0595,Menurunkan,skor_log_ramalan
-SKU-013,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.6715,Menaikkan,skor_log_ramalan
-SKU-013,Lancar,LightGBM Kuantil (q50),2,harga,26100.0,0.312,Menaikkan,skor_log_ramalan
-SKU-013,Lancar,LightGBM Kuantil (q50),3,rolling_mean_12,529.138,0.2949,Menaikkan,skor_log_ramalan
-SKU-013,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,460.107,0.2431,Menaikkan,skor_log_ramalan
-SKU-013,Lancar,LightGBM Kuantil (q50),5,lag_12,630.667,0.063,Menaikkan,skor_log_ramalan
-SKU-014,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.6306,Menaikkan,skor_log_ramalan
-SKU-014,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,563.579,0.332,Menaikkan,skor_log_ramalan
-SKU-014,Lancar,LightGBM Kuantil (q50),3,harga,19200.0,0.3166,Menaikkan,skor_log_ramalan
-SKU-014,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,548.462,0.2605,Menaikkan,skor_log_ramalan
-SKU-014,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,519.537,0.0618,Menaikkan,skor_log_ramalan
-SKU-015,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.4195,Menaikkan,skor_log_ramalan
-SKU-015,Lancar,LightGBM Kuantil (q50),2,harga,14200.0,0.3316,Menaikkan,skor_log_ramalan
-SKU-015,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,329.754,0.2093,Menaikkan,skor_log_ramalan
-SKU-015,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,364.198,0.1819,Menaikkan,skor_log_ramalan
-SKU-015,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,415.457,0.0708,Menaikkan,skor_log_ramalan
-SKU-016,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.726,Menaikkan,skor_log_ramalan
-SKU-016,Lancar,LightGBM Kuantil (q50),2,harga,16500.0,0.3237,Menaikkan,skor_log_ramalan
-SKU-016,Lancar,LightGBM Kuantil (q50),3,rolling_mean_12,517.502,0.2957,Menaikkan,skor_log_ramalan
-SKU-016,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,524.0,0.2588,Menaikkan,skor_log_ramalan
-SKU-016,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,541.454,0.077,Menaikkan,skor_log_ramalan
-SKU-017,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5062,Menaikkan,skor_log_ramalan
-SKU-017,Lancar,LightGBM Kuantil (q50),2,rolling_median_6,351.247,0.2585,Menaikkan,skor_log_ramalan
-SKU-017,Lancar,LightGBM Kuantil (q50),3,harga,77600.0,0.2389,Menaikkan,skor_log_ramalan
-SKU-017,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,427.613,0.2041,Menaikkan,skor_log_ramalan
-SKU-017,Lancar,LightGBM Kuantil (q50),5,promo,0.0,-0.0609,Menurunkan,skor_log_ramalan
-SKU-018,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5712,Menaikkan,skor_log_ramalan
-SKU-018,Lancar,LightGBM Kuantil (q50),2,rolling_median_6,411.02,0.268,Menaikkan,skor_log_ramalan
-SKU-018,Lancar,LightGBM Kuantil (q50),3,harga,29000.0,0.2663,Menaikkan,skor_log_ramalan
-SKU-018,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,440.279,0.1838,Menaikkan,skor_log_ramalan
-SKU-018,Lancar,LightGBM Kuantil (q50),5,lag_1,403.969,0.0692,Menaikkan,skor_log_ramalan
-SKU-019,Lancar,LightGBM Kuantil (q50),1,harga,20600.0,0.3912,Menaikkan,skor_log_ramalan
-SKU-019,Lancar,LightGBM Kuantil (q50),2,SKU_ID,,0.3401,Menaikkan,skor_log_ramalan
-SKU-019,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,272.931,0.2014,Menaikkan,skor_log_ramalan
-SKU-019,Lancar,LightGBM Kuantil (q50),4,rolling_mean_12,317.39,0.0945,Menaikkan,skor_log_ramalan
-SKU-019,Lancar,LightGBM Kuantil (q50),5,lead_time_hari,6.0,0.0703,Menaikkan,skor_log_ramalan
-SKU-020,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.3712,Menaikkan,skor_log_ramalan
-SKU-020,Lancar,LightGBM Kuantil (q50),2,harga,52800.0,0.3225,Menaikkan,skor_log_ramalan
-SKU-020,Lancar,LightGBM Kuantil (q50),3,rolling_median_6,275.667,0.2482,Menaikkan,skor_log_ramalan
-SKU-020,Lancar,LightGBM Kuantil (q50),4,lag_1,287.705,0.1166,Menaikkan,skor_log_ramalan
-SKU-020,Lancar,LightGBM Kuantil (q50),5,lead_time_hari,7.0,0.0706,Menaikkan,skor_log_ramalan
-SKU-021,Lancar,LightGBM Kuantil (q50),1,rolling_median_6,131.833,-0.4613,Menurunkan,skor_log_ramalan
-SKU-021,Lancar,LightGBM Kuantil (q50),2,harga,31500.0,0.3989,Menaikkan,skor_log_ramalan
-SKU-021,Lancar,LightGBM Kuantil (q50),3,SKU_ID,,0.2455,Menaikkan,skor_log_ramalan
-SKU-021,Lancar,LightGBM Kuantil (q50),4,lead_time_hari,3.0,0.0933,Menaikkan,skor_log_ramalan
-SKU-021,Lancar,LightGBM Kuantil (q50),5,nonzero_rate_12,1.0,0.0799,Menaikkan,skor_log_ramalan
-SKU-022,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.5898,Menaikkan,skor_log_ramalan
-SKU-022,Lancar,LightGBM Kuantil (q50),2,rolling_median_6,426.555,0.2914,Menaikkan,skor_log_ramalan
-SKU-022,Lancar,LightGBM Kuantil (q50),3,rolling_mean_12,464.423,0.2241,Menaikkan,skor_log_ramalan
-SKU-022,Lancar,LightGBM Kuantil (q50),4,harga,60000.0,0.2201,Menaikkan,skor_log_ramalan
-SKU-022,Lancar,LightGBM Kuantil (q50),5,promo,0.0,-0.0587,Menurunkan,skor_log_ramalan
-SKU-023,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.8424,Menaikkan,skor_log_ramalan
-SKU-023,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,778.198,0.4815,Menaikkan,skor_log_ramalan
-SKU-023,Lancar,LightGBM Kuantil (q50),3,harga,13000.0,0.3091,Menaikkan,skor_log_ramalan
-SKU-023,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,733.667,0.2734,Menaikkan,skor_log_ramalan
-SKU-023,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,694.461,0.0805,Menaikkan,skor_log_ramalan
-SKU-024,Lancar,LightGBM Kuantil (q50),1,SKU_ID,,0.7668,Menaikkan,skor_log_ramalan
-SKU-024,Lancar,LightGBM Kuantil (q50),2,rolling_mean_12,685.878,0.4048,Menaikkan,skor_log_ramalan
-SKU-024,Lancar,LightGBM Kuantil (q50),3,harga,14600.0,0.2975,Menaikkan,skor_log_ramalan
-SKU-024,Lancar,LightGBM Kuantil (q50),4,rolling_median_6,628.271,0.2601,Menaikkan,skor_log_ramalan
-SKU-024,Lancar,LightGBM Kuantil (q50),5,rolling_mean_3,596.625,0.0753,Menaikkan,skor_log_ramalan
+SKU-001,Lancar,LightGBM Tweedie,1,rolling_median_6,473.539,0.4829,Menaikkan,skor_log_tweedie
+SKU-001,Lancar,LightGBM Tweedie,2,rolling_mean_3,470.994,0.2948,Menaikkan,skor_log_tweedie
+SKU-001,Lancar,LightGBM Tweedie,3,rolling_mean_12,588.832,0.2754,Menaikkan,skor_log_tweedie
+SKU-001,Lancar,LightGBM Tweedie,4,SKU_ID,,0.2529,Menaikkan,skor_log_tweedie
+SKU-001,Lancar,LightGBM Tweedie,5,harga,80900.0,0.2271,Menaikkan,skor_log_tweedie
+SKU-002,Lancar,LightGBM Tweedie,1,rolling_median_6,651.38,0.4994,Menaikkan,skor_log_tweedie
+SKU-002,Lancar,LightGBM Tweedie,2,SKU_ID,,0.3911,Menaikkan,skor_log_tweedie
+SKU-002,Lancar,LightGBM Tweedie,3,rolling_mean_3,654.586,0.331,Menaikkan,skor_log_tweedie
+SKU-002,Lancar,LightGBM Tweedie,4,rolling_mean_12,628.98,0.3298,Menaikkan,skor_log_tweedie
+SKU-002,Lancar,LightGBM Tweedie,5,harga,42800.0,0.2275,Menaikkan,skor_log_tweedie
+SKU-003,Lancar,LightGBM Tweedie,1,rolling_median_6,614.613,0.5153,Menaikkan,skor_log_tweedie
+SKU-003,Lancar,LightGBM Tweedie,2,rolling_mean_3,650.871,0.3339,Menaikkan,skor_log_tweedie
+SKU-003,Lancar,LightGBM Tweedie,3,rolling_mean_12,641.995,0.2941,Menaikkan,skor_log_tweedie
+SKU-003,Lancar,LightGBM Tweedie,4,SKU_ID,,0.2486,Menaikkan,skor_log_tweedie
+SKU-003,Lancar,LightGBM Tweedie,5,harga,17100.0,0.2485,Menaikkan,skor_log_tweedie
+SKU-004,Lancar,LightGBM Tweedie,1,rolling_median_6,422.552,0.4767,Menaikkan,skor_log_tweedie
+SKU-004,Lancar,LightGBM Tweedie,2,rolling_mean_12,493.688,0.2861,Menaikkan,skor_log_tweedie
+SKU-004,Lancar,LightGBM Tweedie,3,rolling_mean_3,433.417,0.2831,Menaikkan,skor_log_tweedie
+SKU-004,Lancar,LightGBM Tweedie,4,harga,15800.0,0.2402,Menaikkan,skor_log_tweedie
+SKU-004,Lancar,LightGBM Tweedie,5,SKU_ID,,0.1218,Menaikkan,skor_log_tweedie
+SKU-005,Lancar,LightGBM Tweedie,1,SKU_ID,,0.5661,Menaikkan,skor_log_tweedie
+SKU-005,Lancar,LightGBM Tweedie,2,rolling_median_6,880.328,0.562,Menaikkan,skor_log_tweedie
+SKU-005,Lancar,LightGBM Tweedie,3,rolling_mean_12,891.198,0.4462,Menaikkan,skor_log_tweedie
+SKU-005,Lancar,LightGBM Tweedie,4,rolling_mean_3,918.904,0.3574,Menaikkan,skor_log_tweedie
+SKU-005,Lancar,LightGBM Tweedie,5,harga,107700.0,0.1526,Menaikkan,skor_log_tweedie
+SKU-006,Lancar,LightGBM Tweedie,1,SKU_ID,,0.546,Menaikkan,skor_log_tweedie
+SKU-006,Lancar,LightGBM Tweedie,2,rolling_median_6,879.5,0.5295,Menaikkan,skor_log_tweedie
+SKU-006,Lancar,LightGBM Tweedie,3,rolling_mean_12,1094.498,0.4883,Menaikkan,skor_log_tweedie
+SKU-006,Lancar,LightGBM Tweedie,4,rolling_mean_3,857.102,0.3353,Menaikkan,skor_log_tweedie
+SKU-006,Lancar,LightGBM Tweedie,5,harga,24700.0,0.2316,Menaikkan,skor_log_tweedie
+SKU-007,Lancar,LightGBM Tweedie,1,rolling_median_6,356.026,0.4482,Menaikkan,skor_log_tweedie
+SKU-007,Lancar,LightGBM Tweedie,2,rolling_mean_3,345.88,0.2941,Menaikkan,skor_log_tweedie
+SKU-007,Lancar,LightGBM Tweedie,3,rolling_mean_12,429.609,0.2342,Menaikkan,skor_log_tweedie
+SKU-007,Lancar,LightGBM Tweedie,4,harga,54700.0,0.2299,Menaikkan,skor_log_tweedie
+SKU-007,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0765,Menurunkan,skor_log_tweedie
+SKU-008,Lancar,LightGBM Tweedie,1,rolling_median_6,634.833,0.5039,Menaikkan,skor_log_tweedie
+SKU-008,Lancar,LightGBM Tweedie,2,rolling_mean_3,652.435,0.3039,Menaikkan,skor_log_tweedie
+SKU-008,Lancar,LightGBM Tweedie,3,rolling_mean_12,650.109,0.2936,Menaikkan,skor_log_tweedie
+SKU-008,Lancar,LightGBM Tweedie,4,SKU_ID,,0.2824,Menaikkan,skor_log_tweedie
+SKU-008,Lancar,LightGBM Tweedie,5,harga,18300.0,0.2407,Menaikkan,skor_log_tweedie
+SKU-009,Lancar,LightGBM Tweedie,1,rolling_median_6,315.568,0.4206,Menaikkan,skor_log_tweedie
+SKU-009,Lancar,LightGBM Tweedie,2,rolling_mean_3,305.874,0.2875,Menaikkan,skor_log_tweedie
+SKU-009,Lancar,LightGBM Tweedie,3,harga,15500.0,0.2531,Menaikkan,skor_log_tweedie
+SKU-009,Lancar,LightGBM Tweedie,4,rolling_mean_12,356.08,0.1934,Menaikkan,skor_log_tweedie
+SKU-009,Lancar,LightGBM Tweedie,5,SKU_ID,,-0.077,Menurunkan,skor_log_tweedie
+SKU-010,Lancar,LightGBM Tweedie,1,rolling_median_6,244.133,0.3245,Menaikkan,skor_log_tweedie
+SKU-010,Lancar,LightGBM Tweedie,2,harga,54500.0,0.3006,Menaikkan,skor_log_tweedie
+SKU-010,Lancar,LightGBM Tweedie,3,SKU_ID,,-0.1838,Menurunkan,skor_log_tweedie
+SKU-010,Lancar,LightGBM Tweedie,4,rolling_mean_12,296.411,0.168,Menaikkan,skor_log_tweedie
+SKU-010,Lancar,LightGBM Tweedie,5,rolling_mean_3,138.644,-0.1215,Menurunkan,skor_log_tweedie
+SKU-011,Lancar,LightGBM Tweedie,1,harga,26600.0,0.2998,Menaikkan,skor_log_tweedie
+SKU-011,Lancar,LightGBM Tweedie,2,rolling_median_6,196.915,0.2207,Menaikkan,skor_log_tweedie
+SKU-011,Lancar,LightGBM Tweedie,3,SKU_ID,,-0.2032,Menurunkan,skor_log_tweedie
+SKU-011,Lancar,LightGBM Tweedie,4,rolling_mean_12,271.417,0.1523,Menaikkan,skor_log_tweedie
+SKU-011,Lancar,LightGBM Tweedie,5,rolling_mean_3,161.335,0.0774,Menaikkan,skor_log_tweedie
+SKU-012,Lancar,LightGBM Tweedie,1,rolling_median_6,369.364,0.4369,Menaikkan,skor_log_tweedie
+SKU-012,Lancar,LightGBM Tweedie,2,rolling_mean_3,345.215,0.2909,Menaikkan,skor_log_tweedie
+SKU-012,Lancar,LightGBM Tweedie,3,rolling_mean_12,461.831,0.2488,Menaikkan,skor_log_tweedie
+SKU-012,Lancar,LightGBM Tweedie,4,harga,27500.0,0.244,Menaikkan,skor_log_tweedie
+SKU-012,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0759,Menurunkan,skor_log_tweedie
+SKU-013,Lancar,LightGBM Tweedie,1,rolling_median_6,459.839,0.484,Menaikkan,skor_log_tweedie
+SKU-013,Lancar,LightGBM Tweedie,2,rolling_mean_3,431.952,0.3042,Menaikkan,skor_log_tweedie
+SKU-013,Lancar,LightGBM Tweedie,3,rolling_mean_12,528.905,0.302,Menaikkan,skor_log_tweedie
+SKU-013,Lancar,LightGBM Tweedie,4,harga,26100.0,0.2386,Menaikkan,skor_log_tweedie
+SKU-013,Lancar,LightGBM Tweedie,5,SKU_ID,,0.2092,Menaikkan,skor_log_tweedie
+SKU-014,Lancar,LightGBM Tweedie,1,rolling_median_6,545.451,0.503,Menaikkan,skor_log_tweedie
+SKU-014,Lancar,LightGBM Tweedie,2,rolling_mean_3,513.465,0.3079,Menaikkan,skor_log_tweedie
+SKU-014,Lancar,LightGBM Tweedie,3,rolling_mean_12,562.061,0.2889,Menaikkan,skor_log_tweedie
+SKU-014,Lancar,LightGBM Tweedie,4,harga,19200.0,0.2413,Menaikkan,skor_log_tweedie
+SKU-014,Lancar,LightGBM Tweedie,5,SKU_ID,,0.192,Menaikkan,skor_log_tweedie
+SKU-015,Lancar,LightGBM Tweedie,1,rolling_median_6,330.521,0.4402,Menaikkan,skor_log_tweedie
+SKU-015,Lancar,LightGBM Tweedie,2,rolling_mean_3,415.82,0.2816,Menaikkan,skor_log_tweedie
+SKU-015,Lancar,LightGBM Tweedie,3,harga,14200.0,0.2407,Menaikkan,skor_log_tweedie
+SKU-015,Lancar,LightGBM Tweedie,4,rolling_mean_12,364.288,0.2106,Menaikkan,skor_log_tweedie
+SKU-015,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0704,Menurunkan,skor_log_tweedie
+SKU-016,Lancar,LightGBM Tweedie,1,rolling_median_6,534.667,0.5238,Menaikkan,skor_log_tweedie
+SKU-016,Lancar,LightGBM Tweedie,2,SKU_ID,,0.3272,Menaikkan,skor_log_tweedie
+SKU-016,Lancar,LightGBM Tweedie,3,rolling_mean_3,555.797,0.3212,Menaikkan,skor_log_tweedie
+SKU-016,Lancar,LightGBM Tweedie,4,rolling_mean_12,521.088,0.275,Menaikkan,skor_log_tweedie
+SKU-016,Lancar,LightGBM Tweedie,5,harga,16500.0,0.2389,Menaikkan,skor_log_tweedie
+SKU-017,Lancar,LightGBM Tweedie,1,rolling_median_6,346.462,0.4468,Menaikkan,skor_log_tweedie
+SKU-017,Lancar,LightGBM Tweedie,2,rolling_mean_3,353.419,0.2892,Menaikkan,skor_log_tweedie
+SKU-017,Lancar,LightGBM Tweedie,3,harga,77600.0,0.2337,Menaikkan,skor_log_tweedie
+SKU-017,Lancar,LightGBM Tweedie,4,rolling_mean_12,426.327,0.2331,Menaikkan,skor_log_tweedie
+SKU-017,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0752,Menurunkan,skor_log_tweedie
+SKU-018,Lancar,LightGBM Tweedie,1,rolling_median_6,411.882,0.465,Menaikkan,skor_log_tweedie
+SKU-018,Lancar,LightGBM Tweedie,2,rolling_mean_3,410.068,0.2877,Menaikkan,skor_log_tweedie
+SKU-018,Lancar,LightGBM Tweedie,3,harga,29000.0,0.2309,Menaikkan,skor_log_tweedie
+SKU-018,Lancar,LightGBM Tweedie,4,rolling_mean_12,440.6,0.2213,Menaikkan,skor_log_tweedie
+SKU-018,Lancar,LightGBM Tweedie,5,SKU_ID,,0.114,Menaikkan,skor_log_tweedie
+SKU-019,Lancar,LightGBM Tweedie,1,rolling_median_6,271.895,0.4075,Menaikkan,skor_log_tweedie
+SKU-019,Lancar,LightGBM Tweedie,2,rolling_mean_3,266.138,0.2833,Menaikkan,skor_log_tweedie
+SKU-019,Lancar,LightGBM Tweedie,3,harga,20600.0,0.2588,Menaikkan,skor_log_tweedie
+SKU-019,Lancar,LightGBM Tweedie,4,rolling_mean_12,316.534,0.1495,Menaikkan,skor_log_tweedie
+SKU-019,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0685,Menurunkan,skor_log_tweedie
+SKU-020,Lancar,LightGBM Tweedie,1,rolling_median_6,264.21,0.4197,Menaikkan,skor_log_tweedie
+SKU-020,Lancar,LightGBM Tweedie,2,rolling_mean_3,259.251,0.2765,Menaikkan,skor_log_tweedie
+SKU-020,Lancar,LightGBM Tweedie,3,harga,52800.0,0.239,Menaikkan,skor_log_tweedie
+SKU-020,Lancar,LightGBM Tweedie,4,rolling_mean_12,290.896,0.1452,Menaikkan,skor_log_tweedie
+SKU-020,Lancar,LightGBM Tweedie,5,SKU_ID,,-0.1004,Menurunkan,skor_log_tweedie
+SKU-021,Lancar,LightGBM Tweedie,1,harga,31500.0,0.3664,Menaikkan,skor_log_tweedie
+SKU-021,Lancar,LightGBM Tweedie,2,rolling_mean_3,132.89,-0.2047,Menurunkan,skor_log_tweedie
+SKU-021,Lancar,LightGBM Tweedie,3,rolling_median_6,134.905,0.1492,Menaikkan,skor_log_tweedie
+SKU-021,Lancar,LightGBM Tweedie,4,cos_bulan,0.789,0.078,Menaikkan,skor_log_tweedie
+SKU-021,Lancar,LightGBM Tweedie,5,lead_time_hari,3.0,0.0682,Menaikkan,skor_log_tweedie
+SKU-022,Lancar,LightGBM Tweedie,1,rolling_median_6,422.691,0.4701,Menaikkan,skor_log_tweedie
+SKU-022,Lancar,LightGBM Tweedie,2,rolling_mean_3,346.556,0.2869,Menaikkan,skor_log_tweedie
+SKU-022,Lancar,LightGBM Tweedie,3,rolling_mean_12,462.972,0.2545,Menaikkan,skor_log_tweedie
+SKU-022,Lancar,LightGBM Tweedie,4,harga,60000.0,0.2336,Menaikkan,skor_log_tweedie
+SKU-022,Lancar,LightGBM Tweedie,5,promo,0.0,-0.0749,Menurunkan,skor_log_tweedie
+SKU-023,Lancar,LightGBM Tweedie,1,rolling_median_6,728.689,0.509,Menaikkan,skor_log_tweedie
+SKU-023,Lancar,LightGBM Tweedie,2,SKU_ID,,0.4831,Menaikkan,skor_log_tweedie
+SKU-023,Lancar,LightGBM Tweedie,3,rolling_mean_12,774.536,0.3662,Menaikkan,skor_log_tweedie
+SKU-023,Lancar,LightGBM Tweedie,4,rolling_mean_3,679.813,0.3351,Menaikkan,skor_log_tweedie
+SKU-023,Lancar,LightGBM Tweedie,5,harga,13000.0,0.2372,Menaikkan,skor_log_tweedie
+SKU-024,Lancar,LightGBM Tweedie,1,rolling_median_6,617.787,0.5023,Menaikkan,skor_log_tweedie
+SKU-024,Lancar,LightGBM Tweedie,2,SKU_ID,,0.3706,Menaikkan,skor_log_tweedie
+SKU-024,Lancar,LightGBM Tweedie,3,rolling_mean_3,589.635,0.3297,Menaikkan,skor_log_tweedie
+SKU-024,Lancar,LightGBM Tweedie,4,rolling_mean_12,684.131,0.292,Menaikkan,skor_log_tweedie
+SKU-024,Lancar,LightGBM Tweedie,5,harga,14600.0,0.2431,Menaikkan,skor_log_tweedie
 SKU-025,Putus-putus,Hurdle Dua Tahap,1,rolling_median_6,34.693,-0.6258,Menurunkan,skor_gabungan_log
 SKU-025,Putus-putus,Hurdle Dua Tahap,2,rolling_mean_3,25.748,-0.4568,Menurunkan,skor_gabungan_log
 SKU-025,Putus-putus,Hurdle Dua Tahap,3,rolling_mean_12,47.27,-0.2383,Menurunkan,skor_gabungan_log
