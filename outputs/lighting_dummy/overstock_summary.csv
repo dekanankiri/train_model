@@ -1,0 +1,21 @@
+SKU_ID,nama_produk,kategori,lokasi_gudang,stok_tersedia,safety_stock,ramalan_horizon,kebutuhan_aman_horizon,kelebihan_stok,umur_stok_hari,status_stok
+LGT-012,Streetlight PJU LED 90W,Lighting-Outdoor,Gudang Cileungsi,1316,129,37.19,166.19,1150,71.8,Overstock
+LGT-015,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Gudang Cileungsi,886,100,244.24,344.24,542,25.3,Overstock
+LGT-018,Smart DALI Dimmer Driver 50W,Lighting-Smart,Gudang Cileungsi,840,101,238.85,339.85,500,0.0,Overstock
+LGT-011,Highbay Industrial 150W,Lighting-Industrial,Gudang Cileungsi,333,62,28.27,90.27,243,0.0,Overstock
+LGT-013,Floodlight Stadium 200W,Lighting-Outdoor,Gudang Cileungsi,194,26,14.69,40.69,153,15.0,Overstock
+LGT-020,Garden Bollard Light 12W,Lighting-Outdoor,Gudang Cileungsi,204,65,61.89,126.89,77,7.2,Overstock
+LGT-019,UV-C Germicidal Fixture 30W,Lighting-Industrial,Gudang Cileungsi,113,17,24.42,41.42,72,30.0,Overstock
+LGT-014,Explosion Proof Lamp 60W,Lighting-Industrial,Gudang Cileungsi,92,12,37.02,49.02,43,0.0,Overstock
+LGT-001,LED Bulb 9W Warm White,Lighting-LED,Gudang Cileungsi,47742,21534,106490.82,128024.82,0,77.3,Aman
+LGT-002,LED Bulb 12W Cool Daylight,Lighting-LED,Gudang Cileungsi,46316,28224,189384.29,217608.29,0,23.3,Aman
+LGT-003,Downlight Panel 15W Round,Lighting-Fixture,Gudang Cileungsi,33469,4838,46176.19,51014.19,0,65.7,Aman
+LGT-004,LED Tube T8 18W 120cm,Lighting-LED,Gudang Cileungsi,28875,10010,46374.06,56384.06,0,113.5,Aman
+LGT-007,Floodlight LED 50W IP65,Lighting-Industrial,Gudang Cileungsi,4817,730,5228.14,5958.14,0,63.8,Aman
+LGT-005,Downlight Outbow 12W Square,Lighting-Fixture,Gudang Cileungsi,3459,1653,9313.36,10966.36,0,60.6,Aman
+LGT-006,Batten Linear LED 20W,Lighting-Fixture,Gudang Cileungsi,1996,1105,9001.38,10106.38,0,45.9,Aman
+LGT-009,Smart LED Bulb WiFi 10W,Lighting-Smart,Gudang Cileungsi,1534,575,4241.24,4816.24,0,85.4,Aman
+LGT-010,Tracklight Spotlight 15W,Lighting-Fixture,Gudang Cileungsi,899,212,1995.92,2207.92,0,144.2,Aman
+LGT-008,Emergency Exit Lamp LED,Lighting-Industrial,Gudang Cileungsi,805,353,1667.32,2020.32,0,94.7,Aman
+LGT-017,Cleanroom Troffer LED 40W,Lighting-Industrial,Gudang Cileungsi,466,131,532.05,663.05,0,45.4,Aman
+LGT-016,Architectural Wall Washer 36W,Lighting-Outdoor,Gudang Cileungsi,0,40,2.57,42.57,0,0.0,Understock

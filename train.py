@@ -21,14 +21,18 @@ from src.features import (
 from src.loader import load_dataset
 from src.models import (
     HybridBOOILGBMForecaster,
+    ProductionForecaster,
     QuantileLGBMForecaster,
     TweedieLGBMForecaster,
     TwoStageHurdleForecaster,
+    build_ews_contract_frame,
     compute_backtest_metrics,
+    compute_production_stock_metrics,
     compute_shap_drivers,
     forecast_arima_all_skus,
     forecast_moving_average_all_skus,
     recursive_ml_forecast,
+    recursive_production_and_stock_forecast,
     rolling_1step_ml_forecast,
 )
 from src.rfm import (
@@ -53,10 +57,10 @@ def _horizon_slug(periods: pd.DatetimeIndex) -> str:
 def run_backtest(
     demand_df: pd.DataFrame,
     out_dir: Path,
-    backtest_months: int = 6,
+    backtest_months: int = 12,
     skip_arima: bool = False,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Evaluasi out-of-sample multi-step rekursif, rolling 1-bulan, dan sub-sampel SKU berhistori."""
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Evaluasi out-of-sample Sales, Production (ACT_Prod), dan Projected Stock (FCT_Stock)."""
     periods = sorted(demand_df["periode"].unique())
     if len(periods) <= backtest_months + 2:
         raise ValueError(
@@ -106,7 +110,7 @@ def run_backtest(
     ma_preds = forecast_moving_average_all_skus(train_raw, test_periods, window=3)
 
     actual_cols = ["periode", "SKU_ID", "jumlah_terjual"]
-    for bench_col in ("fct_existing", "bp_sales"):
+    for bench_col in ("fct_existing", "bo_oi_recap", "bp_sales", "act_prod", "fct_prod", "stok_akhir"):
         if bench_col in test_raw.columns and test_raw[bench_col].notna().any():
             actual_cols.append(bench_col)
 
@@ -118,6 +122,39 @@ def run_backtest(
     if not skip_arima:
         arima_preds = forecast_arima_all_skus(train_raw, test_periods)
         eval_df = eval_df.merge(arima_preds, on=["periode", "SKU_ID"], how="left")
+
+    # Evaluasi Production & Neraca Stok bila kolom act_prod tersedia
+    prod_summary_df = pd.DataFrame()
+    stock_summary_df = pd.DataFrame()
+    if "act_prod" in train_raw.columns and train_raw["act_prod"].notna().any():
+        prod_model = ProductionForecaster().fit(train_raw, sku_cats, prod_cats)
+        if prod_model._is_fitted:
+            sales_fc_bt = ml_preds.copy()
+            # Pakai Hurdle Dua Tahap (expected demand bebas bias median-nol) untuk neraca stok EWS
+            sales_fc_bt["FCT_Sales"] = sales_fc_bt["hurdle_pred"]
+            init_stock_bt = (
+                train_raw.sort_values("periode")
+                .groupby("SKU_ID")["stok_akhir"]
+                .last()
+                .fillna(0.0)
+                .to_dict()
+                if "stok_akhir" in train_raw.columns
+                else {}
+            )
+            prod_stock_preds = recursive_production_and_stock_forecast(
+                history_df=train_raw,
+                sales_forecast_df=sales_fc_bt,
+                initial_stock_map=init_stock_bt,
+                prod_model=prod_model,
+                sku_categories=sku_cats,
+                prod_categories=prod_cats,
+            )
+            eval_df = eval_df.merge(prod_stock_preds, on=["periode", "SKU_ID"], how="left")
+            prod_summary_df, stock_summary_df = compute_production_stock_metrics(eval_df)
+            if not prod_summary_df.empty:
+                prod_summary_df.to_csv(out_dir / "backtest_production_summary.csv", index=False)
+            if not stock_summary_df.empty:
+                stock_summary_df.to_csv(out_dir / "backtest_stock_summary.csv", index=False)
 
     summary_df = compute_backtest_metrics(eval_df)
     summary_df.to_csv(out_dir / "backtest_summary.csv", index=False)
@@ -184,7 +221,7 @@ def run_backtest(
 
     pd.DataFrame(sku_rows).to_csv(out_dir / "backtest_sku_metrics.csv", index=False)
     eval_df.to_csv(out_dir / "backtest_predictions_detail.csv", index=False)
-    return summary_df, rolling_summary_df, known_summary_df
+    return summary_df, rolling_summary_df, known_summary_df, prod_summary_df, stock_summary_df
 
 
 def run_full_training_and_forecast(
@@ -193,10 +230,11 @@ def run_full_training_and_forecast(
     tx_df: pd.DataFrame | None,
     artifacts_dir: Path,
     out_dir: Path,
-    forecast_months: int = 3,
+    forecast_months: int = 6,
     skip_arima: bool = False,
+    include_legacy_rfm: bool = False,
 ) -> dict[str, object]:
-    """Refit pada seluruh histori, ramal N bulan ke depan, hitung SHAP, overstock & RFM."""
+    """Refit pada seluruh histori, ramal N bulan ke depan, SHAP, dan ekspor kontrak EWS."""
     feature_cols = select_feature_cols(demand_df)
 
     sbc_full = classify_sbc(demand_df)
@@ -245,11 +283,40 @@ def run_full_training_and_forecast(
 
     fc_df = fc_df.merge(sbc_full[["SKU_ID", "ADI", "CV2", "sbc_detail"]], on="SKU_ID", how="left")
 
-    is_lancar = fc_df["pola_sbc"] == "Lancar"
-    fc_df["model_terpilih"] = np.where(is_lancar, "LightGBM Tweedie", "Hurdle Dua Tahap")
-    fc_df["ramalan_terpilih"] = np.where(is_lancar, fc_df["lgbm_tweedie"], fc_df["hurdle_pred"]).round(2)
+    # Kedua pola memakai Hurdle Dua Tahap (expected demand) untuk mencegah bias negatif ekstrem median q50 pada EWS;
+    # lgbm_q50 tetap disimpan sebagai kolom pembanding.
+    fc_df["model_terpilih"] = "Hurdle Dua Tahap"
+    fc_df["FCT_Sales"] = fc_df["hurdle_pred"].round(2)
 
-    round_cols = ["lgbm_tweedie", "lgbm_q10", "lgbm_q50", "lgbm_q90", "hurdle_cond_mag", "hurdle_pred", "ma_pred"]
+    prod_model = ProductionForecaster().fit(demand_df, sku_cats, prod_cats)
+    if prod_model._is_fitted:
+        init_stock = (
+            demand_df.sort_values("periode").groupby("SKU_ID")["stok_akhir"].last().fillna(0.0).to_dict()
+            if "stok_akhir" in demand_df.columns
+            else {}
+        )
+        if not inventory_df.empty and "stok_tersedia" in inventory_df.columns:
+            inv_map = inventory_df.set_index("SKU_ID")["stok_tersedia"].to_dict()
+            for k, v in inv_map.items():
+                if pd.notna(v):
+                    init_stock[str(k)] = float(v)
+        prod_stock_fc = recursive_production_and_stock_forecast(
+            history_df=demand_df,
+            sales_forecast_df=fc_df,
+            initial_stock_map=init_stock,
+            prod_model=prod_model,
+            sku_categories=sku_cats,
+            prod_categories=prod_cats,
+        )
+        fc_df = fc_df.merge(
+            prod_stock_fc[["periode", "SKU_ID", "FCT_Prod", "prod_source", "FCT_Stock", "proyeksi_defisit"]],
+            on=["periode", "SKU_ID"],
+            how="left",
+        )
+        for pcol in ("FCT_Prod", "FCT_Stock", "proyeksi_defisit"):
+            fc_df[pcol] = fc_df[pcol].round(2)
+
+    round_cols = ["lgbm_tweedie", "lgbm_q50", "hurdle_cond_mag", "hurdle_pred", "ma_pred"]
     if "arima_pred" in fc_df.columns:
         round_cols.append("arima_pred")
     for col in round_cols:
@@ -257,37 +324,57 @@ def run_full_training_and_forecast(
 
     fc_df["hurdle_prob_occ"] = fc_df["hurdle_prob_occ"].round(4)
     fc_df["periode"] = pd.to_datetime(fc_df["periode"]).dt.strftime("%Y-%m-%d")
+
+    lead_cols = [
+        "periode", "SKU_ID", "nama_produk", "kategori", "pola_sbc", "ADI", "CV2", "sbc_detail",
+        "model_terpilih", "FCT_Sales", "FCT_Prod", "prod_source", "FCT_Stock", "proyeksi_defisit",
+    ]
+    ordered = [c for c in lead_cols if c in fc_df.columns] + [c for c in fc_df.columns if c not in lead_cols]
+    fc_df = fc_df[ordered]
     fc_df.to_csv(out_dir / f"forecast_{slug}.csv", index=False)
 
-    # Explainable AI (SHAP TreeExplainer)
+    ews_contract_df = build_ews_contract_frame(fc_df)
+    ews_contract_df.to_csv(out_dir / f"ews_input_{slug}.csv", index=False)
+
+    # Explainable AI (SHAP TreeExplainer) sesuai model terpilih (Hurdle Dua Tahap)
     shap_df = compute_shap_drivers(
-        q_model, h_model, step_features, sbc_full, top_k=5, feature_cols=feature_cols, tweedie_model=t_model
+        q_model,
+        h_model,
+        step_features,
+        sbc_full,
+        top_k=5,
+        feature_cols=feature_cols,
+        tweedie_model=t_model,
+        intermittent_model_key="hurdle",
     )
     shap_df.to_csv(out_dir / f"shap_drivers_{slug}.csv", index=False)
 
-    # Ringkasan status stok (berfungsi meski tanpa data transaksi RFM)
-    overstock_summary_df = build_overstock_summary(inventory_df, fc_df)
-    overstock_summary_df.to_csv(out_dir / "overstock_summary.csv", index=False)
-
-    # RFM & Rekomendasi Penyaluran Stok Berlebih (hanya jika data transaksi tersedia)
+    overstock_summary_df = pd.DataFrame()
     rfm_df = pd.DataFrame()
     rec_df = pd.DataFrame()
-    if tx_df is not None and not tx_df.empty:
-        snapshot_date = (
-            str(pd.to_datetime(inventory_df["tanggal_snapshot"]).max().strftime("%Y-%m-%d"))
-            if "tanggal_snapshot" in inventory_df.columns
-            else str((last_period + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d"))
-        )
-        rfm_df = compute_rfm_distributors(tx_df, snapshot_date=snapshot_date)
-        rfm_df.to_csv(out_dir / "rfm_distributors.csv", index=False)
+    if include_legacy_rfm:
+        # Mode opsional kompatibilitas lama; modul resmi RFM/Overstock kini terpisah di Customer Matching & EWS
+        overstock_summary_df = build_overstock_summary(inventory_df, fc_df)
+        overstock_summary_df.to_csv(out_dir / "overstock_summary.csv", index=False)
 
-        rec_df = build_overstock_recommendations(inventory_df, fc_df, tx_df, rfm_df, top_n_distributors=3)
-        rec_df.to_csv(out_dir / "overstock_recommendations.csv", index=False)
+        if tx_df is not None and not tx_df.empty:
+            snapshot_date = (
+                str(pd.to_datetime(inventory_df["tanggal_snapshot"]).max().strftime("%Y-%m-%d"))
+                if "tanggal_snapshot" in inventory_df.columns
+                else str((last_period + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d"))
+            )
+            rfm_df = compute_rfm_distributors(tx_df, snapshot_date=snapshot_date)
+            rfm_df.to_csv(out_dir / "rfm_distributors.csv", index=False)
+
+            rec_df = build_overstock_recommendations(inventory_df, fc_df, tx_df, rfm_df, top_n_distributors=3)
+            rec_df.to_csv(out_dir / "overstock_recommendations.csv", index=False)
 
     # Simpan artefak model terlatih
     joblib.dump(t_model, artifacts_dir / "tweedie_lgbm.joblib", compress=3)
     joblib.dump(q_model, artifacts_dir / "quantile_lgbm.joblib", compress=3)
     joblib.dump(h_model, artifacts_dir / "hurdle_two_stage.joblib", compress=3)
+    if prod_model._is_fitted:
+        joblib.dump(prod_model, artifacts_dir / "production_hurdle.joblib", compress=3)
     if hyb_model is not None and hyb_model._is_fitted:
         joblib.dump(hyb_model, artifacts_dir / "hybrid_bo_oi.joblib", compress=3)
 
@@ -306,6 +393,7 @@ def run_full_training_and_forecast(
 
     return {
         "fc_df": fc_df,
+        "ews_contract_df": ews_contract_df,
         "shap_df": shap_df,
         "overstock_summary_df": overstock_summary_df,
         "rfm_df": rfm_df,
@@ -342,9 +430,14 @@ def parse_args() -> argparse.Namespace:
         default=root / "artifacts",
         help="Direktori penyimpanan model terlatih (.joblib).",
     )
-    parser.add_argument("--backtest-months", type=int, default=6)
-    parser.add_argument("--forecast-months", type=int, default=3)
+    parser.add_argument("--backtest-months", type=int, default=12)
+    parser.add_argument("--forecast-months", type=int, default=6)
     parser.add_argument("--skip-arima", action="store_true", help="Lewati ARIMA pembanding agar lebih cepat.")
+    parser.add_argument(
+        "--include-legacy-rfm",
+        action="store_true",
+        help="Sertakan output RFM/overstock lama (nonaktif default karena modul terpisah).",
+    )
     return parser.parse_args()
 
 
@@ -367,14 +460,14 @@ def main() -> None:
     print(f"Fitur aktif ({len(active_feats)}): {', '.join(active_feats)}")
 
     print(f"1/3 Menjalankan Backtest ({args.backtest_months} bulan terakhir)...")
-    backtest_summary, rolling_summary, known_summary = run_backtest(
+    backtest_summary, rolling_summary, known_summary, prod_summary, stock_summary = run_backtest(
         demand_df,
         args.out_dir,
         backtest_months=args.backtest_months,
         skip_arima=args.skip_arima,
     )
 
-    print(f"2/3 Training Penuh, Ramalan {args.forecast_months} Bulan ke Depan, SHAP & Overstock...")
+    print(f"2/3 Training Penuh, Ramalan {args.forecast_months} Bulan ke Depan, SHAP & Kontrak EWS...")
     res = run_full_training_and_forecast(
         demand_df,
         inventory_df,
@@ -383,29 +476,38 @@ def main() -> None:
         args.out_dir,
         forecast_months=args.forecast_months,
         skip_arima=args.skip_arima,
+        include_legacy_rfm=args.include_legacy_rfm,
     )
 
     elapsed = time.perf_counter() - t0
     print(f"3/3 Selesai dalam {elapsed:.2f} detik.\n")
-    print("=== Ringkasan Backtest Multi-Bulan (Rekursif 6 Bulan) ===")
+    print(f"=== Ringkasan Backtest Sales (Rekursif {args.backtest_months} Bulan) ===")
     print(backtest_summary.to_string(index=False))
 
-    print("\n=== Ringkasan Backtest Rolling 1-Bulan ke Depan ===")
+    print("\n=== Ringkasan Backtest Sales (Rolling 1-Bulan ke Depan) ===")
     print(rolling_summary.to_string(index=False))
 
     if not known_summary.equals(rolling_summary):
-        print("\n=== Ringkasan Backtest Rolling 1-Bulan (Khusus SKU Berhistori Train) ===")
+        print("\n=== Ringkasan Backtest Sales Rolling 1-Bulan (Khusus SKU Berhistori Train) ===")
         print(known_summary.to_string(index=False))
 
-    if not res["rfm_df"].empty:
-        print("\n=== Ringkasan Segmen RFM Distributor ===")
-        print(res["rfm_df"]["segmen_rfm"].value_counts().to_string())
-    else:
-        print("\n[Info] Sheet transaksi distributor belum diisi -> modul RFM dilewati.")
+    if not prod_summary.empty:
+        print(f"\n=== Ringkasan Backtest Production ACT_Prod (Rekursif {args.backtest_months} Bulan) ===")
+        print(prod_summary.to_string(index=False))
 
-    ov_sum = res["overstock_summary_df"]
-    n_overstock_skus = int((ov_sum["status_stok"] == "Overstock").sum()) if not ov_sum.empty else 0
-    print(f"\nSKU dengan stok berlebih terdeteksi: {n_overstock_skus} SKU")
+    if not stock_summary.empty:
+        print(f"\n=== Ringkasan Backtest Projected Stock (Rekursif {args.backtest_months} Bulan) ===")
+        print(stock_summary.to_string(index=False))
+
+    if args.include_legacy_rfm:
+        if not res["rfm_df"].empty:
+            print("\n=== Ringkasan Segmen RFM Distributor (Legacy) ===")
+            print(res["rfm_df"]["segmen_rfm"].value_counts().to_string())
+        ov_sum = res["overstock_summary_df"]
+        n_overstock_skus = int((ov_sum["status_stok"] == "Overstock").sum()) if not ov_sum.empty else 0
+        print(f"\nSKU dengan stok berlebih terdeteksi (Legacy): {n_overstock_skus} SKU")
+
+    print(f"\nBaris kontrak EWS siap kirim: {len(res['ews_contract_df'])} baris")
     print(f"Artefak model tersimpan di: {args.artifacts_dir}")
     print(f"Laporan output tersimpan di: {args.out_dir}")
 

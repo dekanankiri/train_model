@@ -1,0 +1,2 @@
+target,model,n_obs,MAE,RMSE,WAPE_pct,Cum_Bias_pct
+Stock_Akhir,Neraca Stok AI (FCT_Prod - FCT_Sales),235,2002.88,5425.63,23.56,-0.24

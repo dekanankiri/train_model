@@ -1,0 +1,121 @@
+periode,SKU_ID,nama_produk,kategori,pola_sbc,ADI,CV2,sbc_detail,model_terpilih,FCT_Sales,FCT_Prod,prod_source,FCT_Stock,proyeksi_defisit,lgbm_tweedie,lgbm_q50,hurdle_prob_occ,hurdle_cond_mag,hurdle_pred,ma_pred,arima_pred
+2026-01-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,14793.21,28587.33,ai_fallback,61536.12,0.0,11161.45,12382.72,0.987,14987.6,14793.21,14610.33,17944.99
+2026-01-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,27412.95,53854.17,ai_fallback,72757.22,0.0,30995.39,13749.36,0.9691,28288.03,27412.95,42890.33,29230.23
+2026-01-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,6495.27,4411.97,ai_fallback,31385.7,0.0,7306.53,6658.52,0.9893,6565.36,6495.27,6899.67,7174.43
+2026-01-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,6415.29,2032.16,ai_fallback,24491.87,0.0,6702.79,6469.49,0.9866,6502.38,6415.29,8344.67,7919.84
+2026-01-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1375.35,2264.28,ai_fallback,4347.93,0.0,1578.93,1474.94,0.9914,1387.27,1375.35,1514.33,1562.13
+2026-01-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1234.16,2099.92,ai_fallback,2861.76,0.0,996.44,878.32,0.9733,1268.04,1234.16,1192.0,1113.36
+2026-01-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,758.94,200.73,ai_fallback,4258.79,0.0,827.13,953.84,0.9866,769.25,758.94,1097.0,816.14
+2026-01-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,260.81,195.24,ai_fallback,739.43,0.0,243.05,243.47,0.9567,272.61,260.81,260.67,272.64
+2026-01-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,584.18,574.22,ai_fallback,1524.04,0.0,671.17,646.58,0.9944,587.47,584.18,653.0,712.01
+2026-01-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,256.54,193.39,ai_fallback,835.85,0.0,262.31,299.27,0.9771,262.57,256.54,377.67,331.7
+2026-01-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,58.03,3.04,ai_fallback,278.01,0.0,15.77,1.56,0.3052,190.14,58.03,82.33,74.52
+2026-01-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,37.68,54.42,ai_fallback,1332.74,0.0,12.69,0.66,0.1699,221.82,37.68,429.0,157.43
+2026-01-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,25.69,0.97,ai_fallback,169.28,0.0,7.9,6.55,0.3161,81.26,25.69,32.0,33.21
+2026-01-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,17.27,0.75,ai_fallback,75.48,0.0,8.11,0.97,0.3214,53.74,17.27,0.0,10.7
+2026-01-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,218.1,12.3,ai_fallback,680.2,0.0,116.12,151.55,0.8511,256.25,218.1,186.33,255.54
+2026-01-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,29.67,171.42,ai_fallback,141.75,0.0,7.83,0.11,0.3548,83.6,29.67,93.0,40.72
+2026-01-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,144.78,169.35,ai_fallback,490.57,0.0,95.04,26.56,0.6865,210.88,144.78,266.67,158.28
+2026-01-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,133.79,13.13,ai_fallback,719.34,0.0,86.56,4.97,0.6426,208.18,133.79,136.67,129.95
+2026-01-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,36.51,0.69,ai_fallback,77.18,0.0,10.55,9.64,0.4005,91.16,36.51,37.67,37.35
+2026-01-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,113.32,5.51,ai_fallback,96.19,0.0,82.23,21.09,0.686,165.18,113.32,71.0,90.58
+2026-02-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,17386.5,8318.7,ai_fallback,52468.32,0.0,18952.63,16136.02,0.9652,18013.71,17386.5,15073.11,17944.99
+2026-02-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,35487.9,29083.98,ai_fallback,66353.3,0.0,44562.72,27076.02,0.9791,36245.05,35487.9,44093.44,29230.23
+2026-02-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,8779.91,3497.87,ai_fallback,26103.66,0.0,8618.0,9066.42,0.9868,8897.34,8779.91,6902.89,7174.43
+2026-02-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,8518.71,5422.51,ai_fallback,21395.67,0.0,8722.04,6926.49,0.9812,8681.8,8518.71,8797.56,7919.84
+2026-02-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1598.84,1299.37,ai_fallback,4048.46,0.0,1349.76,1530.97,0.8485,1884.42,1598.84,1696.44,1562.13
+2026-02-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1508.52,1313.25,ai_fallback,2666.49,0.0,1002.48,1433.09,0.9284,1624.84,1508.52,1223.33,1113.36
+2026-02-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,860.5,312.61,ai_fallback,3710.9,0.0,744.46,726.78,0.9606,895.84,860.5,1124.0,810.24
+2026-02-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,289.03,320.45,ai_fallback,770.85,0.0,240.68,266.74,0.9523,303.5,289.03,268.56,272.64
+2026-02-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,665.21,629.88,ai_fallback,1488.71,0.0,786.24,792.92,0.9923,670.35,665.21,624.33,712.01
+2026-02-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,334.99,159.01,ai_fallback,659.87,0.0,252.57,288.82,0.945,354.49,334.99,328.22,331.7
+2026-02-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,62.74,2.42,ai_fallback,217.69,0.0,13.26,16.9,0.3089,203.07,62.74,27.44,74.52
+2026-02-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,78.9,48.85,ai_fallback,1302.69,0.0,37.1,1.54,0.1619,487.2,78.9,572.0,157.43
+2026-02-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,10.52,1.49,ai_fallback,160.26,0.0,2.51,4.05,0.134,78.48,10.52,10.67,33.21
+2026-02-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,23.17,1.51,ai_fallback,53.83,0.0,21.55,30.09,0.4717,49.11,23.17,0.0,10.7
+2026-02-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,30.26,12.07,ai_fallback,662.01,0.0,8.94,0.46,0.0913,331.62,30.26,62.11,255.54
+2026-02-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,35.12,1.29,ai_fallback,107.92,0.0,15.08,0.97,0.344,102.1,35.12,82.33,40.72
+2026-02-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,225.65,112.92,ai_fallback,377.84,0.0,223.74,10.39,0.6532,345.47,225.65,285.22,158.28
+2026-02-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,187.95,56.05,ai_fallback,587.44,0.0,98.95,28.52,0.5419,346.84,187.95,182.22,129.95
+2026-02-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,36.94,1.36,ai_fallback,41.6,0.0,9.15,8.79,0.2895,127.61,36.94,12.56,37.35
+2026-02-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,132.22,136.89,ai_fallback,100.86,0.0,76.51,12.85,0.6189,213.62,132.22,94.67,90.58
+2026-03-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,19065.04,18713.42,ai_fallback,52116.71,0.0,20150.68,18234.29,0.871,21888.48,19065.04,16072.48,17944.99
+2026-03-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,32560.7,42280.09,ai_fallback,76072.69,0.0,19592.54,31295.52,0.843,38622.77,32560.7,48834.26,29230.23
+2026-03-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,9305.48,7523.55,ai_fallback,24321.73,0.0,5912.06,10141.73,0.9503,9791.64,9305.48,6627.52,7174.43
+2026-03-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,8869.0,8073.25,ai_fallback,20599.92,0.0,9772.48,8187.52,0.9796,9054.11,8869.0,8257.07,7919.84
+2026-03-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1783.33,1675.8,ai_fallback,3940.92,0.0,1637.98,1958.7,0.9904,1800.57,1783.33,1641.26,1562.13
+2026-03-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1582.46,2072.24,ai_fallback,3156.27,0.0,878.72,1142.57,0.9294,1702.66,1582.46,1240.11,1113.36
+2026-03-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,966.24,456.45,ai_fallback,3201.1,0.0,809.95,636.06,0.9522,1014.78,966.24,1019.0,808.48
+2026-03-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,275.91,238.79,ai_fallback,733.73,0.0,287.52,269.66,0.9787,281.93,275.91,261.41,272.64
+2026-03-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,903.32,754.3,ai_fallback,1339.69,0.0,1135.08,1128.78,0.9866,915.58,903.32,605.44,712.01
+2026-03-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,337.84,404.44,ai_fallback,726.47,0.0,314.71,343.57,0.982,344.05,337.84,297.63,331.7
+2026-03-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,23.78,7.07,ai_fallback,200.98,0.0,8.45,3.18,0.0826,287.87,23.78,36.59,74.52
+2026-03-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,22.42,4.38,ai_fallback,1284.65,0.0,21.03,0.0,0.047,477.11,22.42,442.0,157.43
+2026-03-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,9.44,4.46,ai_fallback,155.28,0.0,4.72,0.89,0.0996,94.78,9.44,14.22,33.21
+2026-03-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,23.78,3.11,ai_fallback,33.15,0.0,11.48,1.61,0.3398,69.97,23.78,0.0,10.7
+2026-03-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,129.64,28.81,ai_fallback,561.18,0.0,22.57,13.92,0.3179,407.85,129.64,82.81,255.54
+2026-03-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,51.59,3.16,ai_fallback,59.5,0.0,13.1,0.76,0.3496,147.59,51.59,109.78,40.72
+2026-03-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,91.45,189.32,ai_fallback,475.71,0.0,97.46,5.31,0.2543,359.58,91.45,286.63,158.28
+2026-03-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,299.25,130.06,ai_fallback,418.25,0.0,29.56,26.33,0.7338,407.81,299.25,106.3,129.95
+2026-03-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,28.81,5.59,ai_fallback,18.38,0.0,3.53,0.0,0.1566,183.9,28.81,16.74,37.35
+2026-03-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,98.47,86.62,ai_fallback,89.01,0.0,18.65,18.07,0.3701,266.05,98.47,55.22,90.58
+2026-04-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,17531.61,15075.88,ai_fallback,49660.97,0.0,12663.53,13691.3,0.8904,19688.85,17531.61,15251.98,17944.99
+2026-04-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,33772.94,27450.0,ai_fallback,69749.74,0.0,36339.54,25508.72,0.9759,34606.31,33772.94,45272.68,29230.23
+2026-04-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,8487.39,8036.02,ai_fallback,23870.36,0.0,5808.26,9485.32,0.9556,8881.29,8487.39,6810.02,7174.43
+2026-04-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,6269.89,12602.61,ai_fallback,26932.64,0.0,2638.75,3502.69,0.8291,7562.59,6269.89,8466.43,7919.84
+2026-04-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1624.69,1895.54,ai_fallback,4211.77,0.0,1716.13,1231.96,0.9801,1657.6,1624.69,1617.35,1562.13
+2026-04-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1568.86,1764.06,ai_fallback,3351.46,0.0,1301.5,1546.34,0.9663,1623.51,1568.86,1218.48,1113.36
+2026-04-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,1087.95,642.47,ai_fallback,2755.62,0.0,987.64,831.39,0.9786,1111.75,1087.95,1080.0,807.95
+2026-04-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,265.41,332.62,ai_fallback,800.94,0.0,288.82,224.59,0.9509,279.11,265.41,263.54,272.64
+2026-04-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,681.04,937.9,ai_fallback,1596.55,0.0,846.39,752.71,0.9763,697.55,681.04,627.59,712.01
+2026-04-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,408.97,433.07,ai_fallback,750.57,0.0,281.4,255.31,0.958,426.88,408.97,334.51,331.7
+2026-04-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,90.78,25.48,ai_fallback,135.69,0.0,19.85,0.0,0.3368,269.5,90.78,48.79,74.52
+2026-04-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,22.51,1.14,ai_fallback,1263.28,0.0,9.97,0.48,0.0588,382.94,22.51,481.0,157.43
+2026-04-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,14.26,4.95,ai_fallback,145.96,0.0,6.08,0.66,0.1681,84.85,14.26,18.96,33.21
+2026-04-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,35.08,13.69,ai_fallback,11.76,0.0,42.41,1.79,0.5137,68.28,35.08,0.0,10.7
+2026-04-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,182.35,55.52,ai_fallback,434.35,0.0,56.31,73.8,0.5632,323.78,182.35,110.42,255.54
+2026-04-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,48.68,14.02,ai_fallback,24.84,0.0,11.91,0.0,0.3779,128.8,48.68,95.04,40.72
+2026-04-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,198.72,12.17,ai_fallback,289.16,0.0,122.52,46.75,0.8214,241.94,198.72,279.51,158.28
+2026-04-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,194.64,317.42,ai_fallback,541.02,0.0,51.87,12.47,0.8574,227.02,194.64,141.73,129.95
+2026-04-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,45.76,38.31,ai_fallback,10.92,0.0,8.0,0.27,0.2679,170.8,45.76,22.32,37.35
+2026-04-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,23.66,90.68,ai_fallback,156.04,0.0,34.61,0.0,0.12,197.14,23.66,73.63,90.58
+2026-05-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,18661.71,19029.8,ai_fallback,50029.07,0.0,25574.06,17193.16,0.97,19238.22,18661.71,15465.86,17944.99
+2026-05-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,32894.54,38772.07,ai_fallback,75627.27,0.0,34905.52,25128.64,0.9677,33994.18,32894.54,46066.79,29230.23
+2026-05-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,6578.19,9364.53,ai_fallback,26656.71,0.0,6784.46,7623.92,0.9811,6705.14,6578.19,6780.14,7174.43
+2026-05-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,9032.79,1962.83,ai_fallback,19862.68,0.0,9132.17,9095.52,0.9703,9309.03,9032.79,8507.02,7919.84
+2026-05-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1569.37,1607.01,ai_fallback,4249.41,0.0,979.19,1160.21,0.9745,1610.52,1569.37,1651.68,1562.13
+2026-05-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1478.17,2091.11,ai_fallback,3964.41,0.0,742.1,942.95,0.9505,1555.14,1478.17,1227.31,1113.36
+2026-05-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,823.27,472.53,ai_fallback,2404.88,0.0,805.65,876.67,0.9749,844.44,823.27,1074.33,807.8
+2026-05-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,265.28,274.32,ai_fallback,809.97,0.0,284.06,270.22,0.8754,303.05,265.28,264.5,272.64
+2026-05-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,790.21,647.83,ai_fallback,1454.17,0.0,876.51,864.17,0.9868,800.76,790.21,619.12,712.01
+2026-05-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,346.87,377.88,ai_fallback,781.57,0.0,188.06,144.4,0.8979,386.29,346.87,320.12,331.7
+2026-05-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,90.91,25.71,ai_fallback,70.49,0.0,100.64,4.41,0.3296,275.79,90.91,37.61,74.52
+2026-05-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,223.07,2.46,ai_fallback,1042.67,0.0,78.84,15.51,0.4599,485.02,223.07,498.33,157.43
+2026-05-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,50.37,11.26,ai_fallback,106.85,0.0,17.84,1.28,0.4264,118.14,50.37,14.62,33.21
+2026-05-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,31.26,37.26,ai_fallback,17.76,0.0,13.78,1.18,0.4441,70.39,31.26,0.0,10.7
+2026-05-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,96.57,122.76,ai_fallback,460.54,0.0,26.81,0.88,0.3392,284.73,96.57,85.12,255.54
+2026-05-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,30.14,26.13,ai_fallback,20.82,0.0,10.14,0.3,0.2117,142.37,30.14,95.72,40.72
+2026-05-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,201.07,185.59,ai_fallback,273.68,0.0,165.19,281.17,0.8145,246.87,201.07,283.79,158.28
+2026-05-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,244.03,264.55,ai_fallback,561.55,0.0,109.53,164.04,0.8853,275.63,244.03,143.42,129.95
+2026-05-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,22.3,48.95,ai_fallback,37.57,0.0,37.42,4.04,0.2159,103.27,22.3,17.21,37.35
+2026-05-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,61.16,41.16,ai_fallback,136.04,0.0,83.12,9.77,0.3421,178.78,61.16,74.51,90.58
+2026-06-01,LGT-01,LED Bulb 9W Warm White,Lighting-LED,Lancar,1.0345,0.1421,Smooth,Hurdle Dua Tahap,19052.75,18687.38,ai_fallback,49663.7,0.0,15955.81,15838.66,0.9815,19411.55,19052.75,15596.77,17944.99
+2026-06-01,LGT-02,LED Bulb 12W Cool Daylight,Lighting-LED,Lancar,1.0345,0.1203,Smooth,Hurdle Dua Tahap,27255.26,30479.61,ai_fallback,78851.62,0.0,25412.97,25700.4,0.9716,28052.65,27255.26,46724.58,29230.23
+2026-06-01,LGT-03,Downlight Panel 15W Round,Lighting-Fixture,Lancar,1.0345,0.1775,Smooth,Hurdle Dua Tahap,6529.95,3294.04,ai_fallback,23420.8,0.0,4235.66,7224.99,0.9886,6604.99,6529.95,6739.23,7174.43
+2026-06-01,LGT-04,LED Tube T8 18W 120cm,Lighting-LED,Lancar,1.0345,0.0879,Smooth,Hurdle Dua Tahap,7268.38,10976.1,ai_fallback,23570.4,0.0,6942.86,8191.56,0.9915,7330.5,7268.38,8410.18,7919.84
+2026-06-01,LGT-05,Downlight Outbow 12W Square,Lighting-Fixture,Lancar,1.0526,0.0968,Smooth,Hurdle Dua Tahap,1361.78,1578.27,ai_fallback,4465.9,0.0,1274.25,1045.32,0.9324,1460.52,1361.78,1636.76,1562.13
+2026-06-01,LGT-06,Batten Linear LED 20W,Lighting-Fixture,Lancar,1.1538,0.2075,Smooth,Hurdle Dua Tahap,1629.21,1608.32,ai_fallback,3943.52,0.0,1096.1,1244.36,0.9298,1752.25,1629.21,1228.63,1113.36
+2026-06-01,LGT-07,Floodlight LED 50W IP65,Lighting-Industrial,Lancar,1.0345,0.1492,Smooth,Hurdle Dua Tahap,731.24,561.11,ai_fallback,2234.75,0.0,795.04,761.64,0.975,750.03,731.24,1057.78,807.75
+2026-06-01,LGT-08,Emergency Exit Lamp LED,Lighting-Industrial,Lancar,1.1538,0.2039,Smooth,Hurdle Dua Tahap,310.88,242.86,ai_fallback,741.96,0.0,238.71,263.74,0.9411,330.35,310.88,263.15,272.64
+2026-06-01,LGT-09,Smart LED Bulb WiFi 10W,Lighting-Smart,Lancar,1.1111,0.1549,Smooth,Hurdle Dua Tahap,617.28,610.7,ai_fallback,1447.6,0.0,702.63,619.06,0.9798,630.0,617.28,617.39,712.01
+2026-06-01,LGT-10,Tracklight Spotlight 15W,Lighting-Fixture,Lancar,1.0526,0.2282,Smooth,Hurdle Dua Tahap,310.71,259.4,ai_fallback,730.26,0.0,224.12,272.18,0.9287,334.57,310.71,317.42,331.7
+2026-06-01,LGT-11,Highbay Industrial 150W,Lighting-Industrial,Putus-putus,3.1579,0.2892,Intermittent,Hurdle Dua Tahap,36.56,19.24,ai_fallback,53.17,0.0,17.27,2.22,0.1852,197.36,36.56,41.0,74.52
+2026-06-01,LGT-12,Streetlight PJU LED 90W,Lighting-Outdoor,Putus-putus,4.2857,0.765,Lumpy,Hurdle Dua Tahap,84.72,8.41,ai_fallback,966.36,0.0,186.1,19.0,0.2876,294.53,84.72,473.78,157.43
+2026-06-01,LGT-13,Floodlight Stadium 200W,Lighting-Outdoor,Putus-putus,4.0,0.501,Lumpy,Hurdle Dua Tahap,15.08,2.82,ai_fallback,94.59,0.0,13.4,1.26,0.2224,67.81,15.08,15.93,33.21
+2026-06-01,LGT-14,Explosion Proof Lamp 60W,Lighting-Industrial,Putus-putus,4.6154,0.1627,Intermittent,Hurdle Dua Tahap,10.07,12.83,ai_fallback,20.52,0.0,7.84,1.38,0.2512,40.08,10.07,0.0,10.7
+2026-06-01,LGT-15,Solar Streetlight All-in-One 60W,Lighting-Outdoor,Putus-putus,2.0,0.3891,Intermittent,Hurdle Dua Tahap,163.0,53.57,ai_fallback,351.1,0.0,23.28,3.63,0.5973,272.89,163.0,92.78,255.54
+2026-06-01,LGT-16,Architectural Wall Washer 36W,Lighting-Outdoor,Putus-putus,3.0,0.11,Intermittent,Hurdle Dua Tahap,47.44,27.69,ai_fallback,1.07,0.0,19.88,0.43,0.4954,95.76,47.44,100.18,40.72
+2026-06-01,LGT-17,Cleanroom Troffer LED 40W,Lighting-Industrial,Putus-putus,1.8182,0.2905,Intermittent,Hurdle Dua Tahap,227.99,151.18,ai_fallback,196.87,0.0,267.31,161.87,0.8847,257.7,227.99,283.31,158.28
+2026-06-01,LGT-18,Smart DALI Dimmer Driver 50W,Lighting-Smart,Putus-putus,1.875,0.165,Intermittent,Hurdle Dua Tahap,133.5,262.56,ai_fallback,690.61,0.0,60.26,2.52,0.6364,209.78,133.5,130.48,129.95
+2026-06-01,LGT-19,UV-C Germicidal Fixture 30W,Lighting-Industrial,Putus-putus,4.0,0.2732,Intermittent,Hurdle Dua Tahap,24.51,7.5,ai_fallback,20.56,0.0,12.28,1.68,0.2929,83.65,24.51,18.76,37.35
+2026-06-01,LGT-20,Garden Bollard Light 12W,Lighting-Outdoor,Putus-putus,2.1429,0.1331,Intermittent,Hurdle Dua Tahap,89.83,33.82,ai_fallback,80.03,0.0,26.27,0.11,0.5527,162.53,89.83,67.79,90.58

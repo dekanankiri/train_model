@@ -39,6 +39,27 @@ HYBRID_EXTRA_COLS = [
     "log1p_bp_sales",
 ]
 
+PROD_FEATURE_COLS = [
+    "SKU_ID_cat",
+    "kategori_cat",
+    "bulan",
+    "sin_bulan",
+    "cos_bulan",
+    "hari_libur_bulan",
+    "is_musim_puncak",
+    "prod_lag_1",
+    "prod_lag_2",
+    "prod_lag_3",
+    "prod_lag_6",
+    "prod_rolling_mean_3",
+    "prod_rolling_mean_6",
+    "prod_nonzero_rate_6",
+    "stok_akhir_lag_1",
+    "sales_curr",
+    "sales_lag_1",
+    "sales_rolling_mean_3",
+]
+
 FEATURE_COLS = [
     "SKU_ID_cat",
     "kategori_cat",
@@ -320,3 +341,86 @@ def make_step_features(
         if col not in CATEGORICAL_COLS:
             step_df[col] = step_df[col].astype("float32")
     return step_df.sort_values("SKU_ID").reset_index(drop=True)
+
+
+def _compute_production_features_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """Menghitung fitur lag produksi, stok akhir t-1, dan konteks penjualan untuk model ACT_Prod."""
+    out = _compute_lag_features_frame(df)
+    prod_vals = (
+        pd.to_numeric(out["act_prod"], errors="coerce")
+        if "act_prod" in out.columns
+        else pd.Series(np.nan, index=out.index)
+    )
+    pgrp = prod_vals.groupby(out["SKU_ID"], observed=True)
+    for lag in (1, 2, 3, 6):
+        out[f"prod_lag_{lag}"] = pgrp.shift(lag)
+
+    p_shifted = pgrp.shift(1)
+    out["prod_rolling_mean_3"] = p_shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.rolling(3, min_periods=1).mean()
+    )
+    out["prod_rolling_mean_6"] = p_shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.rolling(6, min_periods=1).mean()
+    )
+    out["prod_nonzero_rate_6"] = p_shifted.groupby(out["SKU_ID"], observed=True).transform(
+        lambda s: s.gt(0).rolling(6, min_periods=1).mean()
+    )
+
+    stok_vals = (
+        pd.to_numeric(out["stok_akhir"], errors="coerce")
+        if "stok_akhir" in out.columns
+        else pd.Series(np.nan, index=out.index)
+    )
+    out["stok_akhir_lag_1"] = stok_vals.groupby(out["SKU_ID"], observed=True).shift(1)
+    out["sales_lag_1"] = out["lag_1"]
+    out["sales_rolling_mean_3"] = out["rolling_mean_3"]
+    if "fct_sales_input" in out.columns:
+        out["sales_curr"] = pd.to_numeric(out["fct_sales_input"], errors="coerce")
+    else:
+        out["sales_curr"] = pd.to_numeric(out["jumlah_terjual"], errors="coerce")
+    return out
+
+
+def prepare_production_training_frame(
+    demand_df: pd.DataFrame,
+    sku_categories: list[str],
+    prod_categories: list[str],
+) -> pd.DataFrame:
+    """Menyiapkan dataframe training model produksi (memfilter act_prod non-NaN)."""
+    df = _compute_production_features_frame(demand_df)
+    df["SKU_ID_cat"] = pd.Categorical(df["SKU_ID"], categories=sku_categories)
+    df["kategori_cat"] = pd.Categorical(df["kategori"], categories=prod_categories)
+
+    df = df[df["act_prod"].notna() & df["prod_lag_1"].notna()].copy()
+    df["act_prod"] = df["act_prod"].clip(lower=0.0)
+
+    for col in PROD_FEATURE_COLS:
+        if col in CATEGORICAL_COLS:
+            continue
+        if col == "bulan":
+            df[col] = df[col].astype("int16")
+        elif col == "is_musim_puncak":
+            df[col] = df[col].fillna(0).astype("int8")
+        else:
+            df[col] = df[col].astype("float32")
+    return df.reset_index(drop=True)
+
+
+def make_production_step_features(
+    combined_history: pd.DataFrame,
+    target_period: pd.Timestamp,
+    sku_categories: list[str],
+    prod_categories: list[str],
+) -> pd.DataFrame:
+    """Menghitung fitur 1 langkah ke depan untuk model ramalan produksi pada target_period."""
+    sub = combined_history[combined_history["periode"] <= target_period].copy()
+    sub = _compute_production_features_frame(sub)
+    step_df = sub[sub["periode"] == target_period].copy()
+    step_df["SKU_ID_cat"] = pd.Categorical(step_df["SKU_ID"], categories=sku_categories)
+    step_df["kategori_cat"] = pd.Categorical(step_df["kategori"], categories=prod_categories)
+
+    for col in PROD_FEATURE_COLS:
+        if col not in CATEGORICAL_COLS:
+            step_df[col] = step_df[col].astype("float32")
+    return step_df.sort_values("SKU_ID").reset_index(drop=True)
+

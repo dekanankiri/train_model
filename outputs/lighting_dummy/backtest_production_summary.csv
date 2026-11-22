@@ -1,0 +1,4 @@
+target,model,n_obs,MAE,RMSE,WAPE_pct,Cum_Bias_pct
+ACT_Prod,AI Production (Hurdle),231,2022.31,5680.2,53.72,2.85
+ACT_Prod,FCT Prod Eksisting,231,496.29,1669.67,13.18,2.79
+ACT_Prod,MA-3 Production,231,1962.37,5721.02,52.12,-19.11

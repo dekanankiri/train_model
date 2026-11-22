@@ -1,0 +1,22 @@
+segmen,model,n_obs,MAE,RMSE,WAPE_pct,Cum_Bias_pct,Pinball_q50
+Keseluruhan,LightGBM Tweedie,240,1289.41,3801.84,35.57,-14.67,644.7
+Keseluruhan,LightGBM Kuantil (q50),240,1318.69,4071.96,36.38,-7.7,659.34
+Keseluruhan,Hurdle Dua Tahap,240,1218.21,3769.29,33.61,0.47,609.11
+Keseluruhan,ARIMA,240,1132.53,3616.57,31.24,-3.02,566.26
+Keseluruhan,Rata-rata Bergerak (MA-3),240,1067.93,3496.83,29.46,-6.49,533.96
+Keseluruhan,Forecast Eksisting (PIC),232,1129.69,3542.56,30.61,-5.27,564.84
+Keseluruhan,Business Plan (BP),218,1013.87,3193.43,29.16,1.06,506.94
+Pola Lancar,LightGBM Tweedie,120,2464.89,5372.91,34.5,-13.96,1232.44
+Pola Lancar,LightGBM Kuantil (q50),120,2530.41,5755.1,35.42,-6.56,1265.21
+Pola Lancar,Hurdle Dua Tahap,120,2324.03,5327.72,32.53,0.62,1162.01
+Pola Lancar,ARIMA,120,2144.97,5111.68,30.02,-3.04,1072.48
+Pola Lancar,Rata-rata Bergerak (MA-3),120,2017.62,4941.46,28.24,-6.55,1008.81
+Pola Lancar,Forecast Eksisting (PIC),117,2170.44,4987.29,30.09,-5.38,1085.22
+Pola Lancar,Business Plan (BP),109,1862.8,4511.15,27.19,-0.32,931.4
+Pola Putus-putus,LightGBM Tweedie,120,113.93,199.62,107.47,-62.5,56.96
+Pola Putus-putus,LightGBM Kuantil (q50),120,106.96,201.53,100.9,-84.8,53.48
+Pola Putus-putus,Hurdle Dua Tahap,120,112.4,174.42,106.03,-9.96,56.2
+Pola Putus-putus,ARIMA,120,120.08,172.73,113.28,-1.96,60.04
+Pola Putus-putus,Rata-rata Bergerak (MA-3),120,118.23,193.84,111.53,-2.34,59.12
+Pola Putus-putus,Forecast Eksisting (PIC),115,70.83,109.54,67.31,1.83,35.42
+Pola Putus-putus,Business Plan (BP),109,164.94,213.32,161.03,93.37,82.47

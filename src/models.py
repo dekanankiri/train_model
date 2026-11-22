@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import re
 import warnings
+from decimal import Decimal, ROUND_HALF_UP
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
@@ -13,17 +15,20 @@ from src.features import (
     CATEGORICAL_COLS,
     FEATURE_COLS,
     HYBRID_EXTRA_COLS,
+    PROD_FEATURE_COLS,
     _compute_lag_features_frame,
     add_hybrid_bo_oi_features,
     build_future_context_rows,
+    make_production_step_features,
     make_step_features,
+    prepare_production_training_frame,
 )
 
 
 class QuantileLGBMForecaster:
-    """Ensemble 3 model LightGBM Kuantil (q10, q50, q90) pada skala log1p untuk stabilitas lintas skala."""
+    """Model LightGBM Kuantil (default 1 titik median q50 pada skala log1p)."""
 
-    def __init__(self, quantiles: tuple[float, ...] = (0.10, 0.50, 0.90), random_state: int = 42):
+    def __init__(self, quantiles: tuple[float, ...] = (0.50,), random_state: int = 42):
         self.quantiles = quantiles
         self.random_state = random_state
         self.models: dict[float, lgb.LGBMRegressor] = {}
@@ -250,6 +255,180 @@ class HybridBOOILGBMForecaster:
         return out
 
 
+class ProductionForecaster:
+    """Model ramalan realisasi produksi (ACT_Prod) berbasis Two-Stage Hurdle + fitur stok & FCT_Sales."""
+
+    def __init__(self, random_state: int = 42):
+        self.core = TwoStageHurdleForecaster(random_state=random_state)
+        self._is_fitted: bool = False
+
+    def fit(
+        self,
+        demand_df: pd.DataFrame,
+        sku_categories: list[str],
+        prod_categories: list[str],
+    ) -> "ProductionForecaster":
+        if "act_prod" not in demand_df.columns or not demand_df["act_prod"].notna().any():
+            self._is_fitted = False
+            return self
+        prod_feat = prepare_production_training_frame(demand_df, sku_categories, prod_categories)
+        if prod_feat.empty:
+            self._is_fitted = False
+            return self
+        self.core.fit(prod_feat[PROD_FEATURE_COLS], prod_feat["act_prod"])
+        self._is_fitted = True
+        return self
+
+    def predict(self, step_feat_df: pd.DataFrame) -> np.ndarray:
+        if not self._is_fitted:
+            return np.zeros(len(step_feat_df), dtype=float)
+        return self.core.predict(step_feat_df[PROD_FEATURE_COLS])
+
+
+def recursive_production_and_stock_forecast(
+    history_df: pd.DataFrame,
+    sales_forecast_df: pd.DataFrame,
+    initial_stock_map: dict[str, float],
+    prod_model: ProductionForecaster,
+    sku_categories: list[str],
+    prod_categories: list[str],
+    planned_prod_map: dict[tuple[pd.Timestamp, str], float] | None = None,
+) -> pd.DataFrame:
+    """Memproyeksikan FCT_Prod (rencana PPIC bila ada, fallback AI) dan FCT_Stock (t=1..H)."""
+    hist = history_df.copy()
+    hist["periode"] = pd.to_datetime(hist["periode"])
+
+    fc_sales = sales_forecast_df.copy()
+    fc_sales["periode"] = pd.to_datetime(fc_sales["periode"])
+    future_periods = sorted(fc_sales["periode"].unique())
+
+    stock_state = {str(k): max(0.0, float(v)) for k, v in initial_stock_map.items()}
+
+    # Siapkan baseline MA-3 produksi per SKU
+    ma_hist: dict[str, list[float]] = {}
+    if "act_prod" in hist.columns:
+        for sku_id, grp in hist.groupby("SKU_ID", sort=True):
+            vals = pd.to_numeric(grp.sort_values("periode")["act_prod"], errors="coerce").dropna().tolist()
+            ma_hist[str(sku_id)] = vals
+
+    hist_prod = hist.copy()
+    rows = []
+
+    for dt in future_periods:
+        step_sales = fc_sales[fc_sales["periode"] == dt].sort_values("SKU_ID").copy()
+        sales_col = "FCT_Sales" if "FCT_Sales" in step_sales.columns else "ramalan_terpilih"
+
+        # Sisipkan saldo stok akhir t-1 pada baris terakhir histori tiap SKU agar stok_akhir_lag_1 akurat
+        if not hist_prod.empty:
+            last_p = hist_prod["periode"].max()
+            last_mask = hist_prod["periode"] == last_p
+            if last_mask.any():
+                hist_prod.loc[last_mask, "stok_akhir"] = hist_prod.loc[last_mask, "SKU_ID"].map(
+                    lambda s: stock_state.get(str(s), 0.0)
+                )
+
+        step_ctx = step_sales[["periode", "SKU_ID", "nama_produk", "kategori"]].copy()
+        step_ctx["tahun"] = pd.to_datetime(step_ctx["periode"]).dt.year.astype(int)
+        step_ctx["bulan"] = pd.to_datetime(step_ctx["periode"]).dt.month.astype(int)
+        step_ctx["jumlah_terjual"] = step_sales[sales_col].to_numpy(dtype=float)
+        step_ctx["fct_sales_input"] = step_sales[sales_col].to_numpy(dtype=float)
+        step_ctx["act_prod"] = np.nan
+        step_ctx["stok_akhir"] = np.nan
+
+        combined = pd.concat([hist_prod, step_ctx], ignore_index=True)
+        feat_step = make_production_step_features(combined, dt, sku_categories, prod_categories)
+        fct_prod_preds = prod_model.predict(feat_step)
+
+        step_ctx_sorted = step_ctx.sort_values("SKU_ID").reset_index(drop=True)
+        resolved_prod = np.zeros(len(feat_step), dtype=float)
+        for i in range(len(feat_step)):
+            sku_id = str(feat_step.loc[i, "SKU_ID"])
+            f_sales = max(0.0, float(feat_step.loc[i, "sales_curr"]))
+            plan_key = (pd.Timestamp(dt), sku_id)
+            if planned_prod_map is not None and plan_key in planned_prod_map:
+                f_prod = max(0.0, float(planned_prod_map[plan_key]))
+                prod_src = "rencana_ppic"
+            else:
+                f_prod = max(0.0, float(fct_prod_preds[i]))
+                prod_src = "ai_fallback"
+            resolved_prod[i] = f_prod
+            s_prev = stock_state.get(sku_id, 0.0)
+            net_stock = s_prev + f_prod - f_sales
+            f_stock = max(0.0, net_stock)
+            deficit = max(0.0, -net_stock)
+            stock_state[sku_id] = f_stock
+
+            m_vals = ma_hist.setdefault(sku_id, [])
+            ma_p = float(max(0.0, np.mean(m_vals[-3:]))) if m_vals else 0.0
+            m_vals.append(ma_p)
+
+            rows.append({
+                "periode": dt,
+                "SKU_ID": sku_id,
+                "FCT_Prod": f_prod,
+                "prod_source": prod_src,
+                "FCT_Stock": f_stock,
+                "proyeksi_defisit": deficit,
+                "ma_prod_pred": ma_p,
+            })
+
+        step_update = step_ctx_sorted.copy()
+        step_update["act_prod"] = resolved_prod
+        step_update["stok_akhir"] = [stock_state[str(s)] for s in step_update["SKU_ID"]]
+        hist_prod = pd.concat([hist_prod, step_update], ignore_index=True)
+
+    return pd.DataFrame(rows)
+
+
+def compute_production_stock_metrics(eval_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Menghitung metrik evaluasi Production (ACT_Prod) dan Proyeksi Stok (FCT_Stock)."""
+    prod_rows = []
+    prod_candidates = [
+        ("AI Production (Hurdle)", "FCT_Prod"),
+        ("FCT Prod Eksisting", "fct_prod"),
+        ("MA-3 Production", "ma_prod_pred"),
+    ]
+    for name, col in prod_candidates:
+        if col not in eval_df.columns or "act_prod" not in eval_df.columns:
+            continue
+        valid = eval_df[eval_df["act_prod"].notna() & eval_df[col].notna()]
+        if valid.empty:
+            continue
+        y = valid["act_prod"].to_numpy(dtype=float)
+        y_hat = valid[col].to_numpy(dtype=float)
+        y_sum = max(float(np.sum(y)), 1e-9)
+        err = y - y_hat
+        prod_rows.append({
+            "target": "ACT_Prod",
+            "model": name,
+            "n_obs": int(len(valid)),
+            "MAE": round(float(np.mean(np.abs(err))), 2),
+            "RMSE": round(float(np.sqrt(np.mean(err ** 2))), 2),
+            "WAPE_pct": round(float(100.0 * np.sum(np.abs(err)) / y_sum), 2),
+            "Cum_Bias_pct": round(float(100.0 * (np.sum(y_hat) - y_sum) / y_sum), 2),
+        })
+
+    stock_rows = []
+    if "stok_akhir" in eval_df.columns and "FCT_Stock" in eval_df.columns:
+        valid_s = eval_df[eval_df["stok_akhir"].notna() & eval_df["FCT_Stock"].notna()]
+        if not valid_s.empty:
+            y = valid_s["stok_akhir"].to_numpy(dtype=float)
+            y_hat = valid_s["FCT_Stock"].to_numpy(dtype=float)
+            y_sum = max(float(np.sum(y)), 1e-9)
+            err = y - y_hat
+            stock_rows.append({
+                "target": "Stock_Akhir",
+                "model": "Neraca Stok AI (FCT_Prod - FCT_Sales)",
+                "n_obs": int(len(valid_s)),
+                "MAE": round(float(np.mean(np.abs(err))), 2),
+                "RMSE": round(float(np.sqrt(np.mean(err ** 2))), 2),
+                "WAPE_pct": round(float(100.0 * np.sum(np.abs(err)) / y_sum), 2),
+                "Cum_Bias_pct": round(float(100.0 * (np.sum(y_hat) - y_sum) / y_sum), 2),
+            })
+
+    return pd.DataFrame(prod_rows), pd.DataFrame(stock_rows)
+
+
 def recursive_ml_forecast(
     history_df: pd.DataFrame,
     future_context_df: pd.DataFrame,
@@ -312,18 +491,16 @@ def recursive_ml_forecast(
                 "kategori": feat_lgbm.loc[i, "kategori"],
                 "pola_sbc": pola,
                 "lgbm_tweedie": float(tweedie_preds[i]),
-                "lgbm_q10": float(q_preds.loc[i, "q10"]),
                 "lgbm_q50": float(q_preds.loc[i, "q50"]),
-                "lgbm_q90": float(q_preds.loc[i, "q90"]),
                 "hurdle_prob_occ": float(prob_occ[i]),
                 "hurdle_cond_mag": float(cond_mag[i]),
                 "hurdle_pred": float(hurdle_exp[i]),
             })
 
-        # Simpan fitur langkah untuk analisis SHAP
-        feat_tw_copy = feat_tweedie.copy()
-        feat_tw_copy["model_source"] = "lgbm_tweedie"
-        step_feature_rows.append(feat_tw_copy)
+        # Simpan fitur langkah untuk analisis SHAP (lgbm_q50 untuk Putus-putus, hurdle untuk Lancar)
+        feat_lgbm_copy = feat_lgbm.copy()
+        feat_lgbm_copy["model_source"] = "lgbm_q50"
+        step_feature_rows.append(feat_lgbm_copy)
 
         feat_hurdle_copy = feat_hurdle.copy()
         feat_hurdle_copy["model_source"] = "hurdle"
@@ -386,9 +563,7 @@ def rolling_1step_ml_forecast(
         "SKU_ID": test_feat["SKU_ID"],
         "pola_sbc": test_feat["SKU_ID"].map(sbc_map).fillna("Lancar"),
         "lgbm_tweedie": tweedie_preds,
-        "lgbm_q10": q_preds["q10"].to_numpy(),
         "lgbm_q50": q_preds["q50"].to_numpy(),
-        "lgbm_q90": q_preds["q90"].to_numpy(),
         "hurdle_prob_occ": prob_occ,
         "hurdle_cond_mag": cond_mag,
         "hurdle_pred": hurdle_exp,
@@ -464,10 +639,11 @@ def compute_backtest_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
         ("LightGBM Tweedie", "lgbm_tweedie"),
         ("LightGBM Kuantil (q50)", "lgbm_q50"),
         ("Hurdle Dua Tahap", "hurdle_pred"),
-        ("Hybrid (AI + BO+OI)", "hybrid_pred"),
+        ("Hybrid (AI + Forecast PIC)", "hybrid_pred"),
         ("ARIMA", "arima_pred"),
         ("Rata-rata Bergerak (MA-3)", "ma_pred"),
-        ("Forecast Eksisting (BO+OI)", "fct_existing"),
+        ("Forecast Eksisting (PIC)", "fct_existing"),
+        ("Rekap Order Akhir Bulan (BO+OI)", "bo_oi_recap"),
         ("Business Plan (BP)", "bp_sales"),
     ]
     model_cols = [
@@ -529,26 +705,17 @@ def compute_shap_drivers(
     top_k: int = 5,
     feature_cols: list[str] | None = None,
     tweedie_model: TweedieLGBMForecaster | None = None,
+    intermittent_model_key: str = "hurdle",
 ) -> pd.DataFrame:
-    """Menghitung faktor penggerak SHAP per SKU pada horizon ramalan."""
+    """Menghitung faktor penggerak SHAP per SKU sesuai model terpilih (default Hurdle untuk seluruh pola)."""
     active_cols = feature_cols or FEATURE_COLS
     sbc_map = sbc_df.set_index("SKU_ID")["pola_utama"].to_dict()
 
-    lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_tweedie"].reset_index(drop=True)
-    if lgbm_feat.empty:
-        lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_q50"].reset_index(drop=True)
+    lgbm_feat = step_features_df[step_features_df["model_source"] == "lgbm_q50"].reset_index(drop=True)
     hurdle_feat = step_features_df[step_features_df["model_source"] == "hurdle"].reset_index(drop=True)
 
-    if tweedie_model is not None and not tweedie_model._all_zero:
-        expl_lgbm = shap.TreeExplainer(tweedie_model.model)
-        shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
-        lancar_model_name = "LightGBM Tweedie"
-        lancar_satuan = "skor_log_tweedie"
-    else:
-        expl_lgbm = shap.TreeExplainer(quantile_model.models[0.50])
-        shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
-        lancar_model_name = "LightGBM Kuantil (q50)"
-        lancar_satuan = "skor_log_ramalan"
+    expl_lgbm = shap.TreeExplainer(quantile_model.models[0.50])
+    shap_lgbm = _extract_shap_matrix(expl_lgbm, lgbm_feat[active_cols]) if not lgbm_feat.empty else np.empty((0, len(active_cols)))
 
     if hurdle_model._const_prob is None:
         expl_occ = shap.TreeExplainer(hurdle_model.clf)
@@ -565,23 +732,23 @@ def compute_shap_drivers(
     # Gabungkan kontribusi lokal tiap SKU rata-rata selama horizon ramalan
     rows = []
     for sku_id, pola in sorted(sbc_map.items()):
-        if pola == "Lancar":
+        use_hurdle = (pola == "Lancar") or (intermittent_model_key == "hurdle")
+        if use_hurdle:
+            mask = (hurdle_feat["SKU_ID"] == sku_id).to_numpy()
+            if not mask.any():
+                continue
+            sku_shap = 0.5 * shap_occ[mask].mean(axis=0) + 0.5 * shap_mag[mask].mean(axis=0)
+            sku_vals = hurdle_feat.loc[mask, active_cols].mean(numeric_only=True)
+            model_used = "Hurdle Dua Tahap"
+            satuan_efek = "skor_gabungan_log"
+        else:
             mask = (lgbm_feat["SKU_ID"] == sku_id).to_numpy()
             if not mask.any():
                 continue
             sku_shap = shap_lgbm[mask].mean(axis=0)
             sku_vals = lgbm_feat.loc[mask, active_cols].mean(numeric_only=True)
-            model_used = lancar_model_name
-            satuan_efek = lancar_satuan
-        else:
-            mask = (hurdle_feat["SKU_ID"] == sku_id).to_numpy()
-            if not mask.any():
-                continue
-            # Rata-rata magnitudo absolut tertimbang antara tahap occurrence (log-odds) & magnitude (log1p)
-            sku_shap = 0.5 * shap_occ[mask].mean(axis=0) + 0.5 * shap_mag[mask].mean(axis=0)
-            sku_vals = hurdle_feat.loc[mask, active_cols].mean(numeric_only=True)
-            model_used = "Hurdle Dua Tahap"
-            satuan_efek = "skor_gabungan_log"
+            model_used = "LightGBM Kuantil (q50)"
+            satuan_efek = "skor_log_ramalan"
 
         order = np.argsort(np.abs(sku_shap))[::-1][:top_k]
         for rank_idx, feat_idx in enumerate(order, start=1):
@@ -601,3 +768,36 @@ def compute_shap_drivers(
             })
 
     return pd.DataFrame(rows)
+
+
+def _round_half_up_nonneg(val: float) -> int:
+    """Membulatkan setengah ke atas ke integer non-negatif sesuai kontrak EWS."""
+    if pd.isna(val):
+        return 0
+    return int(Decimal(str(max(0.0, float(val)))).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+
+
+def map_sku_to_ews(sku_id: str) -> str:
+    """Memetakan SKU_ID modul Ramalan (LGT-nn / LGT-nnn / SKU-nnn) ke format baku SKU-nn."""
+    s = str(sku_id).strip()
+    m = re.match(r"^(?:LGT|SKU)-0*(\d+)$", s, flags=re.IGNORECASE)
+    if m:
+        return f"SKU-{int(m.group(1)):02d}"
+    return s
+
+
+def build_ews_contract_frame(fc_df: pd.DataFrame) -> pd.DataFrame:
+    """Menyusun tabel keluaran sesuai Kontrak Data Terpadu untuk Tabel Input 2 EWS."""
+    if fc_df.empty:
+        return pd.DataFrame(columns=["SKU", "Bulan", "FCT_Prod", "FCT_Sales", "Pola_SBC"])
+
+    out = pd.DataFrame({
+        "SKU": fc_df["SKU_ID"].map(map_sku_to_ews),
+        "Bulan": pd.to_datetime(fc_df["periode"]).dt.strftime("%Y-%m"),
+        "FCT_Prod": [
+            _round_half_up_nonneg(v) for v in (fc_df["FCT_Prod"] if "FCT_Prod" in fc_df.columns else np.zeros(len(fc_df)))
+        ],
+        "FCT_Sales": [_round_half_up_nonneg(v) for v in fc_df["FCT_Sales"]],
+        "Pola_SBC": fc_df["pola_sbc"].astype(str),
+    })
+    return out.sort_values(["SKU", "Bulan"]).reset_index(drop=True)
